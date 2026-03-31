@@ -28,7 +28,9 @@ struct KeyAxis2D
 	
 	Vector2 value;
 
-	KeyAxis2D(KeyAxis horizontal, KeyAxis vertical) : horizontal(horizontal), vertical(vertical)
+	std::string name;
+
+	KeyAxis2D(const std::string& axisName, KeyAxis horizontal, KeyAxis vertical) : name(axisName), horizontal(horizontal), vertical(vertical)
 	{
 		value = Vector2::zero;
 	}
@@ -40,7 +42,9 @@ struct Keybinding
 	SDL_Keycode keyCode;
 	bool pressed;
 
-	Keybinding(SDL_Keycode keyCode, bool pressed) : keyCode(keyCode), pressed(pressed)
+	std::string name;
+
+	Keybinding(const std::string& name, SDL_Keycode keyCode, bool pressed) : name(name), keyCode(keyCode), pressed(pressed)
 	{
 
 	}
@@ -67,6 +71,9 @@ public:
 	void ClearAxes();
 
 	void DebugPrintBindingsState();
+
+	KeyAxis2D*  Find2DAxisByName(const std::string& name);
+	Keybinding* FindBindingByName(const std::string& name);
 
 private:
 	static InputManager* instance;

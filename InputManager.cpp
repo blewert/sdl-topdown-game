@@ -10,15 +10,15 @@ void InputManager::Exit()
 
 InputManager::InputManager()
 {
-	this->RegisterBinding(Keybinding(SDLK_w, false));
-	this->RegisterBinding(Keybinding(SDLK_a, false));
-	this->RegisterBinding(Keybinding(SDLK_s, false));
-	this->RegisterBinding(Keybinding(SDLK_d, false));
+	this->RegisterBinding(Keybinding("W", SDLK_w, false));
+	this->RegisterBinding(Keybinding("A", SDLK_a, false));
+	this->RegisterBinding(Keybinding("S", SDLK_s, false));
+	this->RegisterBinding(Keybinding("D", SDLK_d, false));
 
-	this->RegisterBinding(Keybinding(SDLK_UP,    false));
-	this->RegisterBinding(Keybinding(SDLK_LEFT,  false));
-	this->RegisterBinding(Keybinding(SDLK_DOWN,  false));
-	this->RegisterBinding(Keybinding(SDLK_RIGHT, false));
+	this->RegisterBinding(Keybinding("Up",    SDLK_UP,    false));
+	this->RegisterBinding(Keybinding("Left",  SDLK_LEFT,  false));
+	this->RegisterBinding(Keybinding("Down",  SDLK_DOWN,  false));
+	this->RegisterBinding(Keybinding("Right", SDLK_RIGHT, false));
 
 	KeyAxis wasdHoriz = KeyAxis(SDLK_a, -1, SDLK_d, 1);
 	KeyAxis wasdVert  = KeyAxis(SDLK_s, -1, SDLK_w, 1);
@@ -26,8 +26,8 @@ InputManager::InputManager()
 	KeyAxis uldrHoriz = KeyAxis(SDLK_LEFT, -1, SDLK_RIGHT, 1);
 	KeyAxis uldrVert  = KeyAxis(SDLK_DOWN, -1, SDLK_UP, 1);
 
-	this->RegisterAxis2D(KeyAxis2D(wasdHoriz, wasdVert));
-	this->RegisterAxis2D(KeyAxis2D(uldrHoriz, uldrVert));
+	this->RegisterAxis2D(KeyAxis2D("WASD",   wasdHoriz, wasdVert));
+	this->RegisterAxis2D(KeyAxis2D("Arrows", uldrHoriz, uldrVert));
 }
 
 InputManager::~InputManager()
@@ -110,6 +110,28 @@ void InputManager::DebugPrintBindingsState()
 	}
 
 	std::cout << std::endl;
+}
+
+KeyAxis2D* InputManager::Find2DAxisByName(const std::string& name)
+{
+	for (KeyAxis2D& axis : axes2D)
+	{
+		if (axis.name == name)
+			return &axis;
+	}
+
+	return nullptr;
+}
+
+Keybinding* InputManager::FindBindingByName(const std::string& name)
+{
+	for (Keybinding& binding : bindings)
+	{
+		if (binding.name == name)
+			return &binding;
+	}
+
+	return nullptr;
 }
 
 void InputManager::Update(SDL_Event event)

@@ -44,7 +44,12 @@ void Game::Update()
 			InputManager::Instance().Update(e);
 	}
 
-	//InputManager::Instance().DebugPrintBindingsState();
+	Keybinding* wBinding = InputManager::Instance().FindBindingByName("W");
+
+	if (wBinding != nullptr)
+	{
+		std::cout << "W is.. " << wBinding->pressed << std::endl;
+	}
 }
 
 void Game::Render()
