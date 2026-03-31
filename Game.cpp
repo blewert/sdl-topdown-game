@@ -36,7 +36,15 @@ void Game::Update()
 	{
 		if (e.type == SDL_QUIT)
 			this->Exit();
+
+		else if (e.type == SDL_KEYDOWN || e.type == SDL_KEYUP)
+			InputManager::Instance().Update(e);
+
+		else if (e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEBUTTONUP || e.type == SDL_MOUSEMOTION)
+			InputManager::Instance().Update(e);
 	}
+
+	InputManager::Instance().DebugPrintBindingsState();
 }
 
 void Game::Render()
