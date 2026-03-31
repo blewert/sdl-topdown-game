@@ -1,8 +1,8 @@
 #pragma once
 #include "SDL.h"
-#include "Vector2.h"
 #include <vector>
 #include <iostream>
+#include "Vector2.h"
 
 struct KeyAxis
 {
@@ -12,12 +12,28 @@ struct KeyAxis
 	SDL_KeyCode highKey;
 	float highValue;
 
+	float value;
+
 	KeyAxis(SDL_KeyCode lowKey, float lowValue, SDL_KeyCode highKey, float highValue)
 		: lowKey(lowKey), lowValue(lowValue), highKey(highKey), highValue(highValue)
 	{
-
+		value = 0.0f;
 	}
 };
+
+struct KeyAxis2D
+{
+	KeyAxis horizontal;
+	KeyAxis vertical;
+	
+	Vector2 value;
+
+	KeyAxis2D(KeyAxis horizontal, KeyAxis vertical) : horizontal(horizontal), vertical(vertical)
+	{
+		value = Vector2::zero;
+	}
+};
+
 
 struct Keybinding
 {
@@ -44,11 +60,11 @@ public:
 	static void Exit();
 	void Update(SDL_Event event);
 
-	Vector2 wasdAxis;
-
 	void ProcessKeyEvent(SDL_Event e);
 	void RegisterBinding(Keybinding newBinding);
+	void RegisterAxis2D(KeyAxis2D newAxis);
 	void ClearBindings();
+	void ClearAxes();
 
 	void DebugPrintBindingsState();
 
@@ -59,5 +75,6 @@ private:
 	~InputManager();
 
 	std::vector<Keybinding> bindings;
+	std::vector<KeyAxis2D> axes2D;
 };
 

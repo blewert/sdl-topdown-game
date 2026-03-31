@@ -44,7 +44,7 @@ void Game::Update()
 			InputManager::Instance().Update(e);
 	}
 
-	InputManager::Instance().DebugPrintBindingsState();
+	//InputManager::Instance().DebugPrintBindingsState();
 }
 
 void Game::Render()
