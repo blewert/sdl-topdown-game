@@ -22,6 +22,8 @@ Game::Game(int width, int height, bool fullScreen)
 
 	m_window = SDL_CreateWindow("Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, wndFlags);
 	m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED);
+
+	SceneManager::Instance().Initialise(this);
 }
 
 Game::~Game()
@@ -42,13 +44,6 @@ void Game::Update()
 
 		else if (e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEBUTTONUP || e.type == SDL_MOUSEMOTION)
 			InputManager::Instance().Update(e);
-	}
-
-	Keybinding* wBinding = InputManager::Instance().FindBindingByName("W");
-
-	if (wBinding != nullptr)
-	{
-		std::cout << "W is.. " << wBinding->pressed << std::endl;
 	}
 }
 
@@ -80,6 +75,16 @@ SDL_Renderer* Game::GetRenderer()
 bool Game::NeedsExit()
 {
 	return needsToExit;
+}
+
+Scene* Game::GetCurrentScene() const
+{
+	return currentScene;
+}
+
+void Game::SetCurrentScene(Scene* scene)
+{
+	this->currentScene = scene;
 }
 
 void Game::InitialiseSDL()

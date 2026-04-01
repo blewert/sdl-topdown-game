@@ -2,6 +2,8 @@
 #include "SDL.h"
 #include "SDL_image.h"
 #include "InputManager.h"
+#include "SceneManager.h"
+#include "Scene.h"
 
 class Game
 {
@@ -17,10 +19,14 @@ public:
 	SDL_Renderer* GetRenderer();
 
 	bool NeedsExit();
+	Scene* GetCurrentScene() const;
+	void SetCurrentScene(Scene* scene);
 
 private:
 	void InitialiseSDL();
 	void ExitSDL();
+
+	Scene* currentScene;
 
 	bool needsToExit = false;
 	static bool sdlInitialised;
