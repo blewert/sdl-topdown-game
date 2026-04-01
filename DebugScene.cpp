@@ -1,14 +1,19 @@
 #include "DebugScene.h"
+#include "GameObject.h"
 #include "SDL.h"
 
 DebugScene::DebugScene()
 {
 	SDL_Log("DebugScene ctor");
+
+	objects = new std::vector<GameObject>();
 }
 
 DebugScene::~DebugScene()
 {
 	SDL_Log("DebugScene dtor");
+
+	delete[] objects;
 }
 
 void DebugScene::OnStart()
