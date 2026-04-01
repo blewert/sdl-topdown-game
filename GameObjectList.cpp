@@ -15,6 +15,7 @@ GameObjectList::~GameObjectList()
 
 void GameObjectList::Add(GameObject* obj)
 {
+	obj->OnStart();
 	objects.push_back(obj);
 }
 
@@ -26,7 +27,6 @@ void GameObjectList::OnStart()
 
 void GameObjectList::Update()
 {
-
 	for (GameObject* obj : objects)
 		obj->Update();
 

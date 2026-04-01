@@ -20,6 +20,7 @@ DebugObject::~DebugObject()
 void DebugObject::OnStart()
 {
 	GameObject::OnStart();
+	angle = Random::Range(0.0f, 360.0f);
 }
 
 void DebugObject::Update()

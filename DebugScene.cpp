@@ -25,6 +25,7 @@ DebugScene::~DebugScene()
 void DebugScene::OnStart()
 {
 	SDL_Log("DebugScene::OnStart");
+	objects->OnStart();
 }
 
 void DebugScene::Update()
@@ -45,6 +46,7 @@ void DebugScene::Update()
 void DebugScene::OnEnd()
 {
 	SDL_Log("DebugScene::OnEnd");
+	objects->OnEnd();
 }
 
 void DebugScene::Exit()
