@@ -1,10 +1,21 @@
 #pragma once
 #include <cmath>
 #include <time.h>
+#include <limits>
 
 namespace Math
 {
+	static const float epsilon = std::numeric_limits<float>().epsilon();
 
+	//Stolen from Unity's Mathf library
+	//<https://github.com/Unity-Technologies/UnityCsReference/blob/master/Runtime/Export/Math/Mathf.cs>
+	//(See Approximately)
+	static inline bool Approximately(float lhs, float rhs)
+	{
+		float maxLR = fmaxf(lhs, rhs);
+		float max = fmaxf(0.000001f * maxLR, epsilon * 8);
+		return fabsf(rhs - lhs) <= max;
+	}
 }
 
 namespace Random
