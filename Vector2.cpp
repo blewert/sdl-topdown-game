@@ -9,6 +9,8 @@ Vector2 Vector2::right = Vector2(1, 0);
 
 Vector2::Vector2(const Vector2& rhs)
 {
+    this->x = rhs.x;
+    this->y = rhs.y;
 }
 
 Vector2 Vector2::operator+(const Vector2& rhs) const
@@ -88,11 +90,9 @@ Vector2& Vector2::operator=(const Vector2& rhs)
     if (&rhs == this)
         return *this;
 
-    //Otherwise copy and swap
-    Vector2 tmp(*this);
-    tmp.x = rhs.x;
-    tmp.y = rhs.y;
-    std::swap(*this, tmp);
+    //TODO: fix this to copy and swap
+    this->x = rhs.x;
+    this->y = rhs.y;
 }
 
 SDL_FPoint Vector2::ToFPoint()

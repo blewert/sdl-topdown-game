@@ -33,7 +33,11 @@ void DebugScene::Update()
 	if (Random::Value() > 0.9f)
 	{
 		for (int i = 0; i < 10; i++)
-			objects.Add(new DebugObject(this));
+		{
+			DebugObject* newObj = new DebugObject(this);
+			newObj->SetPosition(Random::PositionInRect(0, 0, 800, 600));
+			objects.Add(newObj);
+		}
 	}
 
 }

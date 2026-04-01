@@ -2,10 +2,14 @@
 #include <cmath>
 #include <time.h>
 #include <limits>
+#include "Vector2.h"
 
 namespace Math
 {
-	static const float epsilon = std::numeric_limits<float>().epsilon();
+	static constexpr float epsilon = std::numeric_limits<float>().epsilon();
+
+	static constexpr float degToRad = 0.0174533f;
+	static constexpr float radToDeg = 1.0f / degToRad;
 
 	//Stolen from Unity's Mathf library
 	//<https://github.com/Unity-Technologies/UnityCsReference/blob/master/Runtime/Export/Math/Mathf.cs>
@@ -39,5 +43,33 @@ namespace Random
 	{
 		float val = Random::Value();
 		return a + val * (b - a);
+	}
+
+	static Vector2 PositionInRect(int x, int y, int w, int h)
+	{
+		float rX = Random::Range((float)x, (float)x + w);
+		float rY = Random::Range((float)y, (float)y + h);
+
+		return Vector2(rX, rY);
+	}
+
+	static Vector2 InUnitSquare()
+	{
+		float rX = Random::Range(0.0f, 1.0f);
+		float rY = Random::Range(0.0f, 1.0f);
+
+		return Vector2(rX, rY);
+	}
+
+	static Vector2 OnUnitCircle()
+	{
+		float rA = Random::Range(0.0f, 360.0f * Math::degToRad);
+
+		return Vector2(sinf(rA) * 1.0f, cosf(rA) * 1.0f);
+	}
+
+	static Vector2 InUnitCircle()
+	{
+		return Random::OnUnitCircle() * Random::Value();
 	}
 }
