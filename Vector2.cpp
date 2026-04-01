@@ -71,6 +71,30 @@ Vector2& Vector2::operator/=(const float& rhs)
     return *this;
 }
 
+float Vector2::Magnitude()
+{
+    return sqrtf(powf(x, 2) + powf(y, 2));
+}
+
+Vector2& Vector2::Normalize()
+{
+    float mag = Magnitude();
+
+    if (Math::Approximately(mag, 0))
+        return *this;
+
+    this->x /= mag;
+    this->y /= mag;
+
+    return *this;
+}
+
+Vector2 Vector2::Normalized()
+{
+    Vector2 tmp(*this);
+    return tmp.Normalize();
+}
+
 bool Vector2::operator==(const Vector2& rhs) const
 {
     bool xEqual = Math::Approximately(this->x, rhs.x);

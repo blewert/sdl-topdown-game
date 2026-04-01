@@ -68,6 +68,17 @@ namespace Random
 		return Vector2(sinf(rA) * 1.0f, cosf(rA) * 1.0f);
 	}
 
+	static SDL_Color Color()
+	{
+		SDL_Color col;
+		col.r = Random::Range(0, 0xff);
+		col.g = Random::Range(0, 0xff);
+		col.b = Random::Range(0, 0xff);
+		col.a = 0xff;
+
+		return col;
+	}
+
 	static Vector2 InUnitCircle()
 	{
 		return Random::OnUnitCircle() * Random::Value();

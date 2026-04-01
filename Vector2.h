@@ -29,6 +29,10 @@ public:
 	Vector2& operator*=(const float& rhs);
 	Vector2& operator/=(const float& rhs);
 
+	float Magnitude();
+	Vector2& Normalize();
+	Vector2 Normalized();
+
 	bool operator==(const Vector2& rhs) const;
 	bool operator!=(const Vector2& rhs) const;
 

@@ -1,5 +1,7 @@
 #pragma once
 #include "Vector2.h"
+#include "Renderer.h"
+//#include "ComponentList.h"
 
 class Scene;
 
@@ -13,17 +15,32 @@ public:
 	Vector2 GetPosition();
 
 	virtual void OnStart() {};
-	virtual void Update() {};
+
+	virtual void Update()
+	{
+		//if (components != nullptr)
+			//components->Update();
+	};
+
 	virtual void OnEnd() {};
+
+	virtual void Render(SDL_Renderer* renderer)
+	{
+		if (this->renderer != nullptr)
+			this->renderer->Render(renderer);
+	};
 
 	void Destroy() { pendingDelete = true; }
 
 	bool pendingDelete = false;
 	int id;
 
-private:
+protected:
 	Scene* parentScene;
 	Vector2 position = Vector2::zero;
+
+	//ComponentList* components = nullptr;
+	Renderer* renderer = nullptr;
 
 	static int objId;
 };

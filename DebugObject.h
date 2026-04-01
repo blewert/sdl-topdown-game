@@ -1,5 +1,7 @@
 #pragma once
 #include "GameObject.h"
+#include "ComponentList.h"
+#include "DebugRenderer.h"
 
 class DebugObject : public GameObject
 {

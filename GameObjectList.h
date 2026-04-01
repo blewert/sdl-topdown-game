@@ -17,6 +17,7 @@ public:
 	void OnEnd();
 
 private:
+	//TODO: make this not heap alloc'd so the callee can choose
 	std::vector<GameObject*>* objects;
 
 	void CullPendingDeleteObjects();
