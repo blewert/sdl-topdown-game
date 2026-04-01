@@ -28,18 +28,15 @@ void DebugScene::OnStart()
 void DebugScene::Update()
 {
 	objects.Update();
-	SDL_Log("There are %d objects", objects.Count());
 
 	if (Random::Value() > 0.9f)
 	{
 		for (int i = 0; i < 10; i++)
 		{
 			DebugObject* newObj = new DebugObject(this);
-			newObj->SetPosition(Random::PositionInRect(0, 0, 800, 600));
 			objects.Add(newObj);
 		}
 	}
-
 }
 
 void DebugScene::OnEnd()
@@ -50,4 +47,9 @@ void DebugScene::OnEnd()
 void DebugScene::Exit()
 {
 	SDL_Log("DebugScene::Exit");
+}
+
+void DebugScene::Render(SDL_Renderer* renderer)
+{
+	objects.Render(renderer);
 }

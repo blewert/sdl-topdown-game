@@ -40,6 +40,12 @@ void GameObjectList::OnEnd()
 		obj->OnEnd();
 }
 
+void GameObjectList::Render(SDL_Renderer* renderer)
+{
+	for (GameObject* obj : *objects)
+		obj->Render(renderer);
+}
+
 void GameObjectList::CullPendingDeleteObjects()
 {
 	std::vector<GameObject*> tmpObjs;

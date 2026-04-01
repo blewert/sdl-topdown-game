@@ -67,7 +67,7 @@ void Game::Render()
 	SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 0);
 	SDL_RenderClear(m_renderer);
 
-
+	currentScene->Render(m_renderer);
 
 	SDL_RenderPresent(m_renderer);
 }
@@ -84,7 +84,7 @@ SDL_Window* Game::GetWindow()
 
 SDL_Renderer* Game::GetRenderer()
 {
-	return nullptr;
+	return m_renderer;
 }
 
 bool Game::NeedsExit()

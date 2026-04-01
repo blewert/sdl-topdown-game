@@ -39,7 +39,7 @@ public:
 	Vector2& operator=(const Vector2& rhs);
 
 	SDL_FPoint ToFPoint();
-	SDL_Rect ToRect(int width, int height);
+	SDL_Rect ToRenderRect(int width, int height);
 
 	static Vector2 zero;
 	static Vector2 up;

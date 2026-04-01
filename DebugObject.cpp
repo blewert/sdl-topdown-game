@@ -5,11 +5,10 @@
 DebugObject::DebugObject(Scene* parentScene) : GameObject(parentScene)
 {
 	renderer = new DebugRenderer(this);
-	//components = new ComponentList();
-
-	//components->Add(renderer);
-
 	timer = Random::Range(20, 100);
+
+
+	SetPosition(Random::PositionInRect(0, 0, 800, 600));
 }
 
 DebugObject::~DebugObject()
@@ -19,11 +18,12 @@ DebugObject::~DebugObject()
 
 void DebugObject::OnStart()
 {
+	GameObject::OnStart();
 }
 
 void DebugObject::Update()
 {
-	//components->Update();
+	GameObject::Update();
 
 	timer--;
 

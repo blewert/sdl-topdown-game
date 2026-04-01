@@ -1,7 +1,7 @@
 #pragma once
 #include "Vector2.h"
 #include "Renderer.h"
-//#include "ComponentList.h"
+#include "ComponentList.h"
 
 class Scene;
 
@@ -18,8 +18,11 @@ public:
 
 	virtual void Update()
 	{
-		//if (components != nullptr)
-			//components->Update();
+		if (components != nullptr)
+			components->Update();
+		
+		if (renderer != nullptr)
+			renderer->Update();
 	};
 
 	virtual void OnEnd() {};
@@ -39,7 +42,7 @@ protected:
 	Scene* parentScene;
 	Vector2 position = Vector2::zero;
 
-	//ComponentList* components = nullptr;
+	ComponentList* components = nullptr;
 	Renderer* renderer = nullptr;
 
 	static int objId;

@@ -12,6 +12,8 @@ public:
 
 	void Render(SDL_Renderer* renderer) override
 	{
+		//SDL_Log("Render %d %d %d %d", bounds.x, bounds.y, bounds.w, bounds.h);
+
 		SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
 		SDL_RenderFillRect(renderer, &bounds);
 	}
