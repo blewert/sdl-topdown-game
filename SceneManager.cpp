@@ -1,5 +1,6 @@
 #include "SceneManager.h"
 #include "Game.h"
+#include "DebugScene.h"
 
 SceneManager* SceneManager::instance = nullptr;
 
@@ -10,6 +11,8 @@ SceneManager::~SceneManager()
 
 void SceneManager::Exit()
 {
+	SDL_Log("SceneManager::Exit()");
+
 	for (auto& keyValue : sceneMap)
 	{
 		keyValue.second->Exit();
@@ -30,7 +33,10 @@ void SceneManager::LoadScene(Game* game, const std::string& sceneKey)
 {
 	//Call OnEnd
 	Scene* currentScene = game->GetCurrentScene();
-	currentScene->OnEnd();
+
+	//Already a scene there? Call OnEnd
+	if(currentScene != nullptr)
+		currentScene->OnEnd();
 
 	//Set scene and call start
 	game->SetCurrentScene(sceneMap[sceneKey]);
@@ -40,4 +46,5 @@ void SceneManager::LoadScene(Game* game, const std::string& sceneKey)
 void SceneManager::Initialise(Game* game)
 {
 	//TODO: Add scenes
+	AddScene("debugScene", new DebugScene());
 }

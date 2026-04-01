@@ -4,6 +4,7 @@
 #include "InputManager.h"
 #include "SceneManager.h"
 #include "Scene.h"
+#include "DebugScene.h"
 
 class Game
 {

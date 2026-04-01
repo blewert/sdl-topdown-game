@@ -1,10 +1,11 @@
 #pragma once
 #include <string>
 #include <map>
-#include <memory>
+#include <iostream>
 #include "Scene.h"
 
 class Game;
+class DebugScene;
 
 class SceneManager
 {

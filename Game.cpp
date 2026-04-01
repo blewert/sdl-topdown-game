@@ -24,11 +24,14 @@ Game::Game(int width, int height, bool fullScreen)
 	m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED);
 
 	SceneManager::Instance().Initialise(this);
+	SceneManager::Instance().LoadScene(this, "debugScene");
 }
 
 Game::~Game()
 {
 	ExitSDL();
+
+	SceneManager::Instance().Exit();
 }
 
 void Game::Update()
