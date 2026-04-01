@@ -109,15 +109,21 @@ bool Vector2::operator!=(const Vector2& rhs) const
     return !(*this == rhs);
 }
 
-Vector2& Vector2::operator=(const Vector2& rhs)
+void swap(Vector2& a, Vector2& b) noexcept
+{
+    using std::swap;
+    swap(a.x, b.x);
+    swap(a.y, b.y);
+}
+
+Vector2& Vector2::operator=(Vector2 rhs)
 {
     //The same thing? If so, don't change
     if (&rhs == this)
         return *this;
 
-    //TODO: fix this to copy and swap
-    this->x = rhs.x;
-    this->y = rhs.y;
+    Vector2 tmp(rhs);
+    swap(*this, rhs);
     return *this;
 }
 
@@ -130,3 +136,5 @@ SDL_Rect Vector2::ToRenderRect(int width, int height)
 {
     return SDL_Rect{ (int)x, (int)y, width, height };
 }
+
+

@@ -14,5 +14,7 @@ public:
 
 private:
 	int timer;
+	float angle;
+	Vector2 initialPos;
 };
 

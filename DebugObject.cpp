@@ -1,13 +1,15 @@
 #include "DebugObject.h"
 #include "SDL.h"
 #include "Math.h"
+#include "Time.h"
 
 DebugObject::DebugObject(Scene* parentScene) : GameObject(parentScene)
 {
 	renderer = new DebugRenderer(this);
-	timer = Random::Range(20, 100);
+	timer = Random::Range(90, 100);
 
-	SetPosition(Random::PositionInRect(0, 0, 800, 600));
+	initialPos = Random::PositionInRect(0, 0, 800, 600);
+	SetPosition(initialPos);
 }
 
 DebugObject::~DebugObject()
@@ -23,6 +25,19 @@ void DebugObject::OnStart()
 void DebugObject::Update()
 {
 	GameObject::Update();
+
+	angle = fmodf(angle + 100 * Time::deltaTime, 360);
+
+	float d = 50;
+	float x = cosf(angle * Math::degToRad) * d;
+	float y = sinf(angle * Math::degToRad) * d;
+
+	SetPosition(initialPos + Vector2(x, y));
+	
+	if (this->id == 5)
+	{
+		SDL_Log("angle %f", angle);
+	}
 
 	timer--;
 

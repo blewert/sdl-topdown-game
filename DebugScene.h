@@ -17,6 +17,6 @@ public:
 	virtual void Exit();
 	virtual void Render(SDL_Renderer* renderer);
 
-	GameObjectList objects;
+	GameObjectList* objects;
 };
 

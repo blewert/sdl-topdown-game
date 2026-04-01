@@ -1,7 +1,7 @@
 #include "GameObject.h"
 #include "Scene.h"
 
-int GameObject::objId = 0;
+uint64_t GameObject::objId = 0;
 
 GameObject::GameObject(Scene* parentScene)
 {

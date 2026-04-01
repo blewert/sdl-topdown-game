@@ -8,9 +8,11 @@ DebugScene::DebugScene()
 {
 	SDL_Log("DebugScene ctor");
 
-	for (int i = 0; i < 100000; i++)
+	objects = new GameObjectList();
+
+	for (int i = 0; i < 1000; i++)
 	{
-		objects.Add(new DebugObject(this));
+		objects->Add(new DebugObject(this));
 	}
 }
 
@@ -27,16 +29,17 @@ void DebugScene::OnStart()
 
 void DebugScene::Update()
 {
-	objects.Update();
 
 	if (Random::Value() > 0.9f)
 	{
 		for (int i = 0; i < 100; i++)
 		{
 			DebugObject* newObj = new DebugObject(this);
-			objects.Add(newObj);
+			objects->Add(newObj);
 		}
 	}
+
+	objects->Update();
 }
 
 void DebugScene::OnEnd()
@@ -51,5 +54,5 @@ void DebugScene::Exit()
 
 void DebugScene::Render(SDL_Renderer* renderer)
 {
-	objects.Render(renderer);
+	objects->Render(renderer);
 }

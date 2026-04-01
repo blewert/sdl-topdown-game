@@ -36,7 +36,9 @@ public:
 	bool operator==(const Vector2& rhs) const;
 	bool operator!=(const Vector2& rhs) const;
 
-	Vector2& operator=(const Vector2& rhs);
+	Vector2& operator=(Vector2 rhs);
+
+	friend void swap(Vector2& a, Vector2& b) noexcept;
 
 	SDL_FPoint ToFPoint();
 	SDL_Rect ToRenderRect(int width, int height);

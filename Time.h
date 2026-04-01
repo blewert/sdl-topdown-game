@@ -1,12 +1,11 @@
 #pragma once
-#include <stdint.h>
 #include "SDL.h"
 
-namespace Time
+struct Time
 {
-	static uint64_t lastTickTime = 0;
-	static float deltaTime = 0.0f;
-	static uint64_t deltaTicks = 0L;
+	static uint64_t lastTickTime;
+	static float deltaTime;
+	static uint64_t deltaTicks;
 
 	static inline void Initialise()
 	{
@@ -15,7 +14,7 @@ namespace Time
 
 	static float GetFPS()
 	{
-		return 1.0f / deltaTime;
+		return (float)SDL_GetPerformanceFrequency() / (float)Time::deltaTicks;
 	}
 
 	static inline void Tick()
@@ -24,8 +23,8 @@ namespace Time
 		uint64_t delta = (now - lastTickTime);
 
 		Time::deltaTicks = delta;
-		Time::deltaTime = (now - Time::lastTickTime)*1000 / (float)SDL_GetPerformanceCounter();
+		Time::deltaTime = (delta) / (float)SDL_GetPerformanceFrequency();
 
 		Time::lastTickTime = now;
 	}
-}
+};

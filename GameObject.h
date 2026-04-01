@@ -20,15 +20,15 @@ public:
 	{
 		if (components != nullptr)
 			components->Update();
-		
-		if (renderer != nullptr)
-			renderer->Update();
 	};
 
 	virtual void OnEnd() {};
 
 	virtual void Render(SDL_Renderer* renderer)
 	{
+		if(this->renderer != nullptr)
+			this->renderer->Update();
+
 		if (this->renderer != nullptr)
 			this->renderer->Render(renderer);
 	};
@@ -36,7 +36,7 @@ public:
 	void Destroy() { pendingDelete = true; }
 
 	bool pendingDelete = false;
-	int id;
+	uint64_t id;
 
 protected:
 	Scene* parentScene;
@@ -45,6 +45,6 @@ protected:
 	ComponentList* components = nullptr;
 	Renderer* renderer = nullptr;
 
-	static int objId;
+	static uint64_t objId;
 };
 

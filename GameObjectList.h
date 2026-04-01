@@ -9,7 +9,7 @@ public:
 	~GameObjectList();
 
 	void Add(GameObject* obj);
-	inline int Count() { return objects->size(); };
+	inline int Count() { return objects.size(); };
 
 public:
 	void OnStart();
@@ -21,8 +21,7 @@ public:
 	void Render(SDL_Renderer* renderer);
 
 private:
-	//TODO: make this not heap alloc'd so the callee can choose
-	std::vector<GameObject*>* objects;
+	std::vector<GameObject*> objects;
 
 	void CullPendingDeleteObjects();
 };
