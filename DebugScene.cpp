@@ -1,19 +1,23 @@
 #include "DebugScene.h"
 #include "GameObject.h"
+#include "DebugObject.h"
 #include "SDL.h"
+#include "Math.h"
 
 DebugScene::DebugScene()
 {
 	SDL_Log("DebugScene ctor");
 
-	objects = new std::vector<GameObject>();
+	for (int i = 0; i < 100000; i++)
+	{
+		objects.Add(new DebugObject(this));
+	}
 }
 
 DebugScene::~DebugScene()
 {
+	this->Exit();
 	SDL_Log("DebugScene dtor");
-
-	delete[] objects;
 }
 
 void DebugScene::OnStart()
@@ -23,7 +27,15 @@ void DebugScene::OnStart()
 
 void DebugScene::Update()
 {
-	SDL_Log("DebugScene::Update");
+	objects.Update();
+	SDL_Log("There are %d objects", objects.Count());
+
+	if (Random::Value() > 0.9f)
+	{
+		for (int i = 0; i < 10; i++)
+			objects.Add(new DebugObject(this));
+	}
+
 }
 
 void DebugScene::OnEnd()

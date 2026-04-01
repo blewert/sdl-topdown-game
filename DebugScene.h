@@ -1,5 +1,5 @@
 #pragma once
-#include <vector>
+#include "GameObjectList.h"
 #include "Scene.h"
 
 class GameObject;
@@ -15,6 +15,6 @@ public:
 	virtual void OnEnd();
 	virtual void Exit();
 
-	std::vector<GameObject>* objects;
+	GameObjectList objects;
 };
 

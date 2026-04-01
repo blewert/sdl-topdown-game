@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Math.h"
 
 bool Game::sdlInitialised = false;
 
@@ -20,6 +21,8 @@ Game::Game(int width, int height, bool fullScreen)
 		wndFlags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 	}
 
+	Random::SeedRNG();
+	
 	m_window = SDL_CreateWindow("Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, wndFlags);
 	m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED);
 
@@ -48,6 +51,9 @@ void Game::Update()
 		else if (e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEBUTTONUP || e.type == SDL_MOUSEMOTION)
 			InputManager::Instance().Update(e);
 	}
+
+	if (currentScene != nullptr)
+		currentScene->Update();
 }
 
 void Game::Render()

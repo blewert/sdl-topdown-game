@@ -1,7 +1,6 @@
 #pragma once
 #include <vector>
-
-class GameObject;
+#include "GameObject.h"
 
 class GameObjectList
 {
@@ -9,7 +8,8 @@ public:
 	GameObjectList();
 	~GameObjectList();
 
-	void Add(const GameObject& obj);
+	void Add(GameObject* obj);
+	inline int Count() { return objects->size(); };
 
 public:
 	void OnStart();
@@ -17,7 +17,7 @@ public:
 	void OnEnd();
 
 private:
-	std::vector<GameObject>* objects;
+	std::vector<GameObject*>* objects;
 
 	void CullPendingDeleteObjects();
 };

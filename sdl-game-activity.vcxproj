@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DebugObject.cpp" />
     <ClCompile Include="DebugScene.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -135,12 +136,14 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Math.h" />
     <ClCompile Include="Vector2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DebugObject.h" />
     <ClInclude Include="DebugScene.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
