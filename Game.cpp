@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "Math.h"
+#include "Time.h"
 
 bool Game::sdlInitialised = false;
 
@@ -21,10 +22,11 @@ Game::Game(int width, int height, bool fullScreen)
 		wndFlags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 	}
 
+	Time::Initialise();
 	Random::SeedRNG();
 	
 	m_window = SDL_CreateWindow("Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, wndFlags);
-	m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED);
+	m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
 	SceneManager::Instance().Initialise(this);
 	SceneManager::Instance().LoadScene(this, "debugScene");
@@ -39,6 +41,8 @@ Game::~Game()
 
 void Game::Update()
 {
+	Time::Tick();
+
 	SDL_Event e;
 	while (SDL_PollEvent(&e))
 	{
@@ -51,6 +55,8 @@ void Game::Update()
 		else if (e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEBUTTONUP || e.type == SDL_MOUSEMOTION)
 			InputManager::Instance().Update(e);
 	}
+
+	SDL_Log("Ticks %d, Time %f, FPS %f\n", Time::deltaTicks, Time::deltaTime, Time::GetFPS());
 
 	if (currentScene != nullptr)
 		currentScene->Update();
