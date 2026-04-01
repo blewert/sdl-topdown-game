@@ -25,9 +25,12 @@ void ComponentList::CullPendingDeleteComponents()
 		if (!components[i]->pendingDelete)
 			tmpObjs.push_back(components[i]);
 
-		//Otherwise, call destructor: this will no longer exist
-		//TODO: Call unattach here
-		else delete components[i];
+		else
+		{
+			//Otherwise, call destructor: this will no longer exist
+			components[i]->OnDetach();
+			delete components[i];
+		}
 	}
 
 	//Then swap the underlying values

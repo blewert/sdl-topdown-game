@@ -7,7 +7,6 @@ DebugObject::DebugObject(Scene* parentScene) : GameObject(parentScene)
 	renderer = new DebugRenderer(this);
 	timer = Random::Range(20, 100);
 
-
 	SetPosition(Random::PositionInRect(0, 0, 800, 600));
 }
 

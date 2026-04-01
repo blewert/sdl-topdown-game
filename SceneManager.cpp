@@ -45,6 +45,5 @@ void SceneManager::LoadScene(Game* game, const std::string& sceneKey)
 
 void SceneManager::Initialise(Game* game)
 {
-	//TODO: Add scenes
 	AddScene("debugScene", new DebugScene());
 }

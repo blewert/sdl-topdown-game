@@ -1,5 +1,6 @@
 #include "Vector2.h"
 #include "Math.h"
+#include <memory>
 
 Vector2 Vector2::zero = Vector2(0, 0);
 Vector2 Vector2::up = Vector2(0, 1);
@@ -117,6 +118,7 @@ Vector2& Vector2::operator=(const Vector2& rhs)
     //TODO: fix this to copy and swap
     this->x = rhs.x;
     this->y = rhs.y;
+    return *this;
 }
 
 SDL_FPoint Vector2::ToFPoint()

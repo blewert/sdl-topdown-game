@@ -26,7 +26,7 @@ namespace Random
 {
 	static inline void SeedRNG(unsigned int seed = 0)
 	{
-		srand(time((time_t*)seed));
+		srand(time(reinterpret_cast<time_t*>(seed)));
 	}
 
 	static inline int Range(int a, int b)

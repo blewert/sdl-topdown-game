@@ -31,7 +31,7 @@ void DebugScene::Update()
 
 	if (Random::Value() > 0.9f)
 	{
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < 100; i++)
 		{
 			DebugObject* newObj = new DebugObject(this);
 			objects.Add(newObj);
