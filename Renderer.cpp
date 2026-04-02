@@ -7,6 +7,11 @@ Renderer::Renderer(SDL_Renderer* renderer, GameObject* parent, SDL_Rect bounds)
 {
 }
 
+Renderer::~Renderer()
+{
+
+}
+
 void Renderer::Update()
 {
 	Vector2 pos = this->parent->GetPosition();

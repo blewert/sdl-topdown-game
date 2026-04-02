@@ -22,7 +22,6 @@ DebugScene::DebugScene(SDL_Renderer* renderer) : Scene(renderer)
 DebugScene::~DebugScene()
 {
 	this->Exit();
-	SDL_Log("DebugScene dtor");
 }
 
 void DebugScene::OnStart()

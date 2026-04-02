@@ -11,7 +11,11 @@ GameObject::GameObject(Scene* parentScene)
 
 GameObject::~GameObject()
 {
+	if (this->components != nullptr)
+		delete this->components;
 
+	if (this->renderer != nullptr)
+		delete this->renderer;
 }
 
 void GameObject::SetPosition(const Vector2& newPosition)

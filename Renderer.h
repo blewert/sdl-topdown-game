@@ -8,6 +8,8 @@ class Renderer : public Component
 {
 public:
 	Renderer(SDL_Renderer* renderer, GameObject* parent, SDL_Rect bounds);
+	virtual ~Renderer();
+
 	virtual void Render() = 0;
 	virtual void Update();
 

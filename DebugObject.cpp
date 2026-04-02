@@ -6,8 +6,11 @@
 
 DebugObject::DebugObject(Scene* parentScene) : GameObject(parentScene)
 {
+	components = new ComponentList();
+	
 	renderer = new DebugRenderer(parentScene->GetRenderer(), this);
 	timer = Random::Range(90, 100);
+	components->Add(renderer);
 
 	initialPos = Random::PositionInRect(0, 0, 800, 600);
 	SetPosition(initialPos);
@@ -15,6 +18,7 @@ DebugObject::DebugObject(Scene* parentScene) : GameObject(parentScene)
 
 DebugObject::~DebugObject()
 {
+	delete components;
 	delete renderer;
 }
 

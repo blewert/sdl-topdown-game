@@ -6,7 +6,7 @@ class Component
 {
 public:
 	Component(GameObject* parent);
-	~Component() = default;
+	virtual ~Component() = default;
 
 	virtual void Update() = 0;
 
