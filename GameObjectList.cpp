@@ -27,10 +27,18 @@ void GameObjectList::OnStart()
 
 void GameObjectList::Update()
 {
-	for (GameObject* obj : objects)
-		obj->Update();
+	bool needsCull = false;
 
-	CullPendingDeleteObjects();
+	for (GameObject* obj : objects)
+	{
+		obj->Update();
+		
+		if (obj->pendingDelete)
+			needsCull = true;
+	}
+
+	if(needsCull)
+		CullPendingDeleteObjects();
 }
 
 void GameObjectList::OnEnd()

@@ -3,12 +3,31 @@
 #include "Math.h"
 #include "Time.h"
 #include "Scene.h"
+#include "SpriteRenderer.h"
+#include "TextureManager.h"
 
 DebugObject::DebugObject(Scene* parentScene) : GameObject(parentScene)
 {
 	components = new ComponentList();
 	
-	renderer = new DebugRenderer(parentScene->GetRenderer(), this);
+	//renderer = new DebugRenderer(parentScene->GetRenderer(), this);
+
+	SDL_Rect rct = SDL_Rect{ 0, 0, 32, 32 };
+	renderer = new SpriteRenderer(parentScene->GetRenderer(), this, rct);
+
+	SpriteAnimationParams animParams;
+	animParams.columns = 6;
+	animParams.rows = 3;
+	animParams.fps = 12;
+	animParams.frameH = 32;
+	animParams.frameW = 32;
+
+	Texture* tex = TextureManager::Instance()["test-anim"];
+
+	SpriteRenderer* spriteRenderer = (SpriteRenderer*)renderer;
+	spriteRenderer->SetAnimated(true, animParams);
+	spriteRenderer->SetTexture(tex);
+
 	timer = Random::Range(90, 100);
 	components->Add(renderer);
 
@@ -38,15 +57,5 @@ void DebugObject::Update()
 	float x = cosf(angle * Math::degToRad) * d;
 	float y = sinf(angle * Math::degToRad) * d;
 
-	SetPosition(initialPos + Vector2(x, y));
-	
-	if (this->id == 5)
-	{
-		SDL_Log("angle %f", angle);
-	}
-
-	timer--;
-
-	if (timer <= 0)
-		this->Destroy();
+	//SetPosition(initialPos + Vector2(x, y));
 }

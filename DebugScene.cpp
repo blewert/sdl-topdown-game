@@ -12,11 +12,6 @@ DebugScene::DebugScene(SDL_Renderer* renderer) : Scene(renderer)
 	SDL_Log("DebugScene ctor");
 
 	objects = new GameObjectList();
-
-	for (int i = 0; i < 1000; i++)
-	{
-		objects->Add(new DebugObject(this));
-	}
 }
 
 DebugScene::~DebugScene()
@@ -28,20 +23,16 @@ void DebugScene::OnStart()
 {
 	SDL_Log("DebugScene::OnStart");
 	objects->OnStart();
+
+	for (int i = 0; i < 1500; i++)
+	{
+		DebugObject* newObj = new DebugObject(this);
+		objects->Add(newObj);
+	}
 }
 
 void DebugScene::Update()
 {
-
-	if (Random::Value() > 0.9f)
-	{
-		for (int i = 0; i < 100; i++)
-		{
-			DebugObject* newObj = new DebugObject(this);
-			objects->Add(newObj);
-		}
-	}
-
 	objects->Update();
 }
 

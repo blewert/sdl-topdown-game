@@ -30,6 +30,7 @@ Game::Game(int width, int height, bool fullScreen)
 	m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED);
 
 	TextureManager::Instance().Add("test-tex", "test.png", m_renderer);
+	TextureManager::Instance().Add("test-anim", "test-anim.png", m_renderer);
 
 	SceneManager::Instance().Initialise(this, m_renderer);
 	SceneManager::Instance().LoadScene(this, "debugScene");

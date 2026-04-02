@@ -9,10 +9,18 @@ void ComponentList::Add(Component* component)
 
 void ComponentList::Update()
 {
+	bool needsCull = false;
+
 	for (Component* component : components)
+	{
 		component->Update();
 
-	CullPendingDeleteComponents();
+		if (component->pendingDelete)
+			needsCull = true;
+	}
+
+	if(needsCull)
+		CullPendingDeleteComponents();
 }
 
 void ComponentList::CullPendingDeleteComponents()
