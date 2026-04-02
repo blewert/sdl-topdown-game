@@ -43,7 +43,7 @@ void SceneManager::LoadScene(Game* game, const std::string& sceneKey)
 	game->GetCurrentScene()->OnStart();
 }
 
-void SceneManager::Initialise(Game* game)
+void SceneManager::Initialise(Game* game, SDL_Renderer* renderer)
 {
-	AddScene("debugScene", new DebugScene());
+	AddScene("debugScene", new DebugScene(renderer));
 }

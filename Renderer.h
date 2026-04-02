@@ -7,11 +7,12 @@ class GameObject;
 class Renderer : public Component
 {
 public:
-	Renderer(GameObject* parent, SDL_Rect bounds);
-	virtual void Render(SDL_Renderer* renderer) = 0;
+	Renderer(SDL_Renderer* renderer, GameObject* parent, SDL_Rect bounds);
+	virtual void Render() = 0;
 	virtual void Update();
 
 protected:
 	SDL_Rect bounds;
+	SDL_Renderer* renderer;
 };
 

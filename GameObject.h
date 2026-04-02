@@ -30,7 +30,7 @@ public:
 			this->renderer->Update();
 
 		if (this->renderer != nullptr)
-			this->renderer->Render(renderer);
+			this->renderer->Render();
 	};
 
 	void Destroy() { pendingDelete = true; }

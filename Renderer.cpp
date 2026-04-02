@@ -2,7 +2,11 @@
 #include "Component.h"
 #include "GameObject.h"
 
-Renderer::Renderer(GameObject* parent, SDL_Rect bounds) : Component(parent), bounds(bounds) {}
+Renderer::Renderer(SDL_Renderer* renderer, GameObject* parent, SDL_Rect bounds)
+	: Component(parent), bounds(bounds), renderer(renderer)
+{
+}
+
 void Renderer::Update()
 {
 	Vector2 pos = this->parent->GetPosition();

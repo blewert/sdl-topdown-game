@@ -8,14 +8,14 @@ class GameObject;
 class DebugScene : public Scene
 {
 public:
-	DebugScene();
+	DebugScene(SDL_Renderer* renderer);
 	~DebugScene();
 
 	virtual void OnStart();
 	virtual void Update();
 	virtual void OnEnd();
 	virtual void Exit();
-	virtual void Render(SDL_Renderer* renderer);
+	virtual void Render();
 
 	GameObjectList* objects;
 };

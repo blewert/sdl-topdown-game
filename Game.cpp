@@ -28,7 +28,7 @@ Game::Game(int width, int height, bool fullScreen)
 	m_window = SDL_CreateWindow("Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, wndFlags);
 	m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
-	SceneManager::Instance().Initialise(this);
+	SceneManager::Instance().Initialise(this, m_renderer);
 	SceneManager::Instance().LoadScene(this, "debugScene");
 }
 
@@ -67,7 +67,7 @@ void Game::Render()
 	SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 0);
 	SDL_RenderClear(m_renderer);
 
-	currentScene->Render(m_renderer);
+	currentScene->Render();
 
 	SDL_RenderPresent(m_renderer);
 }

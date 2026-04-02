@@ -23,7 +23,7 @@ public:
 	void Exit();
 	void AddScene(const std::string& sceneKey, Scene* scene);
 	void LoadScene(Game* game, const std::string& sceneKey);
-	void Initialise(Game* game);
+	void Initialise(Game* game, SDL_Renderer* renderer);
 
 private:
 	static SceneManager* instance;

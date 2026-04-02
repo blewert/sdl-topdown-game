@@ -4,7 +4,7 @@
 #include "SDL.h"
 #include "Math.h"
 
-DebugScene::DebugScene()
+DebugScene::DebugScene(SDL_Renderer* renderer) : Scene(renderer)
 {
 	SDL_Log("DebugScene ctor");
 
@@ -54,7 +54,7 @@ void DebugScene::Exit()
 	SDL_Log("DebugScene::Exit");
 }
 
-void DebugScene::Render(SDL_Renderer* renderer)
+void DebugScene::Render()
 {
 	objects->Render(renderer);
 }

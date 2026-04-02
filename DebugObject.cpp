@@ -2,10 +2,11 @@
 #include "SDL.h"
 #include "Math.h"
 #include "Time.h"
+#include "Scene.h"
 
 DebugObject::DebugObject(Scene* parentScene) : GameObject(parentScene)
 {
-	renderer = new DebugRenderer(this);
+	renderer = new DebugRenderer(parentScene->GetRenderer(), this);
 	timer = Random::Range(90, 100);
 
 	initialPos = Random::PositionInRect(0, 0, 800, 600);
