@@ -6,6 +6,8 @@
 
 DebugScene::DebugScene(SDL_Renderer* renderer) : Scene(renderer)
 {
+	tex = new Texture(renderer, "test.png");
+
 	SDL_Log("DebugScene ctor");
 
 	objects = new GameObjectList();
@@ -52,9 +54,11 @@ void DebugScene::OnEnd()
 void DebugScene::Exit()
 {
 	SDL_Log("DebugScene::Exit");
+	delete tex;
 }
 
 void DebugScene::Render()
 {
 	objects->Render(renderer);
+	tex->Render(Vector2(10, 10));
 }

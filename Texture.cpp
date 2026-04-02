@@ -2,7 +2,7 @@
 
 Texture::Texture(SDL_Renderer* renderer, const std::string& path) : renderer(renderer)
 {
-    SDL_Texture* tex = Texture::LoadFromDisk(renderer, path);
+    this->tex = Texture::LoadFromDisk(renderer, path);
 
     if (tex == nullptr)
     {
@@ -11,6 +11,12 @@ Texture::Texture(SDL_Renderer* renderer, const std::string& path) : renderer(ren
     }
     else
     {
+        int w, h;
+        SDL_QueryTexture(tex, NULL, NULL, &w, &h);
+        
+        this->width = w;
+        this->height = h;
+
         SDL_Log("Loaded texture %s from disk, (%d x %d)", path.c_str(), this->width, this->height);
     }
 }
@@ -61,10 +67,6 @@ inline SDL_Texture* Texture::LoadFromDisk(SDL_Renderer* renderer, const std::str
 {
     SDL_Surface* surf = IMG_Load(path.c_str());
     SDL_Texture* tex = SDL_CreateTextureFromSurface(renderer, surf);
-
-    int w, h;
-    SDL_QueryTexture(tex, NULL, NULL, &w, &h);
     SDL_FreeSurface(surf);
-
     return tex;
 }

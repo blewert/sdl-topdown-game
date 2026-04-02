@@ -2,6 +2,7 @@
 #include "SDL.h"
 #include "GameObjectList.h"
 #include "Scene.h"
+#include "Texture.h"
 
 class GameObject;
 
@@ -18,5 +19,6 @@ public:
 	virtual void Render();
 
 	GameObjectList* objects;
+	Texture* tex;
 };
 
