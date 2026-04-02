@@ -3,10 +3,11 @@
 #include "DebugObject.h"
 #include "SDL.h"
 #include "Math.h"
+#include "TextureManager.h"
 
 DebugScene::DebugScene(SDL_Renderer* renderer) : Scene(renderer)
 {
-	tex = new Texture(renderer, "test.png");
+	tex = TextureManager::Instance().Get("test-tex");
 
 	SDL_Log("DebugScene ctor");
 

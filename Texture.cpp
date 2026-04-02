@@ -23,6 +23,7 @@ Texture::Texture(SDL_Renderer* renderer, const std::string& path) : renderer(ren
 
 Texture::~Texture()
 {
+    SDL_Log("dtor tex called");
     FreeTexture();
 }
 

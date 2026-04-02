@@ -7,6 +7,7 @@
 class Texture
 {
 public:
+	Texture() = default;
 	Texture(SDL_Renderer* renderer, const std::string& path);
 	~Texture();
 	SDL_Texture* GetSDLTexture();
