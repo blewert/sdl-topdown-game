@@ -1,6 +1,9 @@
 #pragma once
 #include <vector>
+#include <set>
 #include "Component.h"
+
+class Rigidbody;
 
 class ComponentList
 {
@@ -14,6 +17,9 @@ public:
 
 public:
 	void Update();
+
+	//TODO: Make this nicer, e.g. using a set of types with HasComponent etc
+	Rigidbody* rigidbody = nullptr;
 
 protected:
 	std::vector<Component*> components;

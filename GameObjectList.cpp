@@ -19,6 +19,12 @@ void GameObjectList::Add(GameObject* obj)
 	objects.push_back(obj);
 }
 
+void GameObjectList::AddRigidbody(Rigidbody* rb)
+{
+	rb->parent->components->Add(rb);
+	bodies.push_back(rb);
+}
+
 void GameObjectList::OnStart()
 {
 	for (GameObject* obj : objects)
@@ -56,12 +62,20 @@ void GameObjectList::Render(SDL_Renderer* renderer)
 void GameObjectList::CullPendingDeleteObjects()
 {
 	std::vector<GameObject*> tmpObjs;
+	std::vector<Rigidbody*> tmpBodies;
 
 	for (int i = 0; i < objects.size(); i++)
 	{
 		//If not pending delete, add to temp list
 		if (!objects[i]->pendingDelete)
+		{
 			tmpObjs.push_back(objects[i]);
+
+			if (objects[i]->components->rigidbody != nullptr)
+			{
+				tmpBodies.push_back(objects[i]->components->rigidbody);
+			}
+		}
 
 		//Otherwise, call destructor: this will no longer exist
 		else delete objects[i];
@@ -69,4 +83,5 @@ void GameObjectList::CullPendingDeleteObjects()
 
 	//Then swap the underlying values
 	std::swap(this->objects, tmpObjs);
+	std::swap(this->bodies, tmpBodies);
 }

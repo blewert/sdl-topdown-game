@@ -45,7 +45,9 @@ protected:
 	Vector2 position = Vector2::zero;
 	ComponentList* components = nullptr;
 	Renderer* renderer = nullptr;
-
 	static uint64_t objId;
+
+	friend class Rigidbody;
+	friend class GameObjectList;
 };
 

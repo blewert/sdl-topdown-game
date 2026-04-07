@@ -5,13 +5,17 @@
 #include "Math.h"
 #include "TextureManager.h"
 #include "Time.h"
+#include "Rigidbody.h"
 
 DebugScene::DebugScene(SDL_Renderer* renderer) : Scene(renderer)
 {
 	SDL_Log("DebugScene ctor");
 
 	objects = new GameObjectList();
-	objects->Add(new DebugObject(this));
+	
+	GameObject* testObj = new DebugObject(this);
+	objects->Add(testObj);
+	objects->AddRigidbody(new Rigidbody(testObj));
 
 	for (int i = 0; i < 100; i++)
 	{

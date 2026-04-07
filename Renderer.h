@@ -13,6 +13,8 @@ public:
 	virtual void Render() = 0;
 	virtual void Update();
 
+	SDL_Rect GetBounds() { return bounds;  }
+
 protected:
 	SDL_Rect bounds;
 	SDL_Renderer* renderer;

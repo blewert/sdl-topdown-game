@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "GameObject.h"
+#include "Rigidbody.h"
 
 class GameObjectList
 {
@@ -9,6 +10,8 @@ public:
 	~GameObjectList();
 
 	void Add(GameObject* obj);
+	void AddRigidbody(Rigidbody* rb);
+
 	inline int Count() { return objects.size(); };
 
 public:
@@ -22,6 +25,7 @@ public:
 
 private:
 	std::vector<GameObject*> objects;
+	std::vector<Rigidbody*> bodies;
 
 	void CullPendingDeleteObjects();
 };

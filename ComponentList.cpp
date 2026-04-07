@@ -1,8 +1,13 @@
 #include "ComponentList.h"
 #include "Component.h"
+#include "Rigidbody.h"
 
 void ComponentList::Add(Component* component)
 {
+	//TODO: Make this nicer, casting is a bit grim
+	if (dynamic_cast<Rigidbody*>(component))
+		this->rigidbody = dynamic_cast<Rigidbody*>(component);
+
 	component->OnAttach();
 	components.push_back(component);
 }

@@ -14,6 +14,9 @@ Camera::Camera(Scene* parentScene, float pixelScale) : GameObject(parentScene)
 	//Set up instance variables
 	this->pixelScale = pixelScale;
 	this->SetPosition(Vector2(0, 0));
+
+	//Set scale
+	SDL_RenderSetScale(parentScene->GetRenderer(), pixelScale, pixelScale);
 }
 
 Camera::~Camera()
