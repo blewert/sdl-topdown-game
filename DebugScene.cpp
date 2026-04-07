@@ -6,6 +6,7 @@
 #include "TextureManager.h"
 #include "Time.h"
 #include "Rigidbody.h"
+#include "InputManager.h"
 
 DebugScene::DebugScene(SDL_Renderer* renderer) : Scene(renderer)
 {
@@ -14,15 +15,19 @@ DebugScene::DebugScene(SDL_Renderer* renderer) : Scene(renderer)
 	objects = new GameObjectList();
 	
 	GameObject* testObj = new DebugObject(this);
+	Rigidbody* rb = new Rigidbody(testObj);
 	objects->Add(testObj);
-	objects->AddRigidbody(new Rigidbody(testObj));
+	objects->AddRigidbody(rb);
 
-	for (int i = 0; i < 100; i++)
-	{
-		auto* obj = new DebugObject(this);
-		objects->Add(obj);
-		obj->SetPosition(Random::PositionInRect(0, 0, 800, 600));
-	}
+	rb->SetDragFactor(0.5f);
+	rb->SetVelocity(Vector2(-75, 0));
+
+	//for (int i = 0; i < 100; i++)
+	//{
+	//	auto* obj = new DebugObject(this);
+	//	objects->Add(obj);
+	//	obj->SetPosition(Random::PositionInRect(0, 0, 800, 600));
+	//}
 
 	camera = new Camera(this, 1.0f);
 }
@@ -50,11 +55,11 @@ void DebugScene::Update()
 
 	direction.x = roundf(direction.x);
 	direction.y = roundf(direction.y);
-	
-	SDL_Log("%s", direction.ToString().c_str());
 
-	Vector2 calcPos = camera->GetPosition() + direction * Time::deltaTime * 35;
-	camera->SetPosition(calcPos);
+
+
+	//Vector2 calcPos = camera->GetPosition() + direction * Time::deltaTime * 35;
+	//camera->SetPosition(calcPos);
 }
 
 void DebugScene::OnEnd()

@@ -27,6 +27,10 @@ struct KeyAxis2D
 	KeyAxis vertical;
 	
 	Vector2 value;
+	Vector2 GetValueInvertedY()
+	{
+		return Vector2(value.x, -value.y);
+	}
 
 	std::string name;
 

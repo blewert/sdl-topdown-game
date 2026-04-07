@@ -13,6 +13,7 @@ public:
 	void SetVelocity(const Vector2& velocity);
 	void SetStatic(const bool status);
 	void SetKinematic(const bool status);
+	void SetDragFactor(const float factor);
 
 	inline Vector2 GetVelocity() const;
 	inline bool IsStatic() const;

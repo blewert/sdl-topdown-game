@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Time.h"
 #include "Math.h"
+#include "InputManager.h"
 
 Rigidbody::Rigidbody(GameObject* parent) : Component(parent)
 {
@@ -21,11 +22,20 @@ void Rigidbody::Update()
 {
     if (!isStatic)
     {
+        Vector2 movement = InputManager::Instance().Find2DAxisByName("WASD")->GetValueInvertedY();
+        
+        if(movement != Vector2::zero)
+            velocity = movement * 50;
+
         Vector2 newPos = this->parent->GetPosition();
-        Vector2 dragForce = (-velocity.Normalized() * dragFactor);
 
         //Calculate new pos via euler integration
-        newPos += (velocity + dragForce) * Time::deltaTime;
+        newPos += velocity * Time::deltaTime;
+
+        //Apply drag
+        velocity *= (1 - dragFactor * Time::deltaTime);
+
+        SDL_Log("%s", velocity.ToString().c_str());
 
         //Set new pos
         this->parent->SetPosition(newPos);
@@ -45,6 +55,11 @@ void Rigidbody::SetStatic(const bool status)
 void Rigidbody::SetKinematic(const bool status)
 {
     this->isKinematic = status;
+}
+
+void Rigidbody::SetDragFactor(const float factor)
+{
+    dragFactor = factor;
 }
 
 inline Vector2 Rigidbody::GetVelocity() const
