@@ -19,6 +19,5 @@ public:
 	virtual void Render();
 
 	GameObjectList* objects;
-	Texture* tex;
 };
 
