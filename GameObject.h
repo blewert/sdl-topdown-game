@@ -3,6 +3,7 @@
 #include "Renderer.h"
 #include "ComponentList.h"
 
+class Camera;
 class Scene;
 
 class GameObject
@@ -38,10 +39,10 @@ public:
 	bool pendingDelete = false;
 	uint64_t id;
 
-protected:
 	Scene* parentScene;
-	Vector2 position = Vector2::zero;
 
+protected:
+	Vector2 position = Vector2::zero;
 	ComponentList* components = nullptr;
 	Renderer* renderer = nullptr;
 

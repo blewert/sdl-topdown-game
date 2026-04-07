@@ -31,7 +31,7 @@ DebugObject::DebugObject(Scene* parentScene) : GameObject(parentScene)
 	timer = Random::Range(90, 100);
 	components->Add(renderer);
 
-	initialPos = Random::PositionInRect(0, 0, 800, 600);
+	initialPos = Vector2(500, 400);
 	SetPosition(initialPos);
 }
 

@@ -14,6 +14,14 @@ Vector2::Vector2(const Vector2& rhs)
     this->y = rhs.y;
 }
 
+Vector2 Vector2::FromPolar(float angleDegrees, float distance)
+{
+    float x = sinf(angleDegrees * Math::degToRad) * distance;
+    float y = cosf(angleDegrees * Math::degToRad) * distance;
+
+    return Vector2(x, y);
+}
+
 Vector2 Vector2::operator+(const Vector2& rhs) const
 {
     return Vector2(x + rhs.x, y + rhs.y);

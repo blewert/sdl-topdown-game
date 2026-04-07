@@ -63,7 +63,7 @@ void Game::Update()
 			InputManager::Instance().Update(e);
 	}
 
-	SDL_Log("Ticks %d, Time %f, FPS %f\n", Time::deltaTicks, Time::deltaTime, Time::GetFPS());
+	//SDL_Log("Ticks %d, Time %f, FPS %f\n", Time::deltaTicks, Time::deltaTime, Time::GetFPS());
 
 	if (currentScene != nullptr)
 		currentScene->Update();

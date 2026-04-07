@@ -1,5 +1,8 @@
 #pragma once
 #include "SDL.h"
+#include "Camera.h"
+
+class Camera;
 
 class Scene
 {
@@ -14,7 +17,11 @@ public:
 	
 	SDL_Renderer* GetRenderer() { return renderer; }
 
+	Camera* GetCamera() { return camera; }
+	void SetCamera(Camera* camera) { this->camera = camera; }
+
 protected:
 	SDL_Renderer* renderer;
+	Camera* camera = nullptr;
 };
 

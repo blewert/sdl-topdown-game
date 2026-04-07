@@ -1,5 +1,6 @@
 #include "GameObject.h"
 #include "Scene.h"
+#include "Camera.h"
 
 uint64_t GameObject::objId = 0;
 

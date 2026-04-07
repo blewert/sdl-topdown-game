@@ -1,5 +1,6 @@
 #include "SpriteRenderer.h"
 #include "GameObject.h"
+#include "Scene.h"
 
 SpriteRenderer::SpriteRenderer(SDL_Renderer* renderer, GameObject* parent, SDL_Rect& bounds) : Renderer(renderer, parent, bounds)
 {
@@ -43,7 +44,10 @@ void SpriteRenderer::Render()
 	if (tex == nullptr)
 		return;
 
-	SDL_RenderCopy(renderer, tex->GetSDLTexture(), GetSourceRect(), &bounds);
+	Camera* camera = parent->parentScene->GetCamera();
+	SDL_Rect spriteBounds = camera->CalculateBounds(bounds);
+
+	SDL_RenderCopy(renderer, tex->GetSDLTexture(), GetSourceRect(), &spriteBounds);
 }
 
 void SpriteRenderer::Update()
