@@ -47,6 +47,12 @@ void SpriteRenderer::Render()
 	Camera* camera = parent->parentScene->GetCamera();
 	SDL_Rect spriteBounds = camera->CalculateBounds(bounds);
 
+	if (pivot == SpriteRendererPivot::Center)
+	{
+		spriteBounds.x -= spriteBounds.w / 2;
+		spriteBounds.y -= spriteBounds.h / 2;
+	}
+
 	SDL_RenderCopy(renderer, tex->GetSDLTexture(), GetSourceRect(), &spriteBounds);
 }
 

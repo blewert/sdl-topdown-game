@@ -7,6 +7,7 @@
 #include "Time.h"
 #include "Rigidbody.h"
 #include "InputManager.h"
+#include "ReticleObject.h"
 
 DebugScene::DebugScene(SDL_Renderer* renderer) : Scene(renderer)
 {
@@ -30,7 +31,10 @@ DebugScene::DebugScene(SDL_Renderer* renderer) : Scene(renderer)
 	objects->AddRigidbody(rb2);
 	testObj2->SetPosition(testObj->GetPosition() + Vector2::left * 150);
 
-	camera = new Camera(this, 1.0f);
+	ReticleObject* reticle = new ReticleObject(this);
+	objects->Add(reticle);
+
+	camera = new Camera(this, 1);
 }
 
 DebugScene::~DebugScene()
@@ -57,10 +61,8 @@ void DebugScene::Update()
 	direction.x = roundf(direction.x);
 	direction.y = roundf(direction.y);
 
-
-
-	//Vector2 calcPos = camera->GetPosition() + direction * Time::deltaTime * 35;
-	//camera->SetPosition(calcPos);
+	Vector2 calcPos = camera->GetPosition() + direction * Time::deltaTime * 35;
+	camera->SetPosition(calcPos);
 }
 
 void DebugScene::OnEnd()

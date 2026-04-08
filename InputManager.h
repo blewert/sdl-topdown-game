@@ -68,16 +68,24 @@ public:
 	static void Exit();
 	void Update(SDL_Event event);
 
+	void ProcessMouseMotionEvent(SDL_Event e);
+	void ProcessMouseButtonEvent(SDL_Event e);
 	void ProcessKeyEvent(SDL_Event e);
 	void RegisterBinding(Keybinding newBinding);
 	void RegisterAxis2D(KeyAxis2D newAxis);
 	void ClearBindings();
 	void ClearAxes();
+	void ShowCursor(bool status);
 
 	void DebugPrintBindingsState();
 
 	KeyAxis2D*  Find2DAxisByName(const std::string& name);
 	Keybinding* FindBindingByName(const std::string& name);
+
+	Vector2 GetMousePos();
+	Vector2 GetMouseDelta();
+	bool GetMouseDown();
+	bool GetMouseDownThisFrame();
 
 private:
 	static InputManager* instance;
@@ -87,5 +95,10 @@ private:
 
 	std::vector<Keybinding> bindings;
 	std::vector<KeyAxis2D> axes2D;
+
+	bool mouseDown;
+	bool wasMouseDown;
+	Vector2 mousePosition;
+	Vector2 mouseDelta;
 };
 

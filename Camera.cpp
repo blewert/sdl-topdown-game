@@ -29,3 +29,13 @@ SDL_Rect Camera::CalculateBounds(SDL_Rect& inputRect)
 	Vector2 pos = GetPosition();
 	return SDL_Rect{ inputRect.x - (int)pos.x, inputRect.y - (int)pos.y, inputRect.w, inputRect.h };
 }
+
+Vector2 Camera::WorldToScreenPos(Vector2& pos)
+{
+	return GetPosition() + pos / this->pixelScale;
+}
+
+Vector2 Camera::ScreenToWorldPos(Vector2& pos)
+{
+	return GetPosition() - pos / this->pixelScale;
+}

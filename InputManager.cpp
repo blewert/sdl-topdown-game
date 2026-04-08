@@ -28,6 +28,11 @@ InputManager::InputManager()
 
 	this->RegisterAxis2D(KeyAxis2D("WASD",   wasdHoriz, wasdVert));
 	this->RegisterAxis2D(KeyAxis2D("Arrows", uldrHoriz, uldrVert));
+
+	//Set up mouse data
+	mouseDown = wasMouseDown = true;
+	mousePosition = Vector2();
+	mouseDelta = Vector2();
 }
 
 InputManager::~InputManager()
@@ -92,6 +97,11 @@ void InputManager::ClearAxes()
 	this->axes2D.clear();
 }
 
+void InputManager::ShowCursor(bool status)
+{
+	SDL_ShowCursor(status);
+}
+
 void InputManager::ClearBindings()
 {
 	bindings.clear();
@@ -134,8 +144,54 @@ Keybinding* InputManager::FindBindingByName(const std::string& name)
 	return nullptr;
 }
 
+Vector2 InputManager::GetMousePos()
+{
+	return mousePosition;
+}
+
+Vector2 InputManager::GetMouseDelta()
+{
+	return mouseDelta;
+}
+
+bool InputManager::GetMouseDown()
+{
+	return mouseDown;
+}
+
+bool InputManager::GetMouseDownThisFrame()
+{
+	return (!wasMouseDown && mouseDown);
+}
+
 void InputManager::Update(SDL_Event event)
 {
 	if (event.type == SDL_KEYUP || event.type == SDL_KEYDOWN)
 		this->ProcessKeyEvent(event);
+
+	else if (event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_MOUSEBUTTONUP)
+		this->ProcessMouseButtonEvent(event);
+
+	else if (event.type == SDL_MOUSEMOTION)
+		this->ProcessMouseMotionEvent(event);
+
+	wasMouseDown = mouseDown;
+}
+
+void InputManager::ProcessMouseMotionEvent(SDL_Event e)
+{
+	mousePosition = Vector2(e.motion.x, e.motion.y);
+	mouseDelta = Vector2(e.motion.xrel, e.motion.yrel);
+
+	//SDL_Log("Pos %s, Delta %s", mousePosition.ToString().c_str(), mouseDelta.ToString().c_str());
+}
+
+void InputManager::ProcessMouseButtonEvent(SDL_Event e)
+{
+	//Not left mouse button? We don't care
+	if (e.button.button != SDL_BUTTON_LEFT)
+		return;
+
+	//Otherwise set mouse button state
+	mouseDown = (e.type == SDL_MOUSEBUTTONDOWN);
 }

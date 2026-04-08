@@ -29,12 +29,17 @@ Game::Game(int width, int height, bool fullScreen)
 	m_window = SDL_CreateWindow("Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, wndFlags);
 	m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED);
 
-	TextureManager::Instance().Add("test-tex", "test.png", m_renderer);
-	TextureManager::Instance().Add("test-anim", "test-anim.png", m_renderer);
+	InputManager& instance = InputManager::Instance();
+	instance.ShowCursor(false);
 
-	SceneManager::Instance().Initialise(this, m_renderer);
-	SceneManager::Instance().LoadScene(this, "debugScene");
+	TextureManager& texManager = TextureManager::Instance();
+	texManager.Add("test-tex", "test.png", m_renderer);
+	texManager.Add("test-anim", "test-anim.png", m_renderer);
+	texManager.Add("reticle", "reticle.png", m_renderer);
 
+	SceneManager& sceneManager = SceneManager::Instance();
+	sceneManager.Initialise(this, m_renderer);
+	sceneManager.LoadScene(this, "debugScene");
 }
 
 Game::~Game()
