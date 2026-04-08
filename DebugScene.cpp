@@ -24,6 +24,8 @@ DebugScene::DebugScene(SDL_Renderer* renderer) : Scene(renderer)
 
 	SpriteRenderer* sprRenderer = (SpriteRenderer*)testObj->GetRenderer();
 	sprRenderer->SetRenderMod(RenderMod().WithActivated(true).WithColor(0xff00ff));
+	sprRenderer->SetAngle(25);
+	sprRenderer->SetFlipped(1, 1);
 
 	rb->SetDragFactor(0.5f);
 	rb->SetVelocity(Vector2(-125, 0));

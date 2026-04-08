@@ -64,7 +64,9 @@ void SpriteRenderer::Render()
 
 	//Within SDL_render.c (ln ~3705), flip modes are used as
 	//flags, despite this being an enum type
-	uint32_t flipFlags = flipX | flipY;
+	uint32_t uflipFlags = flipX | (flipY << 1);
+	SDL_RendererFlip flipFlags = (SDL_RendererFlip)uflipFlags;
+
 
 	if (pivot == SpriteRendererPivot::Center)
 	{
@@ -101,7 +103,7 @@ void SpriteRenderer::Render()
 
 		//Reset renderer to screen, Render the masked sprite
 		SDL_SetRenderTarget(renderer, NULL);
-		SDL_RenderCopyEx(renderer, targetTex, GetSourceRect(), &spriteBounds, angleDegrees, NULL, (SDL_RendererFlip)flipFlags);	
+		SDL_RenderCopyEx(renderer, targetTex, GetSourceRect(), &spriteBounds, angleDegrees, NULL, flipFlags);	
 
 		//Reset blend mode & get rid of scratch texture
 		SDL_SetTextureBlendMode(spriteTex, SDL_BLENDMODE_BLEND);
@@ -127,23 +129,23 @@ void SpriteRenderer::Update()
 	this->bounds.h = config.frameH;
 }
 
-inline void SpriteRenderer::SetAngle(float angleDegrees)
+void SpriteRenderer::SetAngle(float angleDegrees)
 {
 	this->angleDegrees = angleDegrees;
 }
 
-inline void SpriteRenderer::SetFlipped(bool flipX, bool flipY)
+void SpriteRenderer::SetFlipped(bool flipX, bool flipY)
 {
 	SetFlipX(flipX);
 	SetFlipY(flipY);
 }
 
-inline void SpriteRenderer::SetFlipX(bool flipX)
+void SpriteRenderer::SetFlipX(bool flipX)
 {
 	this->flipX = flipX;
 }
 
-inline void SpriteRenderer::SetFlipY(bool flipY)
+void SpriteRenderer::SetFlipY(bool flipY)
 {
 	this->flipY = flipY;
 }

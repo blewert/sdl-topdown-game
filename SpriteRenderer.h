@@ -87,10 +87,14 @@ public:
 	void Render() override;
 	void Update() override;
 
-	inline void SetAngle(float angleDegrees);
-	inline void SetFlipped(bool flipX, bool flipY);
-	inline void SetFlipX(bool flipX);
-	inline void SetFlipY(bool flipY);
+	void SetAngle(float angleDegrees);
+	void SetFlipped(bool flipX, bool flipY);
+	void SetFlipX(bool flipX);
+	void SetFlipY(bool flipY);
+
+	float GetAngle() { return angleDegrees; }
+	float GetFlipX() { return flipX; }
+	float GetFlipY() { return flipY; }
 
 	void SetRenderMod(RenderMod renderMod);
 
