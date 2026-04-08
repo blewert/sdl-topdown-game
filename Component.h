@@ -15,5 +15,7 @@ public:
 
 	bool pendingDelete = false;
 	GameObject* parent;
+
+	bool enabled = true;
 };
 

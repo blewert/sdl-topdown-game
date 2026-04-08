@@ -13,6 +13,8 @@ public:
 	void OnStart() override final;
 	void Update() override final;
 
+	void SetVisible(bool status);
+
 private:
 	InputManager& GetInputManager();
 };

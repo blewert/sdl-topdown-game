@@ -25,6 +25,9 @@ void SpriteRenderer::SetTexture(Texture* tex)
 
 void SpriteRenderer::Render()
 {
+	if (!enabled)
+		return;
+
 	if (animated)
 	{
 		frameTimer += Time::deltaTime;
@@ -58,6 +61,9 @@ void SpriteRenderer::Render()
 
 void SpriteRenderer::Update()
 {
+	if (!enabled)
+		return;
+
 	Renderer::Update();
 
 	this->bounds.w = config.frameW;

@@ -17,10 +17,11 @@ ReticleObject::ReticleObject(Scene* scene) : GameObject(scene)
 
 	SpriteRenderer* spriteRenderer = (SpriteRenderer*)renderer;
 	SpriteAnimationParams params = SpriteAnimationParams().WithTexture(tex).WithRowCols(1, 1);
-
 	spriteRenderer->SetPivot(SpriteRendererPivot::Center);
 	spriteRenderer->SetAnimated(false, params);
 	spriteRenderer->SetTexture(tex);
+	
+	SetVisible(true);
 }
 
 ReticleObject::~ReticleObject()
@@ -41,6 +42,11 @@ void ReticleObject::Update()
 	Camera* camera = parentScene->GetCamera();
 
 	SetPosition(camera->WorldToScreenPos(mousePos));
+}
+
+void ReticleObject::SetVisible(bool status)
+{
+	renderer->enabled = status;
 }
 
 InputManager& ReticleObject::GetInputManager()
