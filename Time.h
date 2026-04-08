@@ -6,6 +6,7 @@ struct Time
 	static uint64_t lastTickTime;
 	static float deltaTime;
 	static uint64_t deltaTicks;
+	static double elapsedTime;
 
 	static inline void Initialise()
 	{
@@ -26,5 +27,7 @@ struct Time
 		Time::deltaTime = (delta) / (float)SDL_GetPerformanceFrequency();
 
 		Time::lastTickTime = now;
+
+		elapsedTime += Time::deltaTime;
 	}
 };
