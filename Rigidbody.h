@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 #include "Vector2.h"
+#include <map>
 
 class Rigidbody : public Component
 {
@@ -15,6 +16,10 @@ public:
 	void SetKinematic(const bool status);
 	void SetDragFactor(const float factor);
 
+	void HandleCollisionEvents(Rigidbody& other, bool colliding);
+
+	inline bool IsCollidingWith(Rigidbody& other);
+
 	inline Vector2 GetVelocity() const;
 	inline bool IsStatic() const;
 	inline bool IsKinematic() const;
@@ -26,5 +31,7 @@ private:
 	bool isStatic;
 	bool isKinematic;
 	float dragFactor;
+
+	std::map<uint64_t, int> collisionFrameMap;
 };
 

@@ -5,6 +5,7 @@
 #include "Scene.h"
 #include "SpriteRenderer.h"
 #include "TextureManager.h"
+#include "Rigidbody.h"
 
 DebugObject::DebugObject(Scene* parentScene) : GameObject(parentScene)
 {
@@ -58,4 +59,14 @@ void DebugObject::Update()
 	float y = sinf(angle * Math::degToRad) * d;
 
 	//SetPosition(initialPos + Vector2(x, y));
+}
+
+void DebugObject::OnCollisionEnter(Rigidbody& thisRb, Rigidbody& otherRb)
+{
+	SDL_Log("Start collision with %d and %d", thisRb.parent->id, otherRb.parent->id);
+}
+
+void DebugObject::OnCollisionExit(Rigidbody& thisRb, Rigidbody& otherRb)
+{
+	SDL_Log("Exit collision with %d and %d", thisRb.parent->id, otherRb.parent->id);
 }

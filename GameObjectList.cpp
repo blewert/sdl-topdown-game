@@ -43,6 +43,27 @@ void GameObjectList::Update()
 			needsCull = true;
 	}
 
+	//TODO: Spatial hashing here, this is 
+	//      a bit intensive
+	for (Rigidbody* a : bodies)
+	{
+		for (Rigidbody* b : bodies)
+		{
+			if (a == b)
+				continue;
+
+			if (Rigidbody::IsCollidingAABB(*a, *b))
+			{
+				//SDL_Log("Collision between %d and %d", a->parent->id, b->parent->id);
+				a->HandleCollisionEvents(*b, true);
+			}
+			else
+			{
+				a->HandleCollisionEvents(*b, false);
+			}
+		}
+	}
+
 	if(needsCull)
 		CullPendingDeleteObjects();
 }

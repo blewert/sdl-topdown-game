@@ -47,6 +47,10 @@ protected:
 	Renderer* renderer = nullptr;
 	static uint64_t objId;
 
+	virtual void OnCollisionEnter(Rigidbody& thisRb, Rigidbody& otherRb);
+	virtual void OnCollisionExit(Rigidbody& thisRb, Rigidbody& otherRb);
+	virtual void OnCollisionStay(Rigidbody& thisRb, Rigidbody& otherRb);
+
 	friend class Rigidbody;
 	friend class GameObjectList;
 };

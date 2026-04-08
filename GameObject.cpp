@@ -28,3 +28,15 @@ Vector2 GameObject::GetPosition()
 {
 	return position;
 }
+
+void GameObject::OnCollisionEnter(Rigidbody& thisRb, Rigidbody& otherRb)
+{
+}
+
+void GameObject::OnCollisionExit(Rigidbody& thisRb, Rigidbody& otherRb)
+{
+}
+
+void GameObject::OnCollisionStay(Rigidbody& thisRb, Rigidbody& otherRb)
+{
+}

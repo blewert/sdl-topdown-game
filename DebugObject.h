@@ -12,6 +12,9 @@ public:
 	void OnStart() override final;
 	void Update() override final;
 
+	void OnCollisionEnter(Rigidbody& thisRb, Rigidbody& otherRb) override;
+	void OnCollisionExit(Rigidbody& thisRb, Rigidbody& otherRb) override;
+
 private:
 	int timer;
 	float angle;
