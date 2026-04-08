@@ -8,7 +8,6 @@ void ComponentList::Add(Component* component)
 	if (dynamic_cast<Rigidbody*>(component))
 		this->rigidbody = dynamic_cast<Rigidbody*>(component);
 
-	component->OnAttach();
 	components.push_back(component);
 }
 

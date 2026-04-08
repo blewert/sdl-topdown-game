@@ -53,5 +53,6 @@ protected:
 
 	friend class Rigidbody;
 	friend class GameObjectList;
+	friend class Component;
 };
 

@@ -1,12 +1,13 @@
 #pragma once
 #include "Component.h"
 #include "Vector2.h"
+#include "BoxCollider.h"
 #include <map>
 
 class Rigidbody : public Component
 {
 public:
-	Rigidbody(GameObject* parent);
+	Rigidbody(GameObject* parent, BoxCollider* collider);
 	~Rigidbody() override;
 
 	virtual void Update() override;
@@ -31,6 +32,7 @@ private:
 	bool isStatic;
 	bool isKinematic;
 	float dragFactor;
+	BoxCollider* colliderRef;
 
 	std::map<uint64_t, int> collisionFrameMap;
 };

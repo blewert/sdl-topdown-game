@@ -30,7 +30,6 @@ DebugObject::DebugObject(Scene* parentScene) : GameObject(parentScene)
 	spriteRenderer->SetTexture(tex);
 
 	timer = Random::Range(90, 100);
-	components->Add(renderer);
 
 	initialPos = Vector2(500, 400);
 	SetPosition(initialPos);

@@ -4,7 +4,7 @@
 #include "Math.h"
 #include "InputManager.h"
 
-Rigidbody::Rigidbody(GameObject* parent) : Component(parent)
+Rigidbody::Rigidbody(GameObject* parent, BoxCollider* collider) : Component(parent), colliderRef(collider)
 {
     //Set defaults
     this->SetVelocity(Vector2(0, 0));
@@ -140,8 +140,5 @@ inline bool Rigidbody::IsKinematic() const
 
 bool Rigidbody::IsCollidingAABB(Rigidbody& a, Rigidbody& b)
 {
-    SDL_Rect aBounds = a.parent->renderer->GetBounds();
-    SDL_Rect bBounds = b.parent->renderer->GetBounds();
-
-    return Collision::AABB(aBounds, bBounds);
+    return a.colliderRef->CollidingWith(*b.colliderRef);
 }

@@ -15,7 +15,8 @@ DebugScene::DebugScene(SDL_Renderer* renderer) : Scene(renderer)
 	objects = new GameObjectList();
 	
 	GameObject* testObj = new DebugObject(this);
-	Rigidbody* rb = new Rigidbody(testObj);
+	BoxCollider* bc = new BoxCollider(testObj, SDL_Rect{ 0, 0, 32, 32 });
+	Rigidbody* rb = new Rigidbody(testObj, bc);
 	objects->Add(testObj);
 	objects->AddRigidbody(rb);
 
@@ -23,17 +24,11 @@ DebugScene::DebugScene(SDL_Renderer* renderer) : Scene(renderer)
 	rb->SetVelocity(Vector2(-125, 0));
 
 	GameObject* testObj2 = new DebugObject(this);
-	Rigidbody* rb2 = new Rigidbody(testObj2);
+	BoxCollider* bc2 = new BoxCollider(testObj2, SDL_Rect { 0, 0, 32, 32 });
+	Rigidbody* rb2 = new Rigidbody(testObj2, bc2);
 	objects->Add(testObj2);
 	objects->AddRigidbody(rb2);
 	testObj2->SetPosition(testObj->GetPosition() + Vector2::left * 150);
-
-	//for (int i = 0; i < 100; i++)
-	//{
-	//	auto* obj = new DebugObject(this);
-	//	objects->Add(obj);
-	//	obj->SetPosition(Random::PositionInRect(0, 0, 800, 600));
-	//}
 
 	camera = new Camera(this, 1.0f);
 }
