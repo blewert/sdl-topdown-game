@@ -1,5 +1,5 @@
 #include "InputManager.h"
-
+#include "Camera.h"
 
 InputManager* InputManager::instance = nullptr;
 
@@ -30,7 +30,7 @@ InputManager::InputManager()
 	this->RegisterAxis2D(KeyAxis2D("Arrows", uldrHoriz, uldrVert));
 
 	//Set up mouse data
-	mouseDown = wasMouseDown = true;
+	mouseDown = wasMouseDown = false;
 	mousePosition = Vector2();
 	mouseDelta = Vector2();
 }
@@ -144,6 +144,12 @@ Keybinding* InputManager::FindBindingByName(const std::string& name)
 	return nullptr;
 }
 
+Vector2 InputManager::GetMouseWorldPos(Camera* cam)
+{
+	Vector2 pos = this->GetMousePos();
+	return cam->ScreenToWorldPos(pos);
+}
+
 Vector2 InputManager::GetMousePos()
 {
 	return mousePosition;
@@ -164,8 +170,10 @@ bool InputManager::GetMouseDownThisFrame()
 	return (!wasMouseDown && mouseDown);
 }
 
-void InputManager::Update(SDL_Event event)
+void InputManager::ProcessEvent(SDL_Event event)
 {
+	SDL_Log("Pos %s, Delta %s", mousePosition.ToString().c_str(), mouseDelta.ToString().c_str());
+
 	if (event.type == SDL_KEYUP || event.type == SDL_KEYDOWN)
 		this->ProcessKeyEvent(event);
 
@@ -178,12 +186,15 @@ void InputManager::Update(SDL_Event event)
 	wasMouseDown = mouseDown;
 }
 
+void InputManager::Update()
+{
+	mouseDelta = Vector2(0, 0);
+}
+
 void InputManager::ProcessMouseMotionEvent(SDL_Event e)
 {
 	mousePosition = Vector2(e.motion.x, e.motion.y);
 	mouseDelta = Vector2(e.motion.xrel, e.motion.yrel);
-
-	//SDL_Log("Pos %s, Delta %s", mousePosition.ToString().c_str(), mouseDelta.ToString().c_str());
 }
 
 void InputManager::ProcessMouseButtonEvent(SDL_Event e)

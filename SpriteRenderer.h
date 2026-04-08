@@ -39,6 +39,33 @@ struct SpriteAnimationParams
 	}
 };
 
+struct RenderMod
+{
+	SDL_Color col;
+	bool activated;
+
+	RenderMod& WithColor(uint8_t r, uint8_t g, uint8_t b)
+	{
+		this->col = SDL_Color{ r, g, b };
+		return *this;
+	}
+
+	RenderMod& WithColor(uint32_t color)
+	{
+		uint8_t r = (color >> 16) & 0xff;
+		uint8_t g = (color >> 8)  & 0xff;
+		uint8_t b = (color >> 0)  & 0xff;
+
+		return WithColor(r, g, b);
+	}
+
+	RenderMod& WithActivated(bool status)
+	{
+		this->activated = status;
+		return *this;
+	}
+};
+
 enum class SpriteRendererPivot
 {
 	TopLeft,
@@ -60,11 +87,21 @@ public:
 	void Render() override;
 	void Update() override;
 
+	inline void SetAngle(float angleDegrees);
+	inline void SetFlipped(bool flipX, bool flipY);
+	inline void SetFlipX(bool flipX);
+	inline void SetFlipY(bool flipY);
+
+	void SetRenderMod(RenderMod renderMod);
+
 protected:
+	SDL_Texture* CreateBlankSDLTexFromExisting(SDL_Texture* tex);
 	void NextFrame();
 	SDL_Rect* GetSourceRect();
 
 protected:
+	RenderMod renderTexMod;
+
 	bool animated = false;
 	SpriteAnimationParams config;
 	Texture* tex;
@@ -73,8 +110,9 @@ protected:
 	int frameIdx = 0;
 
 	SpriteRendererPivot pivot = SpriteRendererPivot::TopLeft;
-
-	
+	bool flipX = false;
+	bool flipY = false;
+	float angleDegrees = 0.0f;
 
 	SDL_Rect srcRect;
 };

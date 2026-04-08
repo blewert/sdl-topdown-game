@@ -4,6 +4,8 @@
 #include <iostream>
 #include "Vector2.h"
 
+class Camera;
+
 struct KeyAxis
 {
 	SDL_KeyCode lowKey;
@@ -66,7 +68,8 @@ public:
 	}
 
 	static void Exit();
-	void Update(SDL_Event event);
+	void ProcessEvent(SDL_Event event);
+	void Update();
 
 	void ProcessMouseMotionEvent(SDL_Event e);
 	void ProcessMouseButtonEvent(SDL_Event e);
@@ -82,6 +85,7 @@ public:
 	KeyAxis2D*  Find2DAxisByName(const std::string& name);
 	Keybinding* FindBindingByName(const std::string& name);
 
+	Vector2 GetMouseWorldPos(Camera* cam);
 	Vector2 GetMousePos();
 	Vector2 GetMouseDelta();
 	bool GetMouseDown();

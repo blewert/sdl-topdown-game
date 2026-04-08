@@ -54,6 +54,7 @@ Game::~Game()
 void Game::Update()
 {
 	Time::Tick();
+	InputManager::Instance().Update();
 
 	SDL_Event e;
 	while (SDL_PollEvent(&e))
@@ -62,11 +63,28 @@ void Game::Update()
 			this->Exit();
 
 		else if (e.type == SDL_KEYDOWN || e.type == SDL_KEYUP)
-			InputManager::Instance().Update(e);
+			InputManager::Instance().ProcessEvent(e);
 
 		else if (e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEBUTTONUP || e.type == SDL_MOUSEMOTION)
-			InputManager::Instance().Update(e);
+			InputManager::Instance().ProcessEvent(e);
 	}
+
+	static float timer = 0;
+	timer += Time::deltaTime;
+
+	if (timer >= 0.125f)
+	{
+		timer = Time::deltaTime;
+		
+		int w, h;
+		char str[64];
+		SDL_GetWindowSize(m_window, &w, &h);
+		SDL_snprintf(str, 64, "Game [%d x %d], %.1f FPS. %.5f DT", w, h, Time::GetFPS(), Time::deltaTime);
+
+		SDL_SetWindowTitle(m_window, str);
+	}
+
+	//SDL_SetWindowTitle(m_window, "")
 
 	//SDL_Log("Ticks %d, Time %f, FPS %f\n", Time::deltaTicks, Time::deltaTime, Time::GetFPS());
 

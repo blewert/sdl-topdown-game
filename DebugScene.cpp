@@ -8,6 +8,7 @@
 #include "Rigidbody.h"
 #include "InputManager.h"
 #include "ReticleObject.h"
+#include "SpriteRenderer.h"
 
 DebugScene::DebugScene(SDL_Renderer* renderer) : Scene(renderer)
 {
@@ -20,6 +21,9 @@ DebugScene::DebugScene(SDL_Renderer* renderer) : Scene(renderer)
 	Rigidbody* rb = new Rigidbody(testObj, bc);
 	objects->Add(testObj);
 	objects->AddRigidbody(rb);
+
+	SpriteRenderer* sprRenderer = (SpriteRenderer*)testObj->GetRenderer();
+	sprRenderer->SetRenderMod(RenderMod().WithActivated(true).WithColor(0xff00ff));
 
 	rb->SetDragFactor(0.5f);
 	rb->SetVelocity(Vector2(-125, 0));
@@ -61,8 +65,17 @@ void DebugScene::Update()
 	direction.x = roundf(direction.x);
 	direction.y = roundf(direction.y);
 
-	Vector2 calcPos = camera->GetPosition() + direction * Time::deltaTime * 35;
-	camera->SetPosition(calcPos);
+	//Vector2 calcPos = camera->GetPosition() + direction * Time::deltaTime * 35;
+
+	InputManager& inputManager = InputManager::Instance();
+
+	if (inputManager.GetMouseDown())
+	{
+		Vector2 calcPos = camera->GetPosition();
+		calcPos += inputManager.GetMouseDelta() * Time::deltaTime * 250;
+		camera->SetPosition(calcPos);
+		SDL_Log("%s", inputManager.GetMouseDelta().ToString().c_str());
+	}	
 }
 
 void DebugScene::OnEnd()

@@ -34,6 +34,7 @@ public:
 			this->renderer->Render();
 	};
 
+	Renderer* GetRenderer() { return renderer;  }
 	void Destroy() { pendingDelete = true; }
 
 	bool pendingDelete = false;

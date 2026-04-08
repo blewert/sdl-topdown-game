@@ -4,6 +4,7 @@
 
 SpriteRenderer::SpriteRenderer(SDL_Renderer* renderer, GameObject* parent, SDL_Rect& bounds) : Renderer(renderer, parent, bounds)
 {
+	renderTexMod = RenderMod().WithColor(0).WithActivated(false);
 	tex = nullptr;
 	config = SpriteAnimationParams();
 	frameTimer = 0;
@@ -21,6 +22,17 @@ void SpriteRenderer::SetAnimated(bool animated, SpriteAnimationParams& params)
 void SpriteRenderer::SetTexture(Texture* tex)
 {
 	this->tex = tex;
+}
+
+SDL_Texture* SpriteRenderer::CreateBlankSDLTexFromExisting(SDL_Texture* tex)
+{
+	int w, h;
+	unsigned int format;
+
+	SDL_Texture* sdlTex = tex;
+	SDL_QueryTexture(sdlTex, &format, NULL, &w, &h);
+
+	return SDL_CreateTexture(renderer, format, SDL_TEXTUREACCESS_TARGET, w, h);
 }
 
 void SpriteRenderer::Render()
@@ -50,13 +62,58 @@ void SpriteRenderer::Render()
 	Camera* camera = parent->parentScene->GetCamera();
 	SDL_Rect spriteBounds = camera->CalculateBounds(bounds);
 
+	//Within SDL_render.c (ln ~3705), flip modes are used as
+	//flags, despite this being an enum type
+	uint32_t flipFlags = flipX | flipY;
+
 	if (pivot == SpriteRendererPivot::Center)
 	{
 		spriteBounds.x -= spriteBounds.w / 2;
 		spriteBounds.y -= spriteBounds.h / 2;
 	}
 
-	SDL_RenderCopy(renderer, tex->GetSDLTexture(), GetSourceRect(), &spriteBounds);
+	if (renderTexMod.activated)
+	{
+		//Create target texture from this
+		SDL_Texture* spriteTex = tex->GetSDLTexture();
+		SDL_Texture* targetTex = CreateBlankSDLTexFromExisting(spriteTex);
+		SDL_Color col = renderTexMod.col;
+
+		//Draw red
+		SDL_SetRenderTarget(renderer, targetTex);
+		SDL_SetRenderDrawColor(renderer, col.r, col.g, col.b, 0);
+		SDL_RenderClear(renderer);
+
+		//This blend function masks such that the sprite alpha is used
+		//but the colour of targetTex is used.
+		SDL_BlendMode blendMode = SDL_ComposeCustomBlendMode(
+			SDL_BLENDFACTOR_DST_COLOR,
+			SDL_BLENDFACTOR_SRC_COLOR,
+			SDL_BLENDOPERATION_ADD,
+			SDL_BLENDFACTOR_ZERO,
+			SDL_BLENDFACTOR_SRC_ALPHA,
+			SDL_BLENDOPERATION_ADD
+		);
+
+		//Copy existing tex using this blend func
+		SDL_SetTextureBlendMode(spriteTex, blendMode);
+		SDL_RenderCopy(renderer, spriteTex, NULL, NULL);
+
+		//Reset renderer to screen, Render the masked sprite
+		SDL_SetRenderTarget(renderer, NULL);
+		SDL_RenderCopyEx(renderer, targetTex, GetSourceRect(), &spriteBounds, angleDegrees, NULL, (SDL_RendererFlip)flipFlags);	
+
+		//Reset blend mode & get rid of scratch texture
+		SDL_SetTextureBlendMode(spriteTex, SDL_BLENDMODE_BLEND);
+		SDL_DestroyTexture(targetTex);
+	}
+	else
+	{
+		//Otherwise, just render normally. Note there is no need to check angle or
+		//flip and whether to call RenderCopy instead, as this is what RenderCopyEx
+		//does under the hood anyways.
+		SDL_RenderCopyEx(renderer, tex->GetSDLTexture(), GetSourceRect(), &spriteBounds, angleDegrees, NULL, (SDL_RendererFlip)flipFlags);
+	}
 }
 
 void SpriteRenderer::Update()
@@ -68,6 +125,32 @@ void SpriteRenderer::Update()
 
 	this->bounds.w = config.frameW;
 	this->bounds.h = config.frameH;
+}
+
+inline void SpriteRenderer::SetAngle(float angleDegrees)
+{
+	this->angleDegrees = angleDegrees;
+}
+
+inline void SpriteRenderer::SetFlipped(bool flipX, bool flipY)
+{
+	SetFlipX(flipX);
+	SetFlipY(flipY);
+}
+
+inline void SpriteRenderer::SetFlipX(bool flipX)
+{
+	this->flipX = flipX;
+}
+
+inline void SpriteRenderer::SetFlipY(bool flipY)
+{
+	this->flipY = flipY;
+}
+
+void SpriteRenderer::SetRenderMod(RenderMod renderMod)
+{
+	this->renderTexMod = renderMod;
 }
 
 void SpriteRenderer::NextFrame()
