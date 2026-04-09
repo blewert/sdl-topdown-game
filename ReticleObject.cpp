@@ -45,7 +45,6 @@ void ReticleObject::Update()
 	Camera* camera = parentScene->GetCamera();
 
 	SetPosition(camera->ScreenToWorldPos(mousePos));
-	SDL_Log("mousePos %s .. reticlePos %s", camera->GetPosition().ToString().c_str(), GetPosition().ToString().c_str());
 }
 
 void ReticleObject::SetVisible(bool status)

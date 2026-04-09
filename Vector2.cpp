@@ -28,14 +28,21 @@ float Vector2::Distance(const Vector2& a, const Vector2& b)
     return (b - a).Magnitude();
 }
 
-Vector2 Vector2::MoveTowards(const Vector2& from, const Vector2& to, float maxDelta)
+//Taken from https://github.com/Unity-Technologies/UnityCsReference/blob/master/Runtime/Export/Math/Vector2.cs
+Vector2 Vector2::MoveTowards(const Vector2& from, const Vector2& to, float maxDistDelta)
 {
-    maxDelta *= Time::deltaTime;
+    Vector2 toVec = to - from;
+    float sqDist = toVec.x * toVec.x + toVec.y * toVec.y;
 
-    float xLerped = Math::MoveTowards(from.x, to.y, maxDelta);
-    float yLerped = Math::MoveTowards(from.x, to.y, maxDelta);
+    if (sqDist == 0 || (maxDistDelta >= 0 && sqDist <= maxDistDelta * maxDistDelta))
+        return to;
 
-    return Vector2(xLerped, yLerped);
+    float dist = SDL_sqrtf(sqDist);
+
+    float xComp = from.x + toVec.x / dist * maxDistDelta;
+    float yComp = from.y + toVec.y / dist * maxDistDelta;
+
+    return Vector2(xComp, yComp);
 }
 
 Vector2 Vector2::operator+(const Vector2& rhs) const
