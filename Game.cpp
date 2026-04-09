@@ -36,6 +36,7 @@ Game::Game(int width, int height, bool fullScreen)
 	texManager.Add("test-tex", "test.png", m_renderer);
 	texManager.Add("test-anim", "test-anim.png", m_renderer);
 	texManager.Add("reticle", "reticle.png", m_renderer);
+	texManager.Add("player", "tank.png", m_renderer);
 
 	SceneManager& sceneManager = SceneManager::Instance();
 	sceneManager.Initialise(this, m_renderer);
@@ -98,6 +99,7 @@ void Game::Render()
 	SDL_RenderClear(m_renderer);
 
 	currentScene->Render();
+	currentScene->PostRender();
 
 	SDL_RenderPresent(m_renderer);
 }

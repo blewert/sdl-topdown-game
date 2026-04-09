@@ -5,6 +5,8 @@
 Component::Component(GameObject* parent) : parent(parent)
 {
 	//Attach to component list
-	parent->components->Add(this);
+	if(parent->components != nullptr)
+		parent->components->Add(this);
+
 	this->OnAttach();
 }

@@ -9,7 +9,7 @@
 #include "InputManager.h"
 #include "ReticleObject.h"
 #include "SpriteRenderer.h"
-
+#include "PlayerObject.h"
 
 GameScene::GameScene(SDL_Renderer* renderer) : Scene(renderer), inputManager(InputManager::Instance())
 {
@@ -17,6 +17,10 @@ GameScene::GameScene(SDL_Renderer* renderer) : Scene(renderer), inputManager(Inp
 
 	objects = new GameObjectList();
 
+	player = new PlayerObject(this);
+	objects->Add(player);
+
+	//Create reticle
 	this->reticle = new ReticleObject(this);
 	objects->Add(reticle);
 
@@ -41,6 +45,11 @@ void GameScene::Update()
 void GameScene::Render()
 {
 	objects->Render(renderer);
+}
+
+void GameScene::PostRender()
+{
+	objects->PostRender(renderer);
 }
 
 void GameScene::OnEnd()

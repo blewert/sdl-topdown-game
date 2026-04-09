@@ -147,7 +147,7 @@ Keybinding* InputManager::FindBindingByName(const std::string& name)
 Vector2 InputManager::GetMouseWorldPos(Camera* cam)
 {
 	Vector2 pos = this->GetMousePos();
-	return cam->ScreenToWorldPos(pos);
+	return cam->WorldToScreenPos(pos);
 }
 
 Vector2 InputManager::GetMousePos()
@@ -172,8 +172,6 @@ bool InputManager::GetMouseDownThisFrame()
 
 void InputManager::ProcessEvent(SDL_Event event)
 {
-	SDL_Log("Pos %s, Delta %s", mousePosition.ToString().c_str(), mouseDelta.ToString().c_str());
-
 	if (event.type == SDL_KEYUP || event.type == SDL_KEYDOWN)
 		this->ProcessKeyEvent(event);
 

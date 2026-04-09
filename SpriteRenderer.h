@@ -10,6 +10,16 @@ struct SpriteAnimationParams
 	int rows;
 	int columns;
 	int fps;
+	bool useOffset;
+	int offset;
+
+	SpriteAnimationParams& WithOffset(bool useOffset, int frameOffset)
+	{
+		this->useOffset = useOffset;
+		this->offset = frameOffset;
+
+		return *this;
+	}
 
 	SpriteAnimationParams& WithTexture(Texture* tex)
 	{
@@ -18,8 +28,8 @@ struct SpriteAnimationParams
 
 	SpriteAnimationParams& WithDimensions(SDL_Point dimensions)
 	{
-		this->frameH = dimensions.x;
-		this->frameW = dimensions.y;
+		this->frameW = dimensions.x;
+		this->frameH = dimensions.y;
 
 		return *this;
 	}
@@ -92,6 +102,8 @@ public:
 	void SetFlipX(bool flipX);
 	void SetFlipY(bool flipY);
 
+	void SetCustomRotatePivot(bool usePivot, SDL_Point pivot);
+
 	float GetAngle() { return angleDegrees; }
 	float GetFlipX() { return flipX; }
 	float GetFlipY() { return flipY; }
@@ -105,6 +117,9 @@ protected:
 
 protected:
 	RenderMod renderTexMod;
+
+	bool useCustomRotatePivot = false;
+	SDL_Point customRotatePivot;
 
 	bool animated = false;
 	SpriteAnimationParams config;

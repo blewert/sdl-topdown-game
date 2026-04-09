@@ -128,6 +128,12 @@ void GameObjectList::Render(SDL_Renderer* renderer)
 		obj->Render(renderer);
 }
 
+void GameObjectList::PostRender(SDL_Renderer* renderer)
+{
+	for (GameObject* obj : objects)
+		obj->PostRender(renderer);
+}
+
 void GameObjectList::CullPendingDeleteObjects()
 {
 	std::vector<GameObject*> tmpObjs;

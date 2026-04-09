@@ -34,6 +34,12 @@ public:
 			this->renderer->Render();
 	};
 
+	virtual void PostRender(SDL_Renderer* renderer)
+	{
+		if (this->renderer != nullptr)
+			this->renderer->PostRender();
+	}
+
 	Renderer* GetRenderer() { return renderer;  }
 	void Destroy() { pendingDelete = true; }
 

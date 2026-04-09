@@ -27,6 +27,7 @@ public:
 	//TODO: Implement IRenderable interface to make render method access
 	//      a little easier
 	void Render(SDL_Renderer* renderer);
+	void PostRender(SDL_Renderer* renderer);
 
 private:
 	std::vector<GameObject*> objects;

@@ -67,6 +67,7 @@ void SpriteRenderer::Render()
 	uint32_t uflipFlags = flipX | (flipY << 1);
 	SDL_RendererFlip flipFlags = (SDL_RendererFlip)uflipFlags;
 
+	SDL_Point* pivotRct = (useCustomRotatePivot) ? &customRotatePivot : NULL;
 
 	if (pivot == SpriteRendererPivot::Center)
 	{
@@ -103,7 +104,7 @@ void SpriteRenderer::Render()
 
 		//Reset renderer to screen, Render the masked sprite
 		SDL_SetRenderTarget(renderer, NULL);
-		SDL_RenderCopyEx(renderer, targetTex, GetSourceRect(), &spriteBounds, angleDegrees, NULL, flipFlags);	
+		SDL_RenderCopyEx(renderer, targetTex, GetSourceRect(), &spriteBounds, angleDegrees, pivotRct, flipFlags);	
 
 		//Reset blend mode & get rid of scratch texture
 		SDL_SetTextureBlendMode(spriteTex, SDL_BLENDMODE_BLEND);
@@ -114,7 +115,7 @@ void SpriteRenderer::Render()
 		//Otherwise, just render normally. Note there is no need to check angle or
 		//flip and whether to call RenderCopy instead, as this is what RenderCopyEx
 		//does under the hood anyways.
-		SDL_RenderCopyEx(renderer, tex->GetSDLTexture(), GetSourceRect(), &spriteBounds, angleDegrees, NULL, (SDL_RendererFlip)flipFlags);
+		SDL_RenderCopyEx(renderer, tex->GetSDLTexture(), GetSourceRect(), &spriteBounds, angleDegrees, pivotRct, (SDL_RendererFlip)flipFlags);
 	}
 }
 
@@ -178,5 +179,26 @@ void SpriteRenderer::NextFrame()
 
 SDL_Rect* SpriteRenderer::GetSourceRect()
 {
-	return (this->animated) ? &srcRect : NULL;
+	if (!this->animated && !this->config.useOffset)
+		return NULL;
+
+	else if (this->config.useOffset)
+	{
+		int w = this->config.frameW;
+		int h = this->config.frameH;
+
+		int x = this->config.offset % this->config.columns;
+		int y = this->config.offset / this->config.columns;
+
+		SDL_Rect rct{ x * w, y * h, w, h };
+		srcRect = rct;
+	}
+
+	return &srcRect;
+}
+
+void SpriteRenderer::SetCustomRotatePivot(bool usePivot, SDL_Point pivot)
+{
+	this->useCustomRotatePivot = usePivot;
+	this->customRotatePivot = pivot;
 }

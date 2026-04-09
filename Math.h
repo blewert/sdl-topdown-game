@@ -20,6 +20,21 @@ namespace Math
 		float max = fmaxf(0.000001f * maxLR, epsilon * 8);
 		return fabsf(rhs - lhs) <= max;
 	}
+
+	template <typename T>
+	static inline int Sign(T x)
+	{
+		return (T(0) < x) - (x < T(0));
+	}
+
+	//Stolen from Unity's Mathf library
+	static float MoveTowards(float current, float target, float maxDelta)
+	{
+		if (fabsf(target - current) <= maxDelta)
+			return target;
+
+		return current + Sign(target - current) * maxDelta;
+	}
 }
 
 namespace Collision

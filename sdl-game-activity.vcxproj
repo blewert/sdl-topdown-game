@@ -140,6 +140,8 @@
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MultipassRenderer.cpp" />
+    <ClCompile Include="PlayerObject.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ReticleObject.cpp" />
     <ClCompile Include="Rigidbody.cpp" />
@@ -168,6 +170,8 @@
     <ClInclude Include="GameObjectList.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="MultipassRenderer.h" />
+    <ClInclude Include="PlayerObject.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ReticleObject.h" />
     <ClInclude Include="Rigidbody.h" />
