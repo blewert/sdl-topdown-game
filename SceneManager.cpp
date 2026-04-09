@@ -1,6 +1,7 @@
 #include "SceneManager.h"
 #include "Game.h"
 #include "DebugScene.h"
+#include "GameScene.h"
 
 SceneManager* SceneManager::instance = nullptr;
 
@@ -46,4 +47,5 @@ void SceneManager::LoadScene(Game* game, const std::string& sceneKey)
 void SceneManager::Initialise(Game* game, SDL_Renderer* renderer)
 {
 	AddScene("debugScene", new DebugScene(renderer));
+	AddScene("gameScene", new GameScene(renderer));
 }

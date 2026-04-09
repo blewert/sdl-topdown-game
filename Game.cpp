@@ -39,7 +39,7 @@ Game::Game(int width, int height, bool fullScreen)
 
 	SceneManager& sceneManager = SceneManager::Instance();
 	sceneManager.Initialise(this, m_renderer);
-	sceneManager.LoadScene(this, "debugScene");
+	sceneManager.LoadScene(this, "gameScene");
 }
 
 Game::~Game()

@@ -40,7 +40,7 @@ DebugScene::DebugScene(SDL_Renderer* renderer) : Scene(renderer)
 	ReticleObject* reticle = new ReticleObject(this);
 	objects->Add(reticle);
 
-	camera = new Camera(this, 1);
+	camera = new Camera(this, 1.5f);
 }
 
 DebugScene::~DebugScene()
