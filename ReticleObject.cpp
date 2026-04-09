@@ -10,6 +10,9 @@ ReticleObject::ReticleObject(Scene* scene) : GameObject(scene)
 {
 	components = new ComponentList();
 
+	SetName("reticle");
+	SetTag("reticle");
+
 	SDL_Rect rct = SDL_Rect{ 0, 0, 32, 32 };
 	renderer = new SpriteRenderer(parentScene->GetRenderer(), this, rct);
 
@@ -41,7 +44,8 @@ void ReticleObject::Update()
 	Vector2 mousePos = GetInputManager().GetMousePos();
 	Camera* camera = parentScene->GetCamera();
 
-	SetPosition(camera->WorldToScreenPos(mousePos));
+	SetPosition(camera->ScreenToWorldPos(mousePos));
+	SDL_Log("mousePos %s .. reticlePos %s", camera->GetPosition().ToString().c_str(), GetPosition().ToString().c_str());
 }
 
 void ReticleObject::SetVisible(bool status)

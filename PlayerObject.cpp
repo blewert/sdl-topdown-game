@@ -12,7 +12,7 @@ PlayerObject::PlayerObject(Scene* parentScene)
 	this->SetName("player");
 	this->SetTag("player");
 
-	this->SetPosition(Vector2(150, 150));
+	this->SetPosition(Vector2(0, 0));
 
 	this->SetupRenderers();
 }
@@ -29,7 +29,7 @@ PlayerObject::~PlayerObject()
 
 void PlayerObject::OnStart()
 {
-	
+
 }
 
 void PlayerObject::Update()
@@ -46,6 +46,8 @@ void PlayerObject::Update()
 	turretRenderer->SetAngle(angle);
 
 	Vector2 movementVec = inputManager.Find2DAxisByName("WASD")->value;
+
+	baseRenderer->DrawLine(GetPosition(), GetPosition() + Vector2::right * 100);
 
 	if (movementVec == Vector2::zero)
 		return;
@@ -64,6 +66,7 @@ void PlayerObject::Update()
 	baseRenderer->DrawLine(pos, pos + tankMoveVec.Normalized() * 250, 0xff00ffff);
 	baseRenderer->DrawLine(pos, pos + tankFwdVec.Normalized() * 250, 0x00ff00ff);
 
+	
 	
 
 	//SDL_SetRenderDrawColor(parentScene->GetRenderer(), 255, 0, 0);
@@ -90,7 +93,7 @@ void PlayerObject::SetupRenderers()
 	turretRenderer->SetAnimated(false, animParamsTurret);
 	turretRenderer->SetTexture(playerTex);
 	turretRenderer->SetPivot(SpriteRendererPivot::Center);
-	turretRenderer->SetCustomRotatePivot(true, { 16, 18 });
+	turretRenderer->SetCustomRotatePivot(true, { 16, 20 });
 
 	this->renderer = new MultipassRenderer(this, { baseRenderer, turretRenderer });
 }

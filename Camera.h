@@ -8,10 +8,16 @@ public:
 	~Camera();
 
 	SDL_Rect CalculateBounds(SDL_Rect& inputRect);
-	Vector2 WorldToScreenPos(Vector2& pos);
-	Vector2 ScreenToWorldPos(Vector2& pos);
+	Vector2 WorldToScreenPos(const Vector2& pos);
+	Vector2 ScreenToWorldPos(const Vector2& pos);
+
+	virtual void SetPosition(const Vector2& newPosition) override;
+	Vector2 LookAtPos(const Vector2& position);
 
 private:
 	float pixelScale;
+	int windowW, windowH;
+
+	Vector2 GetCameraCentreOffsetWorld();
 };
 

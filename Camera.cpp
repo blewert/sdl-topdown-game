@@ -17,6 +17,9 @@ Camera::Camera(Scene* parentScene, float pixelScale) : GameObject(parentScene)
 
 	//Set scale
 	SDL_RenderSetScale(parentScene->GetRenderer(), pixelScale, pixelScale);
+
+	SDL_Window* window = SDL_RenderGetWindow(parentScene->GetRenderer());
+	SDL_GetWindowSize(window, &windowW, &windowH);
 }
 
 Camera::~Camera()
@@ -26,16 +29,47 @@ Camera::~Camera()
 
 SDL_Rect Camera::CalculateBounds(SDL_Rect& inputRect)
 {
-	Vector2 pos = GetPosition();
-	return SDL_Rect{ inputRect.x - (int)pos.x, inputRect.y - (int)pos.y, inputRect.w, inputRect.h };
+	Vector2 pos = WorldToScreenPos(GetPosition());
+	Vector2 convInput = WorldToScreenPos(Vector2(inputRect.x, inputRect.y));
+
+	return SDL_Rect{ int(convInput.x - pos.x), int(convInput.y - pos.y), inputRect.w, inputRect.h };
 }
 
-Vector2 Camera::WorldToScreenPos(Vector2& pos)
+Vector2 Camera::WorldToScreenPos(const Vector2& pos)
 {
-	return GetPosition() + pos / this->pixelScale;
+	SDL_Renderer* renderer = parentScene->GetRenderer();
+	Vector2 logicalPos = pos - GetPosition();
+
+	int screenX, screenY;
+	SDL_RenderLogicalToWindow(renderer, logicalPos.x, logicalPos.y, &screenX, &screenY);
+
+	return Vector2(screenX, screenY);
 }
 
-Vector2 Camera::ScreenToWorldPos(Vector2& pos)
+Vector2 Camera::ScreenToWorldPos(const Vector2& pos)
 {
-	return GetPosition() - pos / this->pixelScale;
+	SDL_Renderer* renderer = parentScene->GetRenderer();
+
+	float logicalX, logicalY;
+	SDL_RenderWindowToLogical(renderer, pos.x, pos.y, &logicalX, &logicalY);
+
+	return Vector2(logicalX, logicalY) + GetPosition();
+}
+
+void Camera::SetPosition(const Vector2& newPosition)
+{
+	this->position = newPosition;
+}
+
+Vector2 Camera::LookAtPos(const Vector2& position)
+{
+	return Vector2(position) - GetCameraCentreOffsetWorld();
+}
+
+Vector2 Camera::GetCameraCentreOffsetWorld()
+{
+	float w, h;
+	SDL_RenderWindowToLogical(parentScene->GetRenderer(), windowW / 2, windowH / 2, &w, &h);
+
+	return Vector2(w, h) / pixelScale;
 }

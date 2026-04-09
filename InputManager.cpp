@@ -147,7 +147,7 @@ Keybinding* InputManager::FindBindingByName(const std::string& name)
 Vector2 InputManager::GetMouseWorldPos(Camera* cam)
 {
 	Vector2 pos = this->GetMousePos();
-	return cam->WorldToScreenPos(pos);
+	return cam->ScreenToWorldPos(pos);
 }
 
 Vector2 InputManager::GetMousePos()

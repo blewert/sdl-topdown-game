@@ -40,6 +40,14 @@ void GameScene::OnStart()
 void GameScene::Update()
 {
 	objects->Update();
+
+	Vector2 camPos = camera->GetPosition();
+	Vector2 playerPos = camera->LookAtPos(player->GetPosition());
+	float camMoveSpeed = 100;
+
+	camera->SetPosition(Vector2::MoveTowards(camPos, playerPos, 10000));
+
+	//SDL_Log("%s", camera->GetPosition().ToString().c_str());
 }
 
 void GameScene::Render()

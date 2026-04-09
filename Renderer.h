@@ -40,17 +40,7 @@ public:
 
 	virtual void Render() = 0;
 	
-	virtual void PostRender()
-	{
-		for (auto& line : debugLines)
-		{
-			SDL_Color color = line.GetColor();
-			SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-			SDL_RenderDrawLine(renderer, line.start.x, line.start.y, line.end.x, line.end.y);
-		}
-
-		debugLines.clear();
-	}
+	virtual void PostRender();	
 
 	virtual void Update();
 

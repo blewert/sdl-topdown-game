@@ -1,5 +1,6 @@
 #include "Vector2.h"
 #include "Math.h"
+#include "Time.h"
 #include <memory>
 
 Vector2 Vector2::zero = Vector2(0, 0);
@@ -20,6 +21,21 @@ Vector2 Vector2::FromPolar(float angleDegrees, float distance)
     float y = SDL_sinf(angleDegrees * Math::degToRad) * distance;
 
     return Vector2(x, y);
+}
+
+float Vector2::Distance(const Vector2& a, const Vector2& b)
+{
+    return (b - a).Magnitude();
+}
+
+Vector2 Vector2::MoveTowards(const Vector2& from, const Vector2& to, float maxDelta)
+{
+    maxDelta *= Time::deltaTime;
+
+    float xLerped = Math::MoveTowards(from.x, to.y, maxDelta);
+    float yLerped = Math::MoveTowards(from.x, to.y, maxDelta);
+
+    return Vector2(xLerped, yLerped);
 }
 
 Vector2 Vector2::operator+(const Vector2& rhs) const

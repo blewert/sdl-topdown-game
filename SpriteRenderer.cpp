@@ -116,6 +116,13 @@ void SpriteRenderer::Render()
 		//flip and whether to call RenderCopy instead, as this is what RenderCopyEx
 		//does under the hood anyways.
 		SDL_RenderCopyEx(renderer, tex->GetSDLTexture(), GetSourceRect(), &spriteBounds, angleDegrees, pivotRct, (SDL_RendererFlip)flipFlags);
+
+
+		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+		SDL_RenderDrawRect(renderer, &spriteBounds);
+
+		SDL_Rect rct = { spriteBounds.x - 2, spriteBounds.y - 2, 4, 4 };
+		SDL_RenderFillRect(renderer, &rct);
 	}
 }
 

@@ -20,10 +20,11 @@ public:
 	virtual void OnEnd() override;
 	virtual void Exit() override;
 
+
 protected:
 	InputManager& inputManager;
-
 	GameObjectList* objects;
+
 	ReticleObject* reticle;
 	PlayerObject* player;
 };

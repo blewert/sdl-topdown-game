@@ -19,6 +19,8 @@ public:
 	}
 
 	static Vector2 FromPolar(float angleDegrees, float distance);
+	static float Distance(const Vector2& a, const Vector2& b);
+	static Vector2 MoveTowards(const Vector2& from, const Vector2& to, float maxDelta);
 
 	Vector2 operator+(const Vector2& rhs) const;
 	Vector2 operator-(const Vector2& rhs) const;

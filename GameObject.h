@@ -12,7 +12,7 @@ public:
 	GameObject(Scene* parentScene);
 	~GameObject();
 
-	void SetPosition(const Vector2& newPosition);
+	virtual void SetPosition(const Vector2& newPosition);
 	Vector2 GetPosition();
 
 	virtual void OnStart() {};
