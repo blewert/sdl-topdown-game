@@ -25,6 +25,54 @@ void GameObjectList::AddRigidbody(Rigidbody* rb)
 	bodies.push_back(rb);
 }
 
+GameObject* GameObjectList::FindFirstObjectByName(const std::string& name)
+{
+	for (GameObject* obj : this->objects)
+	{
+		if (obj->name == name)
+			return obj;
+	}
+
+	return nullptr;
+}
+
+GameObject* GameObjectList::FindFirstObjectByTag(const std::string& tag)
+{
+	for (GameObject* obj : this->objects)
+	{
+		if (obj->tag == tag)
+			return obj;
+	}
+
+	return nullptr;
+}
+
+std::vector<GameObject*> GameObjectList::FindAllObjectsByName(const std::string& name)
+{
+	std::vector<GameObject*> objs;
+
+	for (GameObject* obj : this->objects)
+	{
+		if (obj->name == name)
+			objs.push_back(obj);
+	}
+
+	return objs;
+}
+
+std::vector<GameObject*> GameObjectList::FindAllObjectsByTag(const std::string& tag)
+{
+	std::vector<GameObject*> objs;
+
+	for (GameObject* obj : this->objects)
+	{
+		if (obj->tag == tag)
+			objs.push_back(obj);
+	}
+
+	return objs;
+}
+
 void GameObjectList::OnStart()
 {
 	for (GameObject* obj : objects)

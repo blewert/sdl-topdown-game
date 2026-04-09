@@ -8,6 +8,10 @@ GameObject::GameObject(Scene* parentScene)
 {
 	this->parentScene = parentScene;
 	this->id = objId++;
+
+	//Give default name and tag
+	this->name = "obj-" + std::to_string(this->id);
+	this->tag = "default";
 }
 
 GameObject::~GameObject()

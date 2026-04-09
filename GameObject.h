@@ -42,11 +42,17 @@ public:
 
 	Scene* parentScene;
 
+	void SetName(const std::string& name) { this->name = name; }
+	void SetTag(const std::string& tag) { this->tag = tag; }
+
 protected:
 	Vector2 position = Vector2::zero;
 	ComponentList* components = nullptr;
 	Renderer* renderer = nullptr;
 	static uint64_t objId;
+
+	std::string name;
+	std::string tag;
 
 	virtual void OnCollisionEnter(Rigidbody& thisRb, Rigidbody& otherRb);
 	virtual void OnCollisionExit(Rigidbody& thisRb, Rigidbody& otherRb);

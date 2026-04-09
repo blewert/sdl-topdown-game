@@ -12,6 +12,11 @@ public:
 	void Add(GameObject* obj);
 	void AddRigidbody(Rigidbody* rb);
 
+	GameObject* FindFirstObjectByName(const std::string& name);
+	GameObject* FindFirstObjectByTag(const std::string& tag);
+	std::vector<GameObject*> FindAllObjectsByName(const std::string& name);
+	std::vector<GameObject*> FindAllObjectsByTag(const std::string& tag);
+
 	inline int Count() { return objects.size(); };
 
 public:
