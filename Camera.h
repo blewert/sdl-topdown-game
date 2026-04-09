@@ -7,7 +7,9 @@ public:
 	Camera(Scene* parentScene, float pixelScale);
 	~Camera();
 
-	SDL_Rect CalculateBounds(SDL_Rect& inputRect);
+	virtual void Update() override;
+
+	SDL_FRect CalculateBounds(SDL_Rect& inputRect);
 	Vector2 WorldToScreenPos(const Vector2& pos);
 	Vector2 ScreenToWorldPos(const Vector2& pos);
 

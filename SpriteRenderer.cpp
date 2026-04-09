@@ -60,7 +60,7 @@ void SpriteRenderer::Render()
 		return;
 
 	Camera* camera = parent->parentScene->GetCamera();
-	SDL_Rect spriteBounds = camera->CalculateBounds(bounds);
+	SDL_FRect spriteBounds = camera->CalculateBounds(bounds);
 
 	//Within SDL_render.c (ln ~3705), flip modes are used as
 	//flags, despite this being an enum type
@@ -104,7 +104,7 @@ void SpriteRenderer::Render()
 
 		//Reset renderer to screen, Render the masked sprite
 		SDL_SetRenderTarget(renderer, NULL);
-		SDL_RenderCopyEx(renderer, targetTex, GetSourceRect(), &spriteBounds, angleDegrees, pivotRct, flipFlags);	
+		SDL_RenderCopyExF(renderer, targetTex, GetSourceRect(), &spriteBounds, angleDegrees, NULL, flipFlags);	
 
 		//Reset blend mode & get rid of scratch texture
 		SDL_SetTextureBlendMode(spriteTex, SDL_BLENDMODE_BLEND);
@@ -115,14 +115,14 @@ void SpriteRenderer::Render()
 		//Otherwise, just render normally. Note there is no need to check angle or
 		//flip and whether to call RenderCopy instead, as this is what RenderCopyEx
 		//does under the hood anyways.
-		SDL_RenderCopyEx(renderer, tex->GetSDLTexture(), GetSourceRect(), &spriteBounds, angleDegrees, pivotRct, (SDL_RendererFlip)flipFlags);
+		SDL_RenderCopyExF(renderer, tex->GetSDLTexture(), GetSourceRect(), &spriteBounds, angleDegrees, NULL, (SDL_RendererFlip)flipFlags);
 
 
-		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-		SDL_RenderDrawRect(renderer, &spriteBounds);
+		//SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+		//SDL_RenderDrawRect(renderer, &spriteBounds);
 
-		SDL_Rect rct = { spriteBounds.x - 2, spriteBounds.y - 2, 4, 4 };
-		SDL_RenderFillRect(renderer, &rct);
+		//SDL_Rect rct = { spriteBounds.x - 2, spriteBounds.y - 2, 4, 4 };
+		//SDL_RenderFillRect(renderer, &rct);
 	}
 }
 

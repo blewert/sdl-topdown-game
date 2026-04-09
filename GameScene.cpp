@@ -24,7 +24,7 @@ GameScene::GameScene(SDL_Renderer* renderer) : Scene(renderer), inputManager(Inp
 	this->reticle = new ReticleObject(this);
 	objects->Add(reticle);
 
-	camera = new Camera(this, 1.5f);
+	camera = new Camera(this, 1);
 }
 
 GameScene::~GameScene()
@@ -39,13 +39,17 @@ void GameScene::OnStart()
 
 void GameScene::Update()
 {
-	objects->Update();
 
 	Vector2 camPos = camera->GetPosition();
 	Vector2 playerPos = camera->LookAtPos(player->GetPosition());
 	float camMoveSpeed = 100;
 
-	camera->SetPosition(Vector2::MoveTowards(camPos, playerPos, 50 * Time::deltaTime));
+	camera->SetPosition(Vector2::MoveTowards(camPos, playerPos, 100 * Time::deltaTime));
+	//camera->SetPosition(Vector2(-20, -20));
+	//camera->SetPosition(Vector2::left * SDL_sinf(Time::elapsedTime) * 100);
+	//camera->SetPosition(player->GetPosition() - Vector2::right * 50 - Vector2::up * 50);
+	//camera->SetPosition(playerPos);
+	objects->Update();
 
 	//SDL_Log("%s", camera->GetPosition().ToString().c_str());
 }

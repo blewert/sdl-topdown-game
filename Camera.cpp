@@ -27,12 +27,17 @@ Camera::~Camera()
 	
 }
 
-SDL_Rect Camera::CalculateBounds(SDL_Rect& inputRect)
+void Camera::Update()
+{
+	SDL_Log("Camera update");
+}
+
+SDL_FRect Camera::CalculateBounds(SDL_Rect& inputRect)
 {
 	Vector2 pos = WorldToScreenPos(GetPosition());
 	Vector2 convInput = WorldToScreenPos(Vector2(inputRect.x, inputRect.y));
 
-	return SDL_Rect{ int(convInput.x - pos.x), int(convInput.y - pos.y), inputRect.w, inputRect.h };
+	return SDL_FRect{ convInput.x - pos.x, convInput.y - pos.y, (float)inputRect.w, (float)inputRect.h };
 }
 
 Vector2 Camera::WorldToScreenPos(const Vector2& pos)
@@ -58,6 +63,7 @@ Vector2 Camera::ScreenToWorldPos(const Vector2& pos)
 
 void Camera::SetPosition(const Vector2& newPosition)
 {
+	SDL_Log("Camera set position");
 	this->position = newPosition;
 }
 
