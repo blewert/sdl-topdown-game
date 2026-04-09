@@ -45,7 +45,7 @@ void PlayerObject::Update()
 
 	turretRenderer->SetAngle(angle);
 
-	Vector2 movementVec = inputManager.Find2DAxisByName("WASD")->GetValueInvertedY();
+	Vector2 movementVec = inputManager.Find2DAxisByName("WASD")->value;
 
 	if (movementVec == Vector2::zero)
 		return;
@@ -55,12 +55,16 @@ void PlayerObject::Update()
 	float ang2 = Math::MoveTowards(baseRenderer->GetAngle(), targetAng, 155 * Time::deltaTime);
 	baseRenderer->SetAngle(ang2);
 
-	Vector2 tankMoveVec = Vector2::FromPolar(ang2, 1.0f);
-	SetPosition(GetPosition() + tankMoveVec * Time::deltaTime * 50);
+	Vector2 tankFwdVec = Vector2::FromPolar(turretRenderer->GetAngle() + 90, 1.0f);
+	Vector2 tankMoveVec = Vector2::FromPolar(ang2 + 90, 1.0f);
+	SetPosition(GetPosition() + tankMoveVec * movementVec.y * Time::deltaTime * 50);
 
 	Vector2 pos = GetPosition();
 
-	baseRenderer->DrawLine(pos, pos + tankMoveVec.Normalized() * 250);
+	baseRenderer->DrawLine(pos, pos + tankMoveVec.Normalized() * 250, 0xff00ffff);
+	baseRenderer->DrawLine(pos, pos + tankFwdVec.Normalized() * 250, 0x00ff00ff);
+
+	
 
 	//SDL_SetRenderDrawColor(parentScene->GetRenderer(), 255, 0, 0);
 	//SDL_RenderDrawLine(parentScene->GetRenderer(), pos.x, pos.y, pos.x + tankMoveVec.x, pos.y + tankMoveVec.y);

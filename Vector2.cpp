@@ -16,8 +16,8 @@ Vector2::Vector2(const Vector2& rhs)
 
 Vector2 Vector2::FromPolar(float angleDegrees, float distance)
 {
-    float x = sinf(angleDegrees * Math::degToRad) * distance;
-    float y = cosf(angleDegrees * Math::degToRad) * distance;
+    float x = SDL_cosf(angleDegrees * Math::degToRad) * distance;
+    float y = SDL_sinf(angleDegrees * Math::degToRad) * distance;
 
     return Vector2(x, y);
 }
