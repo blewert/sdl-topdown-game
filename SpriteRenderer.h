@@ -86,7 +86,7 @@ class SpriteRenderer : public Renderer
 {
 public:
 
-	SpriteRenderer(SDL_Renderer* renderer, GameObject* parent, SDL_Rect& bounds);
+	SpriteRenderer(SDL_Renderer* renderer, GameObject* parent, SDL_FRect& bounds);
 
 	//Setters
 	void SetAnimated(bool animated, SpriteAnimationParams& params);

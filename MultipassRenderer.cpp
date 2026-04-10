@@ -1,7 +1,7 @@
 #include "MultipassRenderer.h"
 
 MultipassRenderer::MultipassRenderer(GameObject* parentObj, const std::vector<Renderer*> renderers) 
-	: Renderer(nullptr, parentObj, SDL_Rect{ 0, 0, 0, 0 })
+	: Renderer(nullptr, parentObj, SDL_FRect{ 0, 0, 0, 0 })
 {
 	this->renderers = renderers;
 }

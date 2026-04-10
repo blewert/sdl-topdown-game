@@ -16,7 +16,7 @@ SDL_FRect BoxCollider::GetWorldBoundsF()
 SDL_Rect BoxCollider::GetWorldBounds()
 {
 	Vector2 pos = parent->GetPosition();
-	return SDL_Rect{ (int)pos.x + localBounds.x, (int)pos.y + localBounds.y, localBounds.w, localBounds.h };
+	return SDL_Rect{ int(pos.x + localBounds.x), int(pos.y + localBounds.y), (int)localBounds.w, (int)localBounds.h };
 }
 
 bool BoxCollider::CollidingWith(BoxCollider& other)

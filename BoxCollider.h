@@ -8,7 +8,7 @@ class BoxCollider : public Component
 public:
 	virtual void Update() override;
 
-	BoxCollider(GameObject* parent, SDL_Rect localBounds) : Component(parent), localBounds(localBounds)
+	BoxCollider(GameObject* parent, SDL_FRect localBounds) : Component(parent), localBounds(localBounds)
 	{
 	}
 
@@ -17,6 +17,6 @@ public:
 	bool CollidingWith(BoxCollider& other);
 
 private:
-	SDL_Rect localBounds;
+	SDL_FRect localBounds;
 };
 

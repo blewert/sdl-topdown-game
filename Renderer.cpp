@@ -3,7 +3,7 @@
 #include "GameObject.h"
 #include "Scene.h"
 
-Renderer::Renderer(SDL_Renderer* renderer, GameObject* parent, SDL_Rect bounds)
+Renderer::Renderer(SDL_Renderer* renderer, GameObject* parent, SDL_FRect bounds)
 	: Component(parent), bounds(bounds), renderer(renderer)
 {
 }

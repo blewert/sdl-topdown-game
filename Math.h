@@ -43,6 +43,11 @@ namespace Collision
 	{
 		return (a.x < b.x + b.w) && (a.x + a.w > b.x) && (a.y < b.y + b.h) && (a.y + a.h > b.y);
 	}
+
+	static inline bool AABB(SDL_FRect& a, SDL_FRect& b)
+	{
+		return (a.x < b.x + b.w) && (a.x + a.w > b.x) && (a.y < b.y + b.h) && (a.y + a.h > b.y);
+	}
 }
 
 namespace Random

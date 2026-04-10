@@ -35,7 +35,7 @@ struct DebugLine
 class Renderer : public Component
 {
 public:
-	Renderer(SDL_Renderer* renderer, GameObject* parent, SDL_Rect bounds);
+	Renderer(SDL_Renderer* renderer, GameObject* parent, SDL_FRect bounds);
 	virtual ~Renderer();
 
 	virtual void Render() = 0;
@@ -44,7 +44,7 @@ public:
 
 	virtual void Update();
 
-	SDL_Rect GetBounds() { return bounds;  }
+	SDL_FRect GetBounds() { return bounds;  }
 
 	void DrawLine(const Vector2& a, const Vector2& b, uint32_t color = 0xffffffff)
 	{
@@ -53,7 +53,7 @@ public:
 	}
 
 protected:
-	SDL_Rect bounds;
+	SDL_FRect bounds;
 	SDL_Renderer* renderer;
 	std::vector<DebugLine> debugLines;
 };

@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "Scene.h"
 
-SpriteRenderer::SpriteRenderer(SDL_Renderer* renderer, GameObject* parent, SDL_Rect& bounds) : Renderer(renderer, parent, bounds)
+SpriteRenderer::SpriteRenderer(SDL_Renderer* renderer, GameObject* parent, SDL_FRect& bounds) : Renderer(renderer, parent, bounds)
 {
 	renderTexMod = RenderMod().WithColor(0).WithActivated(false);
 	tex = nullptr;
@@ -104,7 +104,7 @@ void SpriteRenderer::Render()
 
 		//Reset renderer to screen, Render the masked sprite
 		SDL_SetRenderTarget(renderer, NULL);
-		SDL_RenderCopyExF(renderer, targetTex, GetSourceRect(), &spriteBounds, angleDegrees, NULL, flipFlags);	
+		SDL_RenderCopyExF(renderer, targetTex, GetSourceRect(), &spriteBounds, angleDegrees, NULL, flipFlags);
 
 		//Reset blend mode & get rid of scratch texture
 		SDL_SetTextureBlendMode(spriteTex, SDL_BLENDMODE_BLEND);

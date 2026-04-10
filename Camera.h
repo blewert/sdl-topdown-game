@@ -9,7 +9,7 @@ public:
 
 	virtual void Update() override;
 
-	SDL_FRect CalculateBounds(SDL_Rect& inputRect);
+	SDL_FRect CalculateBounds(SDL_FRect& inputRect);
 	Vector2 WorldToScreenPos(const Vector2& pos);
 	Vector2 ScreenToWorldPos(const Vector2& pos);
 

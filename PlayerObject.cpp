@@ -77,7 +77,7 @@ void PlayerObject::SetupRenderers()
 {
 	this->playerTex = texManager["player"];
 
-	SDL_Rect rct = SDL_Rect{ 0, 0, 32, 48 };
+	SDL_FRect rct = SDL_FRect{ 0, 0, 32, 48 };
 
 	this->baseRenderer = new SpriteRenderer(parentScene->GetRenderer(), this, rct);
 	this->turretRenderer = new SpriteRenderer(parentScene->GetRenderer(), this, rct);

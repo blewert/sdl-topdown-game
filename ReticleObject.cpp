@@ -13,7 +13,7 @@ ReticleObject::ReticleObject(Scene* scene) : GameObject(scene)
 	SetName("reticle");
 	SetTag("reticle");
 
-	SDL_Rect rct = SDL_Rect{ 0, 0, 32, 32 };
+	SDL_FRect rct = SDL_FRect{ 0, 0, 32, 32 };
 	renderer = new SpriteRenderer(parentScene->GetRenderer(), this, rct);
 
 	Texture* tex = TextureManager::Instance()["reticle"];

@@ -46,7 +46,7 @@ public:
 	friend void swap(Vector2& a, Vector2& b) noexcept;
 
 	SDL_FPoint ToFPoint();
-	SDL_Rect ToRenderRect(int width, int height);
+	SDL_FRect ToRenderRect(int width, int height);
 
 	static Vector2 zero;
 	static Vector2 up;

@@ -168,9 +168,9 @@ SDL_FPoint Vector2::ToFPoint()
     return SDL_FPoint{ x = this->x, y = this->y };
 }
 
-SDL_Rect Vector2::ToRenderRect(int width, int height)
+SDL_FRect Vector2::ToRenderRect(int width, int height)
 {
-    return SDL_Rect{ (int)x, (int)y, width, height };
+    return SDL_FRect{ x, y, (float)width, (float)height };
 }
 
 

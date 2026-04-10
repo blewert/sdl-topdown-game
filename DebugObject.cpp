@@ -13,7 +13,7 @@ DebugObject::DebugObject(Scene* parentScene) : GameObject(parentScene)
 	
 	//renderer = new DebugRenderer(parentScene->GetRenderer(), this);
 
-	SDL_Rect rct = SDL_Rect{ 0, 0, 32, 32 };
+	SDL_FRect rct = SDL_FRect{ 0, 0, 32, 32 };
 	renderer = new SpriteRenderer(parentScene->GetRenderer(), this, rct);
 
 	SpriteAnimationParams animParams;

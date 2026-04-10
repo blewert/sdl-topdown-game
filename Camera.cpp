@@ -32,7 +32,7 @@ void Camera::Update()
 	SDL_Log("Camera update");
 }
 
-SDL_FRect Camera::CalculateBounds(SDL_Rect& inputRect)
+SDL_FRect Camera::CalculateBounds(SDL_FRect& inputRect)
 {
 	Vector2 pos = WorldToScreenPos(GetPosition());
 	Vector2 convInput = WorldToScreenPos(Vector2(inputRect.x, inputRect.y));
