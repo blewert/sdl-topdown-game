@@ -12,6 +12,7 @@ public:
 	{
 	}
 
+	SDL_FRect GetWorldBoundsF();
 	SDL_Rect GetWorldBounds();
 	bool CollidingWith(BoxCollider& other);
 

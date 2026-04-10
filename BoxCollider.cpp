@@ -7,6 +7,12 @@ void BoxCollider::Update()
 {
 }
 
+SDL_FRect BoxCollider::GetWorldBoundsF()
+{
+	Vector2 pos = parent->GetPosition();
+	return SDL_FRect{ pos.x + localBounds.x, pos.y + localBounds.y, (float)localBounds.w, (float)localBounds.h };
+}
+
 SDL_Rect BoxCollider::GetWorldBounds()
 {
 	Vector2 pos = parent->GetPosition();
