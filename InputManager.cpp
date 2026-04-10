@@ -1,5 +1,6 @@
 #include "InputManager.h"
 #include "Camera.h"
+#include "Scene.h"
 
 InputManager* InputManager::instance = nullptr;
 
@@ -148,6 +149,21 @@ Vector2 InputManager::GetMouseWorldPos(Camera* cam)
 {
 	Vector2 pos = this->GetMousePos();
 	return cam->ScreenToWorldPos(pos);
+}
+
+Vector2 InputManager::GetMouseNormScreenPos(Camera* cam)
+{
+	SDL_Renderer* renderer = cam->parentScene->GetRenderer();
+
+	int windowW, windowH;
+	SDL_Window* window = SDL_RenderGetWindow(renderer);
+	SDL_GetWindowSize(window, &windowW, &windowH);
+
+	float w, h;
+	SDL_RenderWindowToLogical(renderer, windowW, windowH, &w, &h);
+
+	Vector2 mousePos = GetMousePos();
+	return Vector2(mousePos.x / w, mousePos.y / h);
 }
 
 Vector2 InputManager::GetMousePos()
