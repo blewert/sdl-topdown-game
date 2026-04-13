@@ -86,7 +86,7 @@ public:
 	Keybinding* FindBindingByName(const std::string& name);
 
 	Vector2 GetMouseWorldPos(Camera* cam);
-	Vector2 GetMouseNormScreenPos(Camera* cam);
+	Vector2 GetMouseNormScreenPos(Camera* cam, bool centre=false);
 	Vector2 GetMousePos();
 	Vector2 GetMouseDelta();
 	bool GetLeftMouseDown();

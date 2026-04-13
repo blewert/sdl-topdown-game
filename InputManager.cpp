@@ -151,7 +151,7 @@ Vector2 InputManager::GetMouseWorldPos(Camera* cam)
 	return cam->ScreenToWorldPos(pos);
 }
 
-Vector2 InputManager::GetMouseNormScreenPos(Camera* cam)
+Vector2 InputManager::GetMouseNormScreenPos(Camera* cam, bool centre)
 {
 	SDL_Renderer* renderer = cam->parentScene->GetRenderer();
 
@@ -163,7 +163,11 @@ Vector2 InputManager::GetMouseNormScreenPos(Camera* cam)
 	SDL_RenderWindowToLogical(renderer, windowW, windowH, &w, &h);
 
 	Vector2 mousePos = GetMousePos();
-	return Vector2(mousePos.x / w, mousePos.y / h);
+
+	if (centre)
+		return Vector2(mousePos.x / w, mousePos.y / h) * 2.0f - Vector2(1, 1);
+	else
+		return Vector2(mousePos.x / w, mousePos.y / h);
 }
 
 Vector2 InputManager::GetMousePos()

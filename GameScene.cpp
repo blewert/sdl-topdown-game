@@ -26,7 +26,7 @@ GameScene::GameScene(SDL_Renderer* renderer) : Scene(renderer), inputManager(Inp
 	this->reticle = new ReticleObject(this);
 	objects->Add(reticle);
 
-	camera = new Camera(this, 1.5f);
+	camera = new Camera(this, 2.0f);
 }
 
 GameScene::~GameScene()
@@ -55,14 +55,14 @@ void GameScene::Update()
 		BulletManager::FireBullet(Vector2(25, 25), Vector2(1, 0));
 	}
 
-	Vector2 mousePos = inputManager.GetMouseNormScreenPos(GetCamera());
+	Vector2 mousePos = inputManager.GetMouseNormScreenPos(GetCamera(), true);
 	//playerPos = player->GetPosition();
 	//Vector2 diff = playerPos - mousePos;
 
 	//float angle = atan2(diff.y, diff.x) * Math::radToDeg;
 	//angle += 90;
 
-	Vector2 camOffsetPos = playerPos + mousePos * 50.0f;
+	Vector2 camOffsetPos = playerPos + mousePos * 25.0f;
 	camera->SetPosition(camOffsetPos);
 
 	//camera->SetPosition(playerPos);
