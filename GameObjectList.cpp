@@ -21,7 +21,8 @@ void GameObjectList::Add(GameObject* obj)
 
 void GameObjectList::AddRigidbody(Rigidbody* rb)
 {
-	rb->parent->components->Add(rb);
+	rb->parent->components->rigidbody = rb;
+	//rb->parent->components->Add(rb);
 	bodies.push_back(rb);
 }
 

@@ -2,12 +2,25 @@
 #include "Scene.h"
 #include "ObjectPool.h"
 #include "Bullet.h"
+#include <vector>
+#include <memory>
 
 class BulletManager
 {
 public:
-	BulletManager(Scene* parentScene, int capacity);
-	~BulletManager();
+	BulletManager(Scene* parentScene, int capacity)
+	{
+		bulletPool = new ObjectPool<Bullet>(1000);
+		activeBullets = new std::vector<Bullet*>();
+
+		this->parentScene = parentScene;
+	}
+
+	~BulletManager()
+	{
+		delete bulletPool;
+		delete activeBullets;
+	}
 
 	static void Initialise(Scene* parentScene, int capacity)
 	{
@@ -17,14 +30,44 @@ public:
 		instance = new BulletManager(parentScene, capacity);
 	}
 
+	static void Update()
+	{
+		//bool bulletsNeedCull = false;
+
+		////for(instance->bulletPool.)
+
+		for (int i = 0; i < instance->activeBullets->size(); i++)
+		{
+			Bullet* obj = (*instance->activeBullets)[i];
+			obj->Update();
+		}
+
+		//if (!bulletsNeedCull)
+		//	return;
+
+		//std::vector<PoolSlot<Bullet>*> tmpBullets;
+
+		//for (PoolSlot<Bullet>* bulletSlot : *instance->activeBullets)
+		//{
+		//	if (!bulletSlot->GetObj()->IsAlive())
+		//		tmpBullets.push_back(bulletSlot);
+		//}
+
+		//SDL_Log("Releasing, there were %d bullets but now only %d", instance->activeBullets->size(), tmpBullets.size());
+		//
+		//std::swap(tmpBullets, *instance->activeBullets);
+	}
+
 	static void FireBullet(const Vector2& position, const Vector2& direction)
 	{
 		if (instance == nullptr)
 			return;
 
+		//Acquire a bullet, add to active list
 		PoolSlot<Bullet>* bullet = instance->bulletPool->Acquire(position, direction, instance->parentScene);
+		instance->activeBullets->push_back(bullet->GetObj());
 
-		SDL_Log("Bullet %d", bullet->GetObj());
+		SDL_Log("Add bullet, amount = %x", instance->activeBullets->size());
 	}
 
 	static void Exit()
@@ -45,5 +88,6 @@ public:
 private:
 	ObjectPool<Bullet>* bulletPool;
 	Scene* parentScene;
+	std::vector<Bullet*>* activeBullets;
 };
 

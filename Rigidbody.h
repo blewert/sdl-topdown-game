@@ -7,7 +7,6 @@
 class Rigidbody : public Component
 {
 public:
-	Rigidbody() { };
 	Rigidbody(GameObject* parent, BoxCollider& collider);
 	~Rigidbody() override;
 

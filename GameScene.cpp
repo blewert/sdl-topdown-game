@@ -68,7 +68,8 @@ void GameScene::Update()
 	//camera->SetPosition(playerPos);
 	objects->Update();
 
-	//SDL_Log("%s", camera->GetPosition().ToString().c_str());
+	//SDL_Log("%s", camera->GetPosition().ToString().c_str())
+	BulletManager::Update();
 }
 
 void GameScene::Render()

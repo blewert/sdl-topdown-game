@@ -14,6 +14,11 @@ public:
 	{
 	}
 
+	~BoxCollider()
+	{
+		SDL_Log("dtor box collider");
+	}
+
 	SDL_FRect GetWorldBoundsF();
 	SDL_Rect GetWorldBounds();
 	bool CollidingWith(BoxCollider& other);

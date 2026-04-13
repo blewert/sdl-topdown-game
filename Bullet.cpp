@@ -10,18 +10,24 @@ Bullet::Bullet(const Vector2& initialPos, const Vector2& initialVelocity, Scene*
 	this->SetName("bullet");
 	this->SetTag("bullet");
 
-	bc = BoxCollider(this, { 0, 0, 8, 8 });
-	rb = Rigidbody(this, bc);	
+	bc.emplace(this, SDL_FRect { 0, 0, 8, 8 });
+	rb.emplace(this, bc.value());	
 
-	parentScene->GetObjects()->AddRigidbody(&rb);
+	parentScene->GetObjects()->AddRigidbody(&rb.value());
 
 	this->SetPosition(initialPos);
-	this->rb.SetVelocity(initialVelocity);
+	this->rb.value().SetVelocity(initialVelocity);
 
 	SDL_Log("Bullet ctor, ID %d", id);
 }
 
 Bullet::~Bullet()
 {
-	delete components;
+	if(components != nullptr)
+		delete components;
+}
+
+void Bullet::Update()
+{
+	components->Update();
 }

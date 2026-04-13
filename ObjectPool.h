@@ -1,22 +1,25 @@
 #pragma once
 #include <vector>
 #include "GameObject.h"
+#include <optional>
 
 template<typename T>
 class ObjectPool;
 
 template <typename T>
-union PoolSlot
+struct PoolSlot
 {
-protected:
-	void* obj[sizeof(T)];
+public:
 	PoolSlot<T>* next;
+	std::optional<T> obj;
+
+	PoolSlot<T>() : obj(std::nullopt) {}
 
 public:
 
 	T* GetObj()
 	{
-		return (T*)obj;
+		return &obj.value();
 	}
 
 	void Reset(ObjectPool<T>& parent)
@@ -82,7 +85,7 @@ public:
 		PoolSlot<T>* slot = firstAvailable;
 		firstAvailable = slot->next;
 
-		new (slot->obj) T(newVal);
+		slot->obj.emplace(newVal);
 		
 		return slot;
 	}
@@ -100,7 +103,7 @@ public:
 		
 		SDL_Log("Changed next available is %x", firstAvailable);
 
-		new (slot->obj) T(std::forward<Args>(args)...);
+		slot->obj.emplace(std::forward<Args>(args)...);
 
 		return slot;
 	}
