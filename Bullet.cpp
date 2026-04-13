@@ -1,6 +1,7 @@
 #include "Bullet.h"
 #include "Scene.h"
 #include "GameObjectList.h"
+#include "Time.h"
 
 Bullet::Bullet(const Vector2& initialPos, const Vector2& initialVelocity, Scene* parentScene)
 	: GameObject(parentScene)
@@ -30,4 +31,11 @@ Bullet::~Bullet()
 void Bullet::Update()
 {
 	components->Update();
+
+	timer += Time::deltaTime;
+
+	if (timer >= 5.0f)
+	{
+		this->isAlive = false;
+	}
 }

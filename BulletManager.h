@@ -11,7 +11,7 @@ public:
 	BulletManager(Scene* parentScene, int capacity)
 	{
 		bulletPool = new ObjectPool<Bullet>(1000);
-		activeBullets = new std::vector<Bullet*>();
+		activeBullets = new std::vector<PoolSlot<Bullet>*>();
 
 		this->parentScene = parentScene;
 	}
@@ -32,30 +32,40 @@ public:
 
 	static void Update()
 	{
-		//bool bulletsNeedCull = false;
+		bool bulletsNeedCull = false;
 
 		////for(instance->bulletPool.)
 
 		for (int i = 0; i < instance->activeBullets->size(); i++)
 		{
-			Bullet* obj = (*instance->activeBullets)[i];
+			Bullet* obj = (*instance->activeBullets)[i]->GetObj();
 			obj->Update();
+
+			if (!obj->IsAlive())
+			{
+				bulletsNeedCull = true;
+				obj->Destroy();
+				(*instance->activeBullets)[i]->Reset(*instance->bulletPool);
+			}
 		}
 
-		//if (!bulletsNeedCull)
-		//	return;
+		if (!bulletsNeedCull)
+			return;
 
-		//std::vector<PoolSlot<Bullet>*> tmpBullets;
+		std::vector<PoolSlot<Bullet>*> tmpBullets;
 
-		//for (PoolSlot<Bullet>* bulletSlot : *instance->activeBullets)
-		//{
-		//	if (!bulletSlot->GetObj()->IsAlive())
-		//		tmpBullets.push_back(bulletSlot);
-		//}
+		for (PoolSlot<Bullet>* bulletSlot : *instance->activeBullets)
+		{
+			if (!bulletSlot->obj.has_value())
+				continue;
 
-		//SDL_Log("Releasing, there were %d bullets but now only %d", instance->activeBullets->size(), tmpBullets.size());
-		//
-		//std::swap(tmpBullets, *instance->activeBullets);
+			if (bulletSlot->GetObj()->IsAlive())
+				tmpBullets.push_back(bulletSlot);
+		}
+
+		SDL_Log("Releasing, there were %d bullets but now only %d", instance->activeBullets->size(), tmpBullets.size());
+		
+		std::swap(tmpBullets, *instance->activeBullets);
 	}
 
 	static void FireBullet(const Vector2& position, const Vector2& direction)
@@ -65,7 +75,7 @@ public:
 
 		//Acquire a bullet, add to active list
 		PoolSlot<Bullet>* bullet = instance->bulletPool->Acquire(position, direction, instance->parentScene);
-		instance->activeBullets->push_back(bullet->GetObj());
+		instance->activeBullets->push_back(bullet);
 
 		SDL_Log("Add bullet, amount = %x", instance->activeBullets->size());
 	}
@@ -88,6 +98,6 @@ public:
 private:
 	ObjectPool<Bullet>* bulletPool;
 	Scene* parentScene;
-	std::vector<Bullet*>* activeBullets;
+	std::vector<PoolSlot<Bullet>*>* activeBullets;
 };
 

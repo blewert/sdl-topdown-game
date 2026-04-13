@@ -96,8 +96,14 @@ void GameObjectList::Update()
 	//      a bit intensive
 	for (Rigidbody* a : bodies)
 	{
+		if (a->parent->pendingDelete)
+			continue;
+
 		for (Rigidbody* b : bodies)
 		{
+			if (b->parent->pendingDelete)
+				continue;
+
 			if (a == b)
 				continue;
 

@@ -24,6 +24,8 @@ public:
 
 	void Reset(ObjectPool<T>& parent)
 	{
+		this->obj = std::nullopt;
+
 		this->next = parent.firstAvailable;
 		parent.firstAvailable = this;
 	}
@@ -108,4 +110,6 @@ public:
 		return slot;
 	}
 
+	template <typename U>
+	friend struct PoolSlot;
 };

@@ -18,5 +18,6 @@ private:
 	std::optional<Rigidbody> rb;
 	std::optional<BoxCollider> bc;
 	bool isAlive = true;
+	float timer = 0.0f;
 };
 
