@@ -29,7 +29,33 @@ PlayerObject::~PlayerObject()
 
 void PlayerObject::FireBullet()
 {
-	SDL_Log("Firing bullet");
+
+}
+
+void PlayerObject::HandlePlayerFiring()
+{
+	if (inputManager.GetRightMouseDownThisFrame())
+		gunTimer = 0.0f;
+
+	if (inputManager.GetRightMouseDown())
+	{
+		gunTimer += Time::deltaTime;
+
+		if (gunTimer >= 0.25f)
+		{
+			gunTimer = Time::deltaTime;
+			SDL_Log("Firing gun bullet");
+		}
+	}
+
+	if (inputManager.GetLeftMouseDownThisFrame())
+	{
+		if (Time::elapsedTime - lastShellTime >= 2.0f)
+		{
+			SDL_Log("Firing bullet");
+			lastShellTime = Time::elapsedTime;
+		}
+	}
 }
 
 void PlayerObject::OnStart()
@@ -52,8 +78,8 @@ void PlayerObject::Update()
 
 	Vector2 movementVec = inputManager.Find2DAxisByName("WASD")->value;
 
-	if (inputManager.GetLeftMouseUpThisFrame())
-		FireBullet();
+	HandlePlayerFiring();
+
 
 	//baseRenderer->DrawLine(GetPosition(), GetPosition() + Vector2::right * 100);
 

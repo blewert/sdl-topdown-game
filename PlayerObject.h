@@ -16,6 +16,8 @@ public:
 	void OnStart() override final;
 	void Update() override final;
 
+	void HandlePlayerFiring();
+
 protected:
 	TextureManager& texManager;
 	InputManager& inputManager;
@@ -26,6 +28,8 @@ protected:
 
 private:
 	void SetupRenderers();
+	float gunTimer = 0;
+	float lastShellTime = 0;
 
 };
 
