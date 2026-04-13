@@ -31,7 +31,7 @@ InputManager::InputManager()
 	this->RegisterAxis2D(KeyAxis2D("Arrows", uldrHoriz, uldrVert));
 
 	//Set up mouse data
-	mouseDown = wasMouseDown = false;
+	leftMouseDown = rightMouseDown = wasMouseDownLeft = wasMouseDownRight = false;
 	mousePosition = Vector2();
 	mouseDelta = Vector2();
 }
@@ -176,14 +176,34 @@ Vector2 InputManager::GetMouseDelta()
 	return mouseDelta;
 }
 
-bool InputManager::GetMouseDown()
+bool InputManager::GetLeftMouseDown()
 {
-	return mouseDown;
+	return leftMouseDown;
 }
 
-bool InputManager::GetMouseDownThisFrame()
+bool InputManager::GetLeftMouseDownThisFrame()
 {
-	return (!wasMouseDown && mouseDown);
+	return (!wasMouseDownLeft && leftMouseDown);
+}
+
+bool InputManager::GetLeftMouseUpThisFrame()
+{
+	return (wasMouseDownLeft && !leftMouseDown);
+}
+
+bool InputManager::GetRightMouseDown()
+{
+	return rightMouseDown;
+}
+
+bool InputManager::GetRightMouseDownThisFrame()
+{
+	return (!wasMouseDownRight && rightMouseDown);
+}
+
+bool InputManager::GetRightMouseUpThisFrame()
+{
+	return (wasMouseDownRight && !rightMouseDown);
 }
 
 void InputManager::ProcessEvent(SDL_Event event)
@@ -197,12 +217,13 @@ void InputManager::ProcessEvent(SDL_Event event)
 	else if (event.type == SDL_MOUSEMOTION)
 		this->ProcessMouseMotionEvent(event);
 
-	wasMouseDown = mouseDown;
 }
 
 void InputManager::Update()
 {
 	mouseDelta = Vector2(0, 0);
+	wasMouseDownLeft = leftMouseDown;
+	wasMouseDownRight = rightMouseDown;
 }
 
 void InputManager::ProcessMouseMotionEvent(SDL_Event e)
@@ -213,10 +234,10 @@ void InputManager::ProcessMouseMotionEvent(SDL_Event e)
 
 void InputManager::ProcessMouseButtonEvent(SDL_Event e)
 {
-	//Not left mouse button? We don't care
-	if (e.button.button != SDL_BUTTON_LEFT)
-		return;
-
 	//Otherwise set mouse button state
-	mouseDown = (e.type == SDL_MOUSEBUTTONDOWN);
+	if (e.button.button == SDL_BUTTON_LEFT)
+		leftMouseDown = (e.type == SDL_MOUSEBUTTONDOWN);
+
+	else if (e.button.button == SDL_BUTTON_RIGHT)
+		rightMouseDown = (e.type == SDL_MOUSEBUTTONDOWN);
 }

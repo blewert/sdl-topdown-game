@@ -12,6 +12,7 @@ public:
 	PlayerObject(Scene* parentScene);
 	~PlayerObject();
 
+	void FireBullet();
 	void OnStart() override final;
 	void Update() override final;
 

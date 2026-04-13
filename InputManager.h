@@ -89,8 +89,12 @@ public:
 	Vector2 GetMouseNormScreenPos(Camera* cam);
 	Vector2 GetMousePos();
 	Vector2 GetMouseDelta();
-	bool GetMouseDown();
-	bool GetMouseDownThisFrame();
+	bool GetLeftMouseDown();
+	bool GetLeftMouseDownThisFrame();
+	bool GetLeftMouseUpThisFrame();
+	bool GetRightMouseDown();
+	bool GetRightMouseDownThisFrame();
+	bool GetRightMouseUpThisFrame();
 
 private:
 	static InputManager* instance;
@@ -101,8 +105,10 @@ private:
 	std::vector<Keybinding> bindings;
 	std::vector<KeyAxis2D> axes2D;
 
-	bool mouseDown;
-	bool wasMouseDown;
+	bool leftMouseDown;
+	bool rightMouseDown;
+	bool wasMouseDownLeft;
+	bool wasMouseDownRight;
 	Vector2 mousePosition;
 	Vector2 mouseDelta;
 };

@@ -27,6 +27,11 @@ PlayerObject::~PlayerObject()
 	delete turretRenderer;
 }
 
+void PlayerObject::FireBullet()
+{
+	SDL_Log("Firing bullet");
+}
+
 void PlayerObject::OnStart()
 {
 
@@ -47,7 +52,10 @@ void PlayerObject::Update()
 
 	Vector2 movementVec = inputManager.Find2DAxisByName("WASD")->value;
 
-	baseRenderer->DrawLine(GetPosition(), GetPosition() + Vector2::right * 100);
+	if (inputManager.GetLeftMouseUpThisFrame())
+		FireBullet();
+
+	//baseRenderer->DrawLine(GetPosition(), GetPosition() + Vector2::right * 100);
 
 	if (movementVec == Vector2::zero)
 		return;
@@ -63,11 +71,8 @@ void PlayerObject::Update()
 
 	Vector2 pos = GetPosition();
 
-	baseRenderer->DrawLine(pos, pos + tankMoveVec.Normalized() * 250, 0xff00ffff);
-	baseRenderer->DrawLine(pos, pos + tankFwdVec.Normalized() * 250, 0x00ff00ff);
-
-	
-	
+	//baseRenderer->DrawLine(pos, pos + tankMoveVec.Normalized() * 250, 0xff00ffff);
+	//baseRenderer->DrawLine(pos, pos + tankFwdVec.Normalized() * 250, 0x00ff00ff);
 
 	//SDL_SetRenderDrawColor(parentScene->GetRenderer(), 255, 0, 0);
 	//SDL_RenderDrawLine(parentScene->GetRenderer(), pos.x, pos.y, pos.x + tankMoveVec.x, pos.y + tankMoveVec.y);

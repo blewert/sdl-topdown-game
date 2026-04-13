@@ -71,7 +71,7 @@ void DebugScene::Update()
 
 	InputManager& inputManager = InputManager::Instance();
 
-	if (inputManager.GetMouseDown())
+	if (inputManager.GetLeftMouseDown())
 	{
 		Vector2 calcPos = camera->GetPosition();
 		calcPos += inputManager.GetMouseDelta() * Time::deltaTime * 250;

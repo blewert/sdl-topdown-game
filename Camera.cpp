@@ -63,7 +63,6 @@ Vector2 Camera::ScreenToWorldPos(const Vector2& pos)
 
 void Camera::SetPosition(const Vector2& newPosition)
 {
-	SDL_Log("Camera set position");
 	this->position = newPosition;
 }
 
