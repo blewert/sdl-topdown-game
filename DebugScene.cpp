@@ -12,12 +12,12 @@
 
 DebugScene::DebugScene(SDL_Renderer* renderer) : Scene(renderer)
 {
-	SDL_Log("DebugScene ctor");
-
 	objects = new GameObjectList();
+
+	SDL_Log("DebugScene ctor");
 	
 	GameObject* testObj = new DebugObject(this);
-	BoxCollider* bc = new BoxCollider(testObj, SDL_FRect{ 0, 0, 32, 32 });
+	BoxCollider bc = BoxCollider(testObj, SDL_FRect{ 0, 0, 32, 32 });
 	Rigidbody* rb = new Rigidbody(testObj, bc);
 	objects->Add(testObj);
 	objects->AddRigidbody(rb);
@@ -31,7 +31,7 @@ DebugScene::DebugScene(SDL_Renderer* renderer) : Scene(renderer)
 	rb->SetVelocity(Vector2(-125, 0));
 
 	GameObject* testObj2 = new DebugObject(this);
-	BoxCollider* bc2 = new BoxCollider(testObj2, SDL_FRect { 0, 0, 32, 32 });
+	BoxCollider bc2 = BoxCollider(testObj2, SDL_FRect { 0, 0, 32, 32 });
 	Rigidbody* rb2 = new Rigidbody(testObj2, bc2);
 	objects->Add(testObj2);
 	objects->AddRigidbody(rb2);

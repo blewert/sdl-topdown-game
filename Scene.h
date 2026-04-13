@@ -15,7 +15,7 @@ public:
 	virtual void PostRender() { };
 	virtual void OnEnd() = 0;
 	virtual void Exit() = 0;
-	
+
 	SDL_Renderer* GetRenderer() { return renderer; }
 
 	Camera* GetCamera() { return camera; }
@@ -24,5 +24,12 @@ public:
 protected:
 	SDL_Renderer* renderer;
 	Camera* camera = nullptr;
+	GameObjectList* objects = nullptr;
+
+public:
+	GameObjectList* GetObjects()
+	{
+		return objects;
+	}
 };
 

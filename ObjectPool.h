@@ -2,19 +2,30 @@
 #include <vector>
 #include "GameObject.h"
 
+template<typename T>
+class ObjectPool;
+
 template <typename T>
 union PoolSlot
 {
-	class ObjectPool;
+protected:
+	void* obj[sizeof(T)];
+	PoolSlot<T>* next;
 
-	T* obj;
-	PoolSlot* next;
+public:
 
-	void Reset(ObjectPool& parent)
+	T* GetObj()
+	{
+		return (T*)obj;
+	}
+
+	void Reset(ObjectPool<T>& parent)
 	{
 		this->next = parent.firstAvailable;
 		parent.firstAvailable = this;
 	}
+
+	friend class ObjectPool<T>;
 };
 
 
@@ -56,6 +67,7 @@ public:
 		for (int i = 0; i < capacity - 1; i++)
 		{
 			poolData[i].next = &poolData[i + 1];
+			SDL_Log("This %d, next %d", &poolData[i], poolData[i].next);
 		}
 
 		poolData[capacity - 1].next = nullptr;
@@ -70,8 +82,8 @@ public:
 		PoolSlot<T>* slot = firstAvailable;
 		firstAvailable = slot->next;
 
-		new (&slot->obj) T(newVal);
-
+		new (slot->obj) T(newVal);
+		
 		return slot;
 	}
 
@@ -81,20 +93,16 @@ public:
 		if (firstAvailable == nullptr)
 			return nullptr;
 
+		SDL_Log("Next available is %x", firstAvailable);
+
 		PoolSlot<T>* slot = firstAvailable;
 		firstAvailable = slot->next;
+		
+		SDL_Log("Changed next available is %x", firstAvailable);
 
-		new (&slot->obj) T(std::forward<Args>(args)...);
+		new (slot->obj) T(std::forward<Args>(args)...);
 
 		return slot;
 	}
 
 };
-
-ObjectPool<GameObject>* a = new ObjectPool<GameObject>(100);
-
-void ab()
-{
-	PoolSlot<GameObject>* b = a->Acquire(GameObject(nullptr));
-	PoolSlot<GameObject>* c = a->Acquire(nullptr);
-}

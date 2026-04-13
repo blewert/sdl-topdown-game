@@ -17,7 +17,5 @@ public:
 	virtual void OnEnd();
 	virtual void Exit();
 	virtual void Render();
-
-	GameObjectList* objects;
 };
 

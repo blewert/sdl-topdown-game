@@ -8,6 +8,8 @@ class BoxCollider : public Component
 public:
 	virtual void Update() override;
 
+	BoxCollider() = default;
+
 	BoxCollider(GameObject* parent, SDL_FRect localBounds) : Component(parent), localBounds(localBounds)
 	{
 	}

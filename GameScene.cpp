@@ -10,11 +10,13 @@
 #include "ReticleObject.h"
 #include "SpriteRenderer.h"
 #include "PlayerObject.h"
+#include "BulletManager.h"
 
 GameScene::GameScene(SDL_Renderer* renderer) : Scene(renderer), inputManager(InputManager::Instance())
 {
 	SDL_Log("GameScene ctor");
 
+	BulletManager::Initialise(this, 1000);
 	objects = new GameObjectList();
 
 	player = new PlayerObject(this);
@@ -47,6 +49,11 @@ void GameScene::Update()
 	//camera->SetPosition(Vector2::MoveTowards(camPos, playerPos, 100 * Time::deltaTime));
 	//camera->SetPosition(Vector2(-20, -20));
 	//camera->SetPosition(Vector2::left * SDL_sinf(Time::elapsedTime) * 100);
+
+	if (inputManager.GetLeftMouseDownThisFrame())
+	{
+		BulletManager::FireBullet(Vector2(25, 25), Vector2(1, 0));
+	}
 
 	Vector2 mousePos = inputManager.GetMouseNormScreenPos(GetCamera());
 	//playerPos = player->GetPosition();
@@ -86,5 +93,7 @@ void GameScene::Exit()
 	delete camera;
 	delete reticle;
 	delete objects;
+
+	BulletManager::Exit();
 }
 

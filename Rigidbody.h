@@ -7,7 +7,8 @@
 class Rigidbody : public Component
 {
 public:
-	Rigidbody(GameObject* parent, BoxCollider* collider);
+	Rigidbody() { };
+	Rigidbody(GameObject* parent, BoxCollider& collider);
 	~Rigidbody() override;
 
 	virtual void Update() override;
@@ -32,7 +33,7 @@ private:
 	bool isStatic;
 	bool isKinematic;
 	float dragFactor;
-	BoxCollider* colliderRef;
+	BoxCollider colliderRef;
 
 	std::map<uint64_t, int> collisionFrameMap;
 };

@@ -23,8 +23,7 @@ public:
 
 protected:
 	InputManager& inputManager;
-	GameObjectList* objects;
-
+	
 	ReticleObject* reticle;
 	PlayerObject* player;
 };
