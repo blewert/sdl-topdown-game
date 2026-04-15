@@ -11,6 +11,7 @@
 #include "SpriteRenderer.h"
 #include "PlayerObject.h"
 #include "BulletManager.h"
+#include "VFXManager.h"
 
 GameScene::GameScene(SDL_Renderer* renderer) : Scene(renderer), inputManager(InputManager::Instance())
 {
@@ -18,7 +19,6 @@ GameScene::GameScene(SDL_Renderer* renderer) : Scene(renderer), inputManager(Inp
 
 	objects = new GameObjectList();
 	BulletManager::Initialise(this, 1000);
-
 	player = new PlayerObject(this);
 	objects->Add(player);
 
@@ -27,6 +27,7 @@ GameScene::GameScene(SDL_Renderer* renderer) : Scene(renderer), inputManager(Inp
 	objects->Add(reticle);
 
 	camera = new Camera(this, 2.0f);
+	VFXManager::SetCamera(camera);
 }
 
 GameScene::~GameScene()
@@ -54,6 +55,13 @@ void GameScene::Update()
 	Vector2 mousePos = inputManager.GetMouseNormScreenPos(GetCamera(), true);
 	
 	
+	if (InputManager::Instance().GetRightMouseDownThisFrame())
+	{
+		Vector2 pos = InputManager::Instance().GetMouseWorldPos(GetCamera());
+		VFXManager::SpawnEffect(pos, "test", 24);
+	}
+
+
 	//playerPos = player->GetPosition();
 	//Vector2 diff = playerPos - mousePos;
 

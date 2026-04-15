@@ -2,6 +2,7 @@
 #include "Math.h"
 #include "Time.h"
 #include "TextureManager.h"
+#include "VFXManager.h"
 
 bool Game::sdlInitialised = false;
 
@@ -42,6 +43,9 @@ Game::Game(int width, int height, bool fullScreen)
 	SceneManager& sceneManager = SceneManager::Instance();
 	sceneManager.Initialise(this, m_renderer);
 	sceneManager.LoadScene(this, "gameScene");
+
+	VFXManager* vfxManager = VFXManager::Initialise();
+	vfxManager->LoadEffect(texManager["test-anim"], "test", 6, 3, Vector2(32, 32));
 }
 
 Game::~Game()
@@ -92,6 +96,8 @@ void Game::Update()
 
 	if (currentScene != nullptr)
 		currentScene->Update();
+
+	VFXManager::Update();
 }
 
 void Game::Render()
@@ -100,6 +106,7 @@ void Game::Render()
 	SDL_RenderClear(m_renderer);
 
 	currentScene->Render();
+	VFXManager::Render(m_renderer);
 	currentScene->PostRender();
 
 	SDL_RenderPresent(m_renderer);

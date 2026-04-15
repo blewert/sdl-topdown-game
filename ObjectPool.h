@@ -77,7 +77,7 @@ public:
 		for (int i = 0; i < capacity - 1; i++)
 		{
 			poolData[i].next = &poolData[i + 1];
-			SDL_Log("This %d, next %d", &poolData[i], poolData[i].next);
+			//SDL_Log("This %d, next %d", &poolData[i], poolData[i].next);
 
 			poolData[i].obj.emplace(std::forward<Args>(args)...);
 		}
@@ -105,7 +105,7 @@ public:
 		if (firstAvailable == nullptr)
 			return nullptr;
 
-		SDL_Log("Next available is %x", firstAvailable);
+		//SDL_Log("Next available is %x", firstAvailable);
 
 		PoolSlot<T>* slot = firstAvailable;
 		firstAvailable = slot->next;
