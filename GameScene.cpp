@@ -43,26 +43,24 @@ void GameScene::Update()
 {
 
 	Vector2 camPos = camera->GetPosition();
-	Vector2 playerPos = camera->LookAtPos(player->GetPosition());
+	Vector2 playerPos = player->GetPosition();
+	Vector2 playerPosCam = camera->LookAtPos(playerPos);
 	float camMoveSpeed = 100;
 
 	//camera->SetPosition(Vector2::MoveTowards(camPos, playerPos, 100 * Time::deltaTime));
 	//camera->SetPosition(Vector2(-20, -20));
 	//camera->SetPosition(Vector2::left * SDL_sinf(Time::elapsedTime) * 100);
 
-	if (inputManager.GetLeftMouseDownThisFrame())
-	{
-		BulletManager::FireBullet(Vector2(25, 25), Vector2(1, 0));
-	}
-
 	Vector2 mousePos = inputManager.GetMouseNormScreenPos(GetCamera(), true);
+	
+	
 	//playerPos = player->GetPosition();
 	//Vector2 diff = playerPos - mousePos;
 
 	//float angle = atan2(diff.y, diff.x) * Math::radToDeg;
 	//angle += 90;
 
-	Vector2 camOffsetPos = playerPos + mousePos * 25.0f;
+	Vector2 camOffsetPos = playerPosCam + mousePos * 25.0f;
 	camera->SetPosition(camOffsetPos);
 
 	//camera->SetPosition(playerPos);
@@ -75,6 +73,7 @@ void GameScene::Update()
 void GameScene::Render()
 {
 	objects->Render(renderer);
+	BulletManager::Render();
 }
 
 void GameScene::PostRender()

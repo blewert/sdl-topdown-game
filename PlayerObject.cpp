@@ -3,6 +3,8 @@
 #include "TextureManager.h"
 #include "InputManager.h"
 #include "Math.h"
+#include "Rigidbody.h"
+#include "BulletManager.h"
 
 PlayerObject::PlayerObject(Scene* parentScene) 
 	: GameObject(parentScene), inputManager(InputManager::Instance()), texManager(TextureManager::Instance())
@@ -29,7 +31,14 @@ PlayerObject::~PlayerObject()
 
 void PlayerObject::FireBullet()
 {
+	Vector2 playerPos = GetPosition();
+	Vector2 mousePosWorld = inputManager.GetMouseWorldPos(parentScene->GetCamera());
 
+	Vector2 direction = (mousePosWorld - playerPos).Normalized();
+	Vector2 spawnPos = playerPos + direction * 10;
+
+	Vector2 fireDirection = direction * 250;
+	BulletManager::FireBullet(spawnPos, fireDirection);
 }
 
 void PlayerObject::HandlePlayerFiring()
@@ -41,10 +50,11 @@ void PlayerObject::HandlePlayerFiring()
 	{
 		gunTimer += Time::deltaTime;
 
-		if (gunTimer >= 0.25f)
+		if (gunTimer >= 0.15f)
 		{
 			gunTimer = Time::deltaTime;
 			SDL_Log("Firing gun bullet");
+			FireBullet();
 		}
 	}
 

@@ -3,6 +3,8 @@
 #include "Rigidbody.h"
 #include "BoxCollider.h"
 #include <optional>
+#include "SpriteRenderer.h"
+
 
 class Bullet : public GameObject
 {
@@ -17,6 +19,7 @@ public:
 private:
 	std::optional<Rigidbody> rb;
 	std::optional<BoxCollider> bc;
+
 	bool isAlive = true;
 	float timer = 0.0f;
 };

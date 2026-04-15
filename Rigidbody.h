@@ -21,7 +21,7 @@ public:
 
 	inline bool IsCollidingWith(Rigidbody& other);
 
-	inline Vector2 GetVelocity() const;
+	Vector2 GetVelocity() const;
 	inline bool IsStatic() const;
 	inline bool IsKinematic() const;
 

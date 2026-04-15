@@ -12,6 +12,7 @@ public:
 	~ComponentList() = default;
 
 	void Add(Component* component);
+	void Pop();
 
 	inline int Count() { return components.size(); };
 

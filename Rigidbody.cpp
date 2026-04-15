@@ -22,11 +22,6 @@ void Rigidbody::Update()
 {
     if (!isStatic)
     {
-        Vector2 movement = InputManager::Instance().Find2DAxisByName("WASD")->GetValueInvertedY();
-        
-        if(movement != Vector2::zero)
-            velocity = movement * 50;
-
         Vector2 newPos = this->parent->GetPosition();
 
         //Calculate new pos via euler integration
@@ -123,7 +118,7 @@ inline bool Rigidbody::IsCollidingWith(Rigidbody& other)
     return collisionFrameMap[other.parent->id] >= 0;
 }
 
-inline Vector2 Rigidbody::GetVelocity() const
+Vector2 Rigidbody::GetVelocity() const
 {
     return velocity;
 }

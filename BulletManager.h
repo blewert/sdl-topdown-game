@@ -30,6 +30,22 @@ public:
 		instance = new BulletManager(parentScene, capacity);
 	}
 
+	static void Render()
+	{
+		for (PoolSlot<Bullet>* bullet : *instance->activeBullets)
+		{
+			Bullet* obj = bullet->GetObj();
+
+			if (!obj->IsAlive())
+				continue;
+
+			if (obj->pendingDelete)
+				continue;
+
+			obj->Render(instance->parentScene->GetRenderer());
+		}
+	}
+
 	static void Update()
 	{
 		bool bulletsNeedCull = false;

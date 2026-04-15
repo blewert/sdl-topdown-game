@@ -19,6 +19,10 @@ GameObject::~GameObject()
 	if (this->components != nullptr && this->components->Count() > 0)
 		delete this->components;
 
+	//TODO: Fix this as currently it blows up if 
+	//      this->renderer is on the stack
+
+
 	if (this->renderer != nullptr)
 		delete this->renderer;
 }

@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "GameObjectList.h"
 #include "Time.h"
+#include "TextureManager.h"
 
 Bullet::Bullet(const Vector2& initialPos, const Vector2& initialVelocity, Scene* parentScene)
 	: GameObject(parentScene)
@@ -19,7 +20,17 @@ Bullet::Bullet(const Vector2& initialPos, const Vector2& initialVelocity, Scene*
 	this->SetPosition(initialPos);
 	this->rb.value().SetVelocity(initialVelocity);
 
-	SDL_Log("Bullet ctor, ID %d", id);
+	//TODO: Fix this to remove need for manual pop; this is because
+	//		the component constructor expects heap alloc'd mem not stack alloc'd.
+	//		This is inflexible and ideally needs a separate fix.
+	SDL_FRect bounds { 0, 0, 4, 4 };
+
+	SpriteRenderer* tmpRenderer = new SpriteRenderer(parentScene->GetRenderer(), this, bounds);
+	this->renderer = tmpRenderer;
+
+	Texture* tex = TextureManager::Instance()["bullet"];
+	tmpRenderer->SetTexture(tex);
+	tmpRenderer->SetAnimated(false, SpriteAnimationParams().WithRowCols(1, 1).WithTexture(tex));
 }
 
 Bullet::~Bullet()
@@ -34,7 +45,7 @@ void Bullet::Update()
 
 	timer += Time::deltaTime;
 
-	if (timer >= 5.0f)
+	if (timer >= 1.0f)
 	{
 		this->isAlive = false;
 	}

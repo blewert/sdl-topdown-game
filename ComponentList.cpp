@@ -11,6 +11,11 @@ void ComponentList::Add(Component* component)
 	components.push_back(component);
 }
 
+void ComponentList::Pop()
+{
+	components.pop_back();
+}
+
 void ComponentList::Update()
 {
 	bool needsCull = false;
