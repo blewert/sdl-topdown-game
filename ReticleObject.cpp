@@ -31,6 +31,7 @@ ReticleObject::~ReticleObject()
 {
 	delete components;
 	delete renderer;
+	renderer = nullptr;
 }
 
 void ReticleObject::OnStart()

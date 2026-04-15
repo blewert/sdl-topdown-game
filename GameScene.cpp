@@ -58,7 +58,7 @@ void GameScene::Update()
 	if (InputManager::Instance().GetRightMouseDownThisFrame())
 	{
 		Vector2 pos = InputManager::Instance().GetMouseWorldPos(GetCamera());
-		VFXManager::SpawnEffect(pos, "test", 24);
+		VFXManager::SpawnEffect(pos, "explosion-1", 12);
 	}
 
 

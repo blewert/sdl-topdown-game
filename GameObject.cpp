@@ -22,7 +22,6 @@ GameObject::~GameObject()
 	//TODO: Fix this as currently it blows up if 
 	//      this->renderer is on the stack
 
-
 	if (this->renderer != nullptr)
 		delete this->renderer;
 }

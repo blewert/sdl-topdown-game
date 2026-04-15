@@ -39,13 +39,14 @@ Game::Game(int width, int height, bool fullScreen)
 	texManager.Add("reticle", "reticle.png", m_renderer);
 	texManager.Add("player", "tank.png", m_renderer);
 	texManager.Add("bullet", "bullet.png", m_renderer);
+	texManager.Add("explosion1", "explosion1.png", m_renderer);
 
 	SceneManager& sceneManager = SceneManager::Instance();
 	sceneManager.Initialise(this, m_renderer);
 	sceneManager.LoadScene(this, "gameScene");
 
 	VFXManager* vfxManager = VFXManager::Initialise();
-	vfxManager->LoadEffect(texManager["test-anim"], "test", 6, 3, Vector2(32, 32));
+	vfxManager->LoadEffect(texManager["explosion1"], "explosion-1", 4, 1, Vector2(32, 32));
 }
 
 Game::~Game()

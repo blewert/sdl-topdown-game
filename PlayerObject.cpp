@@ -112,7 +112,7 @@ void PlayerObject::Update()
 
 	Vector2 pos = GetPosition();
 
-	//baseRenderer->DrawLine(pos, pos + tankMoveVec.Normalized() * 250, 0xff00ffff);
+	baseRenderer->DrawLine(pos, pos + tankMoveVec.Normalized() * 250, 0xff00ffff);
 	//baseRenderer->DrawLine(pos, pos + tankFwdVec.Normalized() * 250, 0x00ff00ff);
 
 	//SDL_SetRenderDrawColor(parentScene->GetRenderer(), 255, 0, 0);
