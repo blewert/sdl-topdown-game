@@ -35,9 +35,14 @@ void PlayerObject::FireBullet()
 	Vector2 mousePosWorld = inputManager.GetMouseWorldPos(parentScene->GetCamera());
 
 	Vector2 direction = (mousePosWorld - playerPos).Normalized();
+	float angle = SDL_atan2f(direction.y, direction.x) * Math::radToDeg;
+	angle += Random::Range(-4.0f, 4.0f);
+
+	Vector2 fireDirection = Vector2::FromPolar(angle, 1.0f).Normalized();
+	fireDirection *= 250;
+
 	Vector2 spawnPos = playerPos + direction * 10;
 
-	Vector2 fireDirection = direction * 250;
 	BulletManager::FireBullet(spawnPos, fireDirection);
 }
 
@@ -50,7 +55,7 @@ void PlayerObject::HandlePlayerFiring()
 	{
 		gunTimer += Time::deltaTime;
 
-		if (gunTimer >= 0.15f)
+		if (gunTimer >= 0.05f)
 		{
 			gunTimer = Time::deltaTime;
 			SDL_Log("Firing gun bullet");

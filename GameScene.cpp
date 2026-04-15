@@ -16,8 +16,8 @@ GameScene::GameScene(SDL_Renderer* renderer) : Scene(renderer), inputManager(Inp
 {
 	SDL_Log("GameScene ctor");
 
-	BulletManager::Initialise(this, 1000);
 	objects = new GameObjectList();
+	BulletManager::Initialise(this, 1000);
 
 	player = new PlayerObject(this);
 	objects->Add(player);

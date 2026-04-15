@@ -13,6 +13,7 @@ public:
 	~Bullet();
 
 	void Update() override;
+	void Reset(const Vector2& pos, const Vector2& velocity);
 
 	bool IsAlive() { return isAlive; }
 
@@ -22,5 +23,7 @@ private:
 
 	bool isAlive = true;
 	float timer = 0.0f;
+
+	friend class BulletManager;
 };
 

@@ -24,8 +24,7 @@ public:
 
 	void Reset(ObjectPool<T>& parent)
 	{
-		this->obj = std::nullopt;
-
+		//this->obj = std::nullopt;
 		this->next = parent.firstAvailable;
 		parent.firstAvailable = this;
 	}
@@ -47,7 +46,12 @@ protected:
 public:
 	ObjectPool(int capacity) : poolSize(capacity)
 	{
-		Allocate(capacity);
+		//Allocate(capacity);
+	}
+
+	std::vector<PoolSlot<T>>& GetData()
+	{
+		return poolData;
 	}
 
 	~ObjectPool()
@@ -63,7 +67,8 @@ public:
 		//Do deallocation here
 	}
 
-	void Allocate(int capacity)
+	template <typename... Args>
+	void Allocate(int capacity, Args&&... args)
 	{
 		Deallocate();
 
@@ -73,6 +78,8 @@ public:
 		{
 			poolData[i].next = &poolData[i + 1];
 			SDL_Log("This %d, next %d", &poolData[i], poolData[i].next);
+
+			poolData[i].obj.emplace(std::forward<Args>(args)...);
 		}
 
 		poolData[capacity - 1].next = nullptr;
@@ -105,7 +112,7 @@ public:
 		
 		SDL_Log("Changed next available is %x", firstAvailable);
 
-		slot->obj.emplace(std::forward<Args>(args)...);
+		/*slot->obj.emplace(std::forward<Args>(args)...)*/;
 
 		return slot;
 	}

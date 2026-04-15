@@ -86,6 +86,9 @@ void GameObjectList::Update()
 
 	for (GameObject* obj : objects)
 	{
+		if (!obj->enabled)
+			continue;
+
 		obj->Update();
 		
 		if (obj->pendingDelete)
@@ -96,11 +99,17 @@ void GameObjectList::Update()
 	//      a bit intensive
 	for (Rigidbody* a : bodies)
 	{
+		if (!a->parent->enabled)
+			continue;
+
 		if (a->parent->pendingDelete)
 			continue;
 
 		for (Rigidbody* b : bodies)
 		{
+			if (!b->parent->enabled)
+				continue;
+
 			if (b->parent->pendingDelete)
 				continue;
 
@@ -132,7 +141,12 @@ void GameObjectList::OnEnd()
 void GameObjectList::Render(SDL_Renderer* renderer)
 {
 	for (GameObject* obj : objects)
+	{
+		if (!obj->enabled)
+			continue;
+
 		obj->Render(renderer);
+	}
 }
 
 void GameObjectList::PostRender(SDL_Renderer* renderer)

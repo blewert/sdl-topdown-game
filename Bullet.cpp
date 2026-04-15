@@ -50,3 +50,13 @@ void Bullet::Update()
 		this->isAlive = false;
 	}
 }
+
+void Bullet::Reset(const Vector2& pos, const Vector2& velocity)
+{
+	isAlive = true;
+	timer = 0.0f;
+	this->enabled = true;
+
+	this->SetPosition(pos);
+	this->rb.value().SetVelocity(velocity);
+}

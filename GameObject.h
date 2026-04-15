@@ -44,6 +44,7 @@ public:
 	void Destroy() { pendingDelete = true; }
 
 	bool pendingDelete = false;
+	bool enabled = true;
 	uint64_t id;
 
 	Scene* parentScene;

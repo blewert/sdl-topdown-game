@@ -10,7 +10,19 @@ class BulletManager
 public:
 	BulletManager(Scene* parentScene, int capacity)
 	{
-		bulletPool = new ObjectPool<Bullet>(1000);
+		bulletPool = new ObjectPool<Bullet>(capacity);
+		bulletPool->Allocate(capacity, Vector2(0, 0), Vector2(0, 0), parentScene);
+
+		auto& data = bulletPool->GetData();
+
+		for (int i = 0; i < capacity; i++)
+		{
+			if (!data[i].obj.has_value())
+				continue;
+
+			data[i].GetObj()->enabled = false;
+		}
+
 		activeBullets = new std::vector<PoolSlot<Bullet>*>();
 
 		this->parentScene = parentScene;
@@ -60,7 +72,7 @@ public:
 			if (!obj->IsAlive())
 			{
 				bulletsNeedCull = true;
-				obj->Destroy();
+				obj->enabled = false;
 				(*instance->activeBullets)[i]->Reset(*instance->bulletPool);
 			}
 		}
@@ -91,6 +103,7 @@ public:
 
 		//Acquire a bullet, add to active list
 		PoolSlot<Bullet>* bullet = instance->bulletPool->Acquire(position, direction, instance->parentScene);
+		bullet->GetObj()->Reset(position, direction);
 		instance->activeBullets->push_back(bullet);
 
 		SDL_Log("Add bullet, amount = %x", instance->activeBullets->size());
