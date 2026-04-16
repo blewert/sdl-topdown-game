@@ -58,7 +58,14 @@ void GameScene::Update()
 	if (InputManager::Instance().GetRightMouseDownThisFrame())
 	{
 		Vector2 pos = InputManager::Instance().GetMouseWorldPos(GetCamera());
-		VFXManager::SpawnEffect(pos, "explosion-1", 12);
+
+		for (int i = 0; i < 5; i++)
+		{
+			float randomScale = Random::Range(0.5f, 1.0f);
+			Vector2 randomPos = pos + Random::InUnitCircle() * 20;
+
+			VFXManager::SpawnEffect(randomPos, "explosion-1", 12, randomScale);
+		}
 	}
 
 

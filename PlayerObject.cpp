@@ -5,6 +5,7 @@
 #include "Math.h"
 #include "Rigidbody.h"
 #include "BulletManager.h"
+#include "VFXManager.h"
 
 PlayerObject::PlayerObject(Scene* parentScene) 
 	: GameObject(parentScene), inputManager(InputManager::Instance()), texManager(TextureManager::Instance())
@@ -35,15 +36,35 @@ void PlayerObject::FireBullet()
 	Vector2 mousePosWorld = inputManager.GetMouseWorldPos(parentScene->GetCamera());
 
 	Vector2 direction = (mousePosWorld - playerPos).Normalized();
-	float angle = SDL_atan2f(direction.y, direction.x) * Math::radToDeg;
-	angle += Random::Range(-4.0f, 4.0f);
+	float origAngle = SDL_atan2f(direction.y, direction.x) * Math::radToDeg;
+	float angle = origAngle + Random::Range(-4.0f, 4.0f);
 
 	Vector2 fireDirection = Vector2::FromPolar(angle, 1.0f).Normalized();
-	fireDirection *= 250;
+	fireDirection *= 450;
 
 	Vector2 spawnPos = playerPos + direction * 10;
 
 	BulletManager::FireBullet(spawnPos, fireDirection);
+
+
+	for (int i = 0; i < 5; i++)
+	{
+		Vector2 explosionPos = spawnPos + direction * 2;
+		explosionPos += Random::InUnitCircle() * 3;
+		VFXManager::SpawnEffect(explosionPos, "explosion-1", 8, 0.1f);
+	}
+
+	if(Random::Value() >= 0.5f)
+		VFXManager::SpawnEffect(spawnPos + direction * 3, "muzzleFlash", 24, 1.0f, origAngle + 90);
+	else
+		VFXManager::SpawnEffect(spawnPos + direction * 3, "muzzleFlash2", 24, 1.0f, origAngle + 90);
+
+
+	Vector2 fireDir = fireDirection.Normalized();
+	Vector2 randomStartPos = spawnPos + fireDir * Random::Range(0.0f, 100.0f);
+	Vector2 randomEndPos = randomStartPos + fireDir * Random::Range(0.0, 64.0f);
+	VFXManager::DrawLine(randomStartPos, randomEndPos, 0xffffff33, 0.05f);
+
 }
 
 void PlayerObject::HandlePlayerFiring()

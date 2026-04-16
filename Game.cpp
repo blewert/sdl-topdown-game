@@ -40,6 +40,9 @@ Game::Game(int width, int height, bool fullScreen)
 	texManager.Add("player", "tank.png", m_renderer);
 	texManager.Add("bullet", "bullet.png", m_renderer);
 	texManager.Add("explosion1", "explosion1.png", m_renderer);
+	texManager.Add("muzzleFlashBig", "muzzleFlashBig.png", m_renderer);
+	texManager.Add("muzzleFlash", "muzzleFlash.png", m_renderer);
+	texManager.Add("muzzleFlash2", "muzzleFlash2.png", m_renderer);
 
 	SceneManager& sceneManager = SceneManager::Instance();
 	sceneManager.Initialise(this, m_renderer);
@@ -47,6 +50,9 @@ Game::Game(int width, int height, bool fullScreen)
 
 	VFXManager* vfxManager = VFXManager::Initialise();
 	vfxManager->LoadEffect(texManager["explosion1"], "explosion-1", 4, 1, Vector2(32, 32));
+	vfxManager->LoadEffect(texManager["muzzleFlashBig"], "muzzleFlashBig", 2, 3, Vector2(64, 64));
+	vfxManager->LoadEffect(texManager["muzzleFlash"], "muzzleFlash", 1, 1, Vector2(16, 16));
+	vfxManager->LoadEffect(texManager["muzzleFlash2"], "muzzleFlash2", 1, 1, Vector2(16, 16));
 }
 
 Game::~Game()
