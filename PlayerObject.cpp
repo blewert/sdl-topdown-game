@@ -47,11 +47,11 @@ void PlayerObject::FireBullet()
 	BulletManager::FireBullet(spawnPos, fireDirection);
 
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 2; i++)
 	{
-		Vector2 explosionPos = spawnPos + direction * 2;
-		explosionPos += Random::InUnitCircle() * 3;
-		VFXManager::SpawnEffect(explosionPos, "explosion-1", 8, 0.1f);
+		Vector2 explosionPos = spawnPos + direction * 3;
+		explosionPos += Random::InUnitCircle() * 5;
+		VFXManager::SpawnEffect(explosionPos, "explosion-1", 8, 0.125f);
 	}
 
 	if(Random::Value() >= 0.5f)
@@ -60,11 +60,19 @@ void PlayerObject::FireBullet()
 		VFXManager::SpawnEffect(spawnPos + direction * 3, "muzzleFlash2", 24, 1.0f, origAngle + 90);
 
 
-	Vector2 fireDir = fireDirection.Normalized();
-	Vector2 randomStartPos = spawnPos + fireDir * Random::Range(0.0f, 100.0f);
-	Vector2 randomEndPos = randomStartPos + fireDir * Random::Range(0.0, 64.0f);
-	VFXManager::DrawLine(randomStartPos, randomEndPos, 0xffffff33, 0.05f);
+	for (int i = 0; i < 5; i++)
+	{
+		Vector2 fireDir = fireDirection.Normalized();
+		Vector2 randomStartPos = spawnPos + fireDir * Random::Range(0.0f, 100.0f);
+		Vector2 randomEndPos = randomStartPos + fireDir * Random::Range(0.0, 32.0f);
 
+		uint32_t col = 0xffff00ff;
+
+		if (Random::Value() <= 0.2f)
+			col = 0xffffffff;
+
+		VFXManager::DrawLine(randomStartPos, randomEndPos, col, 0.05f);
+	}
 }
 
 void PlayerObject::HandlePlayerFiring()
