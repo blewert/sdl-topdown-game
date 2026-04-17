@@ -57,6 +57,8 @@ void EnemyObject::Update()
 	Vector2 dirToPlayer = this->playerObj->GetPosition() - GetPosition();
 	dirToPlayer.Normalize();
 
+	components->rigidbody->SetVelocity(dirToPlayer * 10);
+
 	if (hurtTimer > 0)
 	{
 		hurtTimer -= Time::deltaTime;
@@ -79,7 +81,7 @@ void EnemyObject::OnCollisionWithBullet(Rigidbody& thisRb, Bullet* bulletObj)
 	this->ApplyHurtEffect(0.05f, SDL_Color { 255, 0, 0, 255 });
 	SDL_Log("Collision!");
 
-	this->health -= 15.0f;
+	this->health -= 35.0f;
 
 	/*SDL_Log("%f", health);*/
 
