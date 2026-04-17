@@ -113,6 +113,15 @@ public:
 	float GetFlipX() { return flipX; }
 	float GetFlipY() { return flipY; }
 
+	void SetRandomStartFrame()
+	{
+		if (!this->animated)
+			return;
+
+		int maxFrame = this->config.columns * this->config.rows;
+		this->frameIdx = rand() % maxFrame;
+	}
+
 	void SetRenderMod(RenderMod renderMod);
 
 protected:

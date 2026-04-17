@@ -46,7 +46,9 @@ void ComponentList::CullPendingDeleteComponents()
 		{
 			//Otherwise, call destructor: this will no longer exist
 			components[i]->OnDetach();
-			delete components[i];
+
+			if(components[i]->GetDeallocOnRemoval())
+				delete components[i];
 		}
 	}
 

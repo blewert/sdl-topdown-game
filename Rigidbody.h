@@ -28,12 +28,14 @@ public:
 
 	static bool IsCollidingAABB(Rigidbody& a, Rigidbody& b);
 
+
 private:
 	Vector2 velocity;
 	bool isStatic;
 	bool isKinematic;
 	float dragFactor;
 	BoxCollider colliderRef;
+	
 
 	std::map<uint64_t, int> collisionFrameMap;
 };

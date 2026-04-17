@@ -87,8 +87,12 @@ public:
 
 			if (!obj->IsAlive())
 			{
+				SDL_Log("Cull rb for obj %d", obj->id);
+
 				bulletsNeedCull = true;
 				obj->enabled = false;
+				obj->components->rigidbody->pendingDelete = true;
+
 				(*instance->activeBullets)[i]->Reset(*instance->bulletPool);
 			}
 		}

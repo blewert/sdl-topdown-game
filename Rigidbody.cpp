@@ -85,9 +85,10 @@ void Rigidbody::HandleCollisionEvents(Rigidbody& other, bool colliding)
     int newState = -1;
 
     //Get the old state for the other object
-    oldState = collisionFrameMap[otherId];
+    if(collisionFrameMap.count(otherId) > 0)
+        oldState = collisionFrameMap[otherId];
 
-    if (collisionFrameMap.find(otherId) == collisionFrameMap.end() && colliding)
+    if (colliding && collisionFrameMap.count(otherId) > 0)
     {
         //Not found and colliding? We've just started colliding
         collisionFrameMap[otherId] = newState = 0;

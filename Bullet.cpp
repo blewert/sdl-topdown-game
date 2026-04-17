@@ -15,7 +15,7 @@ Bullet::Bullet(const Vector2& initialPos, const Vector2& initialVelocity, Scene*
 	bc.emplace(this, SDL_FRect { 0, 0, 4, 4 });
 	rb.emplace(this, bc.value());	
 
-	parentScene->GetObjects()->AddRigidbody(&rb.value());
+	//parentScene->GetObjects()->AddRigidbody(&rb.value());
 
 	this->SetPosition(initialPos);
 	this->rb.value().SetVelocity(initialVelocity);
@@ -59,4 +59,8 @@ void Bullet::Reset(const Vector2& pos, const Vector2& velocity)
 
 	this->SetPosition(pos);
 	this->rb.value().SetVelocity(velocity);
+	this->rb.value().SetDeallocOnRemoval(false);
+	this->rb.value().pendingDelete = false;
+
+	parentScene->GetObjects()->AddRigidbody(&this->rb.value());
 }

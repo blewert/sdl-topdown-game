@@ -24,6 +24,8 @@ public:
 	void Update();
 	void OnEnd();
 	
+	
+	
 	//TODO: Implement IRenderable interface to make render method access
 	//      a little easier
 	void Render(SDL_Renderer* renderer);
@@ -34,5 +36,6 @@ private:
 	std::vector<Rigidbody*> bodies;
 
 	void CullPendingDeleteObjects();
+	void CullPendingDeleteRBs();
 };
 

@@ -13,6 +13,8 @@ public:
 	Vector2 WorldToScreenPos(const Vector2& pos);
 	Vector2 ScreenToWorldPos(const Vector2& pos);
 
+	float GetPixelScale() { return pixelScale;  }
+
 	virtual void SetPosition(const Vector2& newPosition) override;
 	Vector2 LookAtPos(const Vector2& position);
 

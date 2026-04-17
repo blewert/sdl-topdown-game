@@ -25,6 +25,7 @@ EnemyObject::EnemyObject(Scene* parentScene)
 	sprRenderer = new SpriteRenderer(parentScene->GetRenderer(), this, rct);
 	sprRenderer->SetTexture(this->enemyTex);
 	sprRenderer->SetAnimated(true, SpriteAnimationParams().WithFPS(12).WithDimensions({ 16, 16 }).WithRowCols(2, 2));
+	sprRenderer->SetRandomStartFrame();
 
 	BoxCollider bc = BoxCollider(this, rct);
 	components->Pop();

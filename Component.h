@@ -13,9 +13,15 @@ public:
 	virtual void OnAttach() {}
 	virtual void OnDetach() {}
 
+	void SetDeallocOnRemoval(bool deallocOnRemoval) { this->deallocOnRemoval = deallocOnRemoval; }
+	bool GetDeallocOnRemoval() { return deallocOnRemoval; }
+
 	bool pendingDelete = false;
 	GameObject* parent;
 
 	bool enabled = true;
+
+private: 
+	bool deallocOnRemoval = true;
 };
 

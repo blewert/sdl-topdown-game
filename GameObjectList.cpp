@@ -83,6 +83,7 @@ void GameObjectList::OnStart()
 void GameObjectList::Update()
 {
 	bool needsCull = false;
+	bool rbsNeedCull = false;
 
 	for (GameObject* obj : objects)
 	{
@@ -95,14 +96,19 @@ void GameObjectList::Update()
 			needsCull = true;
 	}
 
+	//SDL_Log("objects %d, bodies %d", objects.size(), bodies.size());
+
 	//TODO: Spatial hashing here, this is 
 	//      a bit intensive
 	for (Rigidbody* a : bodies)
 	{
-		if (!a->parent->enabled)
+		if (a->pendingDelete || a->parent->pendingDelete || a == nullptr)
+		{
+			rbsNeedCull = true;
 			continue;
+		}
 
-		if (a->parent->pendingDelete)
+		if (!a->parent->enabled)
 			continue;
 
 		for (Rigidbody* b : bodies)
@@ -110,7 +116,7 @@ void GameObjectList::Update()
 			if (!b->parent->enabled)
 				continue;
 
-			if (b->parent->pendingDelete)
+			if (b->parent->pendingDelete || b->pendingDelete || b == nullptr)
 				continue;
 
 			if (a == b)
@@ -127,6 +133,9 @@ void GameObjectList::Update()
 			}
 		}
 	}
+
+	if (rbsNeedCull)
+		CullPendingDeleteRBs();
 
 	if(needsCull)
 		CullPendingDeleteObjects();
@@ -155,13 +164,35 @@ void GameObjectList::PostRender(SDL_Renderer* renderer)
 		obj->PostRender(renderer);
 }
 
+void GameObjectList::CullPendingDeleteRBs()
+{
+	std::vector<Rigidbody*> tmpBodies;
+
+	for (int i = 0; i < bodies.size(); i++)
+	{
+		if (!bodies[i]->pendingDelete && !bodies[i]->parent->pendingDelete)
+		{
+			tmpBodies.push_back(bodies[i]);
+		}
+		else
+		{
+			if (bodies[i]->GetDeallocOnRemoval())
+			{
+				delete bodies[i];
+				bodies[i] = nullptr;
+			}
+		}
+	}
+
+	SDL_Log("Rbs swap %d for %d", bodies.size(), tmpBodies.size());
+
+	std::swap(this->bodies, tmpBodies);
+}
+
 void GameObjectList::CullPendingDeleteObjects()
 {
 	std::vector<GameObject*> tmpObjs;
-	std::vector<Rigidbody*> tmpBodies;
-
-	bool cullPendingDeleteRigidbodies = false;
-
+	
 	for (int i = 0; i < objects.size(); i++)
 	{
 		//If not pending delete, add to temp list
@@ -169,11 +200,6 @@ void GameObjectList::CullPendingDeleteObjects()
 		{
 			SDL_Log("No delete object %s", objects[i]->GetName().c_str());
 			tmpObjs.push_back(objects[i]);
-
-			if (objects[i]->components->rigidbody != nullptr)
-			{
-				cullPendingDeleteRigidbodies = true;
-			}
 		}
 
 		//Otherwise, call destructor: this will no longer exist
@@ -186,20 +212,4 @@ void GameObjectList::CullPendingDeleteObjects()
 
 	//Then swap the underlying values
 	std::swap(this->objects, tmpObjs);
-
-	if (!cullPendingDeleteRigidbodies)
-		return;
-
-	for (int i = 0; i < bodies.size(); i++)
-	{
-		if (!bodies[i]->pendingDelete && !bodies[i]->parent->pendingDelete)
-		{
-			tmpBodies.push_back(bodies[i]);
-			continue;
-		}
-
-		delete bodies[i];
-	}
-
-	std::swap(this->bodies, tmpBodies);
 }
