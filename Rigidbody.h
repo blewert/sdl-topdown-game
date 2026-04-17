@@ -16,6 +16,7 @@ public:
 	void SetStatic(const bool status);
 	void SetKinematic(const bool status);
 	void SetDragFactor(const float factor);
+	void DebugRender(SDL_Renderer* renderer);
 
 	void HandleCollisionEvents(Rigidbody& other, bool colliding);
 

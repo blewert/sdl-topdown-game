@@ -12,7 +12,7 @@ Bullet::Bullet(const Vector2& initialPos, const Vector2& initialVelocity, Scene*
 	this->SetName("bullet");
 	this->SetTag("bullet");
 
-	bc.emplace(this, SDL_FRect { 0, 0, 8, 8 });
+	bc.emplace(this, SDL_FRect { 0, 0, 4, 4 });
 	rb.emplace(this, bc.value());	
 
 	parentScene->GetObjects()->AddRigidbody(&rb.value());

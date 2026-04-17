@@ -30,9 +30,18 @@ GameScene::GameScene(SDL_Renderer* renderer) : Scene(renderer), inputManager(Inp
 	camera = new Camera(this, 2.0f);
 	VFXManager::SetCamera(camera);
 
-	EnemyObject* testEnemy = new EnemyObject(this);
-	testEnemy->SetPosition(Vector2(50, 50));
-	objects->Add(testEnemy);
+	for (int i = 0; i < 30; i++)
+	{
+		int x = i % 5;
+		int y = i / 5;
+
+		float xOff = x * 10;
+		float yOff = y * 10;
+
+		EnemyObject* testEnemy = new EnemyObject(this);
+		testEnemy->SetPosition(Vector2(50 + xOff, 50 + yOff));
+		objects->Add(testEnemy);
+	}
 }
 
 GameScene::~GameScene()
@@ -99,6 +108,7 @@ void GameScene::Render()
 void GameScene::PostRender()
 {
 	objects->PostRender(renderer);
+	BulletManager::PostRender(renderer);
 }
 
 void GameScene::OnEnd()

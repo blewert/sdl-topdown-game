@@ -110,7 +110,7 @@ public:
 		PoolSlot<T>* slot = firstAvailable;
 		firstAvailable = slot->next;
 		
-		SDL_Log("Changed next available is %x", firstAvailable);
+		//SDL_Log("Changed next available is %x", firstAvailable);
 
 		/*slot->obj.emplace(std::forward<Args>(args)...)*/;
 

@@ -2,6 +2,8 @@
 #include "Vector2.h"
 #include "GameObject.h"
 #include "Math.h"
+#include "Camera.h"
+#include "Scene.h"
 
 void BoxCollider::Update()
 {
@@ -16,6 +18,8 @@ SDL_FRect BoxCollider::GetWorldBoundsF()
 SDL_Rect BoxCollider::GetWorldBounds()
 {
 	Vector2 pos = parent->GetPosition();
+	pos = parent->parentScene->GetCamera()->WorldToScreenPos(pos);
+
 	return SDL_Rect{ int(pos.x + localBounds.x), int(pos.y + localBounds.y), (int)localBounds.w, (int)localBounds.h };
 }
 

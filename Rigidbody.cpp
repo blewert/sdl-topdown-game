@@ -3,6 +3,8 @@
 #include "Time.h"
 #include "Math.h"
 #include "InputManager.h"
+#include "Scene.h"
+#include "Camera.h"
 
 Rigidbody::Rigidbody(GameObject* parent, BoxCollider& collider) : Component(parent), colliderRef(collider)
 {
@@ -55,6 +57,20 @@ void Rigidbody::SetKinematic(const bool status)
 void Rigidbody::SetDragFactor(const float factor)
 {
     dragFactor = factor;
+}
+
+void Rigidbody::DebugRender(SDL_Renderer* renderer)
+{
+    uint8_t r, g, b, a;
+    SDL_GetRenderDrawColor(renderer, &r, &g, &b, &a);
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+
+    SDL_FRect rct = colliderRef.GetWorldBoundsF();
+    rct = parent->parentScene->GetCamera()->CalculateBounds(rct);
+
+    SDL_RenderDrawRectF(renderer, &rct);
+
+    SDL_SetRenderDrawColor(renderer, r, g, b, a);
 }
 
 void Rigidbody::HandleCollisionEvents(Rigidbody& other, bool colliding)

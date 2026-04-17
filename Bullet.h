@@ -15,7 +15,15 @@ public:
 	void Update() override;
 	void Reset(const Vector2& pos, const Vector2& velocity);
 
+
+	void PostRender(SDL_Renderer* renderer) override final
+	{
+		//Rigidbody* rb = components->rigidbody;
+		//rb->DebugRender(renderer);
+	}
+
 	bool IsAlive() { return isAlive; }
+	void SetAlive(bool alive) { isAlive = alive; }
 
 private:
 	std::optional<Rigidbody> rb;

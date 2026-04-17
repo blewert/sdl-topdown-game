@@ -51,6 +51,8 @@ public:
 
 	void SetName(const std::string& name) { this->name = name; }
 	void SetTag(const std::string& tag) { this->tag = tag; }
+	const std::string& GetTag() { return tag; }
+	const std::string& GetName() { return name; }
 
 protected:
 	Vector2 position = Vector2::zero;

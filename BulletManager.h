@@ -58,6 +58,22 @@ public:
 		}
 	}
 
+	static void PostRender(SDL_Renderer* renderer)
+	{
+		for (PoolSlot<Bullet>* bullet : *instance->activeBullets)
+		{
+			Bullet* obj = bullet->GetObj();
+
+			if (!obj->IsAlive())
+				continue;
+
+			if (obj->pendingDelete)
+				continue;
+
+			obj->PostRender(instance->parentScene->GetRenderer());
+		}
+	}
+
 	static void Update()
 	{
 		bool bulletsNeedCull = false;
@@ -91,7 +107,7 @@ public:
 				tmpBullets.push_back(bulletSlot);
 		}
 
-		SDL_Log("Releasing, there were %d bullets but now only %d", instance->activeBullets->size(), tmpBullets.size());
+		//SDL_Log("Releasing, there were %d bullets but now only %d", instance->activeBullets->size(), tmpBullets.size());
 		
 		std::swap(tmpBullets, *instance->activeBullets);
 	}
@@ -106,7 +122,7 @@ public:
 		bullet->GetObj()->Reset(position, direction);
 		instance->activeBullets->push_back(bullet);
 
-		SDL_Log("Add bullet, amount = %x", instance->activeBullets->size());
+		//SDL_Log("Add bullet, amount = %x", instance->activeBullets->size());
 	}
 
 	static void Exit()

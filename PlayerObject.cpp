@@ -38,7 +38,7 @@ void PlayerObject::FireBullet()
 	float angle = origAngle + Random::Range(-4.0f, 4.0f);
 
 	Vector2 fireDirection = Vector2::FromPolar(angle, 1.0f).Normalized();
-	fireDirection *= 450;
+	fireDirection *= 250;
 
 	Vector2 spawnPos = playerPos + direction * 10;
 
@@ -61,7 +61,7 @@ void PlayerObject::FireBullet()
 	for (int i = 0; i < 5; i++)
 	{
 		Vector2 fireDir = fireDirection.Normalized();
-		Vector2 randomStartPos = spawnPos + fireDir * Random::Range(0.0f, 100.0f);
+		Vector2 randomStartPos = spawnPos + fireDir * Random::Range(0.0f, 400.0f);
 		Vector2 randomEndPos = randomStartPos + fireDir * Random::Range(0.0, 32.0f);
 
 		uint32_t col = 0xffff00ff;
@@ -85,7 +85,7 @@ void PlayerObject::HandlePlayerFiring()
 		if (gunTimer >= 0.05f)
 		{
 			gunTimer = Time::deltaTime;
-			SDL_Log("Firing gun bullet");
+			//SDL_Log("Firing gun bullet");
 			FireBullet();
 		}
 	}
@@ -94,7 +94,7 @@ void PlayerObject::HandlePlayerFiring()
 	{
 		if (Time::elapsedTime - lastShellTime >= 2.0f)
 		{
-			SDL_Log("Firing bullet");
+			//SDL_Log("Firing bullet");
 			lastShellTime = Time::elapsedTime;
 		}
 	}

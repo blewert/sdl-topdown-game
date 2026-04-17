@@ -60,6 +60,11 @@ struct RenderMod
 		return *this;
 	}
 
+	RenderMod& WithColor(const SDL_Color& color)
+	{
+		return WithColor(color.r, color.g, color.b);
+	}
+
 	RenderMod& WithColor(uint32_t color)
 	{
 		uint8_t r = (color >> 16) & 0xff;
