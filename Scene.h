@@ -23,8 +23,9 @@ public:
 
 protected:
 	SDL_Renderer* renderer;
-	Camera* camera = nullptr;
 	GameObjectList* objects = nullptr;
+	Camera* camera = nullptr;
+	
 
 public:
 	GameObjectList* GetObjects()

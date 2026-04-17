@@ -12,6 +12,7 @@
 #include "PlayerObject.h"
 #include "BulletManager.h"
 #include "VFXManager.h"
+#include "EnemyObject.h"
 
 GameScene::GameScene(SDL_Renderer* renderer) : Scene(renderer), inputManager(InputManager::Instance())
 {
@@ -28,6 +29,10 @@ GameScene::GameScene(SDL_Renderer* renderer) : Scene(renderer), inputManager(Inp
 
 	camera = new Camera(this, 2.0f);
 	VFXManager::SetCamera(camera);
+
+	EnemyObject* testEnemy = new EnemyObject(this);
+	testEnemy->SetPosition(Vector2(50, 50));
+	objects->Add(testEnemy);
 }
 
 GameScene::~GameScene()
@@ -54,7 +59,7 @@ void GameScene::Update()
 
 	Vector2 mousePos = inputManager.GetMouseNormScreenPos(GetCamera(), true);
 	
-	
+
 	if (InputManager::Instance().GetRightMouseDownThisFrame())
 	{
 		Vector2 pos = InputManager::Instance().GetMouseWorldPos(GetCamera());

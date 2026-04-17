@@ -43,6 +43,7 @@ Game::Game(int width, int height, bool fullScreen)
 	texManager.Add("muzzleFlashBig", "muzzleFlashBig.png", m_renderer);
 	texManager.Add("muzzleFlash", "muzzleFlash.png", m_renderer);
 	texManager.Add("muzzleFlash2", "muzzleFlash2.png", m_renderer);
+	texManager.Add("enemy", "enemy.png", m_renderer);
 
 	SceneManager& sceneManager = SceneManager::Instance();
 	sceneManager.Initialise(this, m_renderer);

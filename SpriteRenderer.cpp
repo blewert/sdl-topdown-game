@@ -133,8 +133,11 @@ void SpriteRenderer::Update()
 
 	Renderer::Update();
 
-	this->bounds.w = config.frameW;
-	this->bounds.h = config.frameH;
+	if (this->bounds.w <= 0 || this->bounds.h <= 0)
+	{
+		this->bounds.w = config.frameW;
+		this->bounds.h = config.frameH;
+	}
 }
 
 void SpriteRenderer::SetAngle(float angleDegrees)

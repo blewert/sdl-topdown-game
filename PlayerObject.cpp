@@ -24,8 +24,6 @@ PlayerObject::~PlayerObject()
 {
 	delete components;
 	delete renderer;
-
-	delete renderer;
 	delete baseRenderer;
 	delete turretRenderer;
 }

@@ -137,6 +137,7 @@
     <ClCompile Include="DebugObject.cpp" />
     <ClCompile Include="DebugRenderer.cpp" />
     <ClCompile Include="DebugScene.cpp" />
+    <ClCompile Include="EnemyObject.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectList.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="DebugObject.h" />
     <ClInclude Include="DebugRenderer.h" />
     <ClInclude Include="DebugScene.h" />
+    <ClInclude Include="EnemyObject.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectList.h" />
