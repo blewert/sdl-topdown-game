@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "GameObjectList.h"
 #include "HealthBar.h"
+#include "Text.h"
 
 class InputManager;
 class ReticleObject;
@@ -29,5 +30,6 @@ protected:
 	PlayerObject* player;
 
 	HealthBar* hpBar;
+	Text* hpText;
 };
 

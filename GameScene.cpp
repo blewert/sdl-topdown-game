@@ -31,6 +31,8 @@ GameScene::GameScene(SDL_Renderer* renderer) : Scene(renderer), inputManager(Inp
 
 	//Create health bar
 	hpBar = new HealthBar(renderer, player);
+	hpText = new Text(renderer, "HP: 100", "pix-16");
+	hpText->SetPosition(Vector2(20, 40));
 
 	//Create camera
 	camera = new Camera(this, 2.0f);
@@ -76,6 +78,8 @@ void GameScene::Update()
 	//camera->SetPosition(Vector2::left * SDL_sinf(Time::elapsedTime) * 100);
 
 	Vector2 mousePos = inputManager.GetMouseNormScreenPos(GetCamera(), true);
+
+	hpText->SetText("HP: " + std::to_string((int)player->GetHealth()));
 	
 	if (InputManager::Instance().GetLeftMouseDownThisFrame() || player->GetHealth() <= 0.0f)
 	{
@@ -118,6 +122,7 @@ void GameScene::Render()
 	objects->Render(renderer);
 	BulletManager::Render();
 	hpBar->Render();
+	hpText->Render();
 }
 
 void GameScene::PostRender()
@@ -140,6 +145,7 @@ void GameScene::Exit()
 	delete reticle;
 	delete objects;
 	delete hpBar;
+	delete hpText;
 
 	//BulletManager::Exit();
 }

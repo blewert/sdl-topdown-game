@@ -35,6 +35,8 @@ private:
 	SDL_Renderer* renderer = nullptr;
 	TTF_Font* fontObj = nullptr;
 
+	std::string text;
+
 	SDL_Rect fontBBox;
 	SDL_Color color;
 	Vector2 position;

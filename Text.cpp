@@ -85,6 +85,11 @@ void Text::SetFont(const std::string& fontString)
 
 void Text::SetText(const std::string& text)
 {
+    //No need to recreate if the text is the same
+    if (this->text == text)
+        return;
+
+    this->text = text;
     CreateTexture(text);
 }
 
