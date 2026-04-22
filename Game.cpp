@@ -3,6 +3,7 @@
 #include "Time.h"
 #include "TextureManager.h"
 #include "VFXManager.h"
+#include "Text.h"
 
 bool Game::sdlInitialised = false;
 
@@ -45,6 +46,12 @@ Game::Game(int width, int height, bool fullScreen)
 	texManager.Add("muzzleFlash2", "muzzleFlash2.png", m_renderer);
 	texManager.Add("enemy", "enemy.png", m_renderer);
 
+	Text::LoadFont("square-16", "fonts/Square.ttf", 16);
+	Text::LoadFont("square-24", "fonts/Square.ttf", 24);
+	Text::LoadFont("square-32", "fonts/Square.ttf", 32);
+	Text::LoadFont("pix-12", "fonts/Pix32.ttf", 12);
+	Text::LoadFont("pix-14", "fonts/Pix32.ttf", 14);
+
 	SceneManager& sceneManager = SceneManager::Instance();
 	sceneManager.Initialise(this, m_renderer);
 	sceneManager.LoadScene(this, "gameScene");
@@ -63,6 +70,7 @@ Game::~Game()
 	SceneManager::Instance().Exit();
 	InputManager::Instance().Exit();
 	TextureManager::Instance().Exit();
+	Text::Exit();
 }
 
 void Game::Update()

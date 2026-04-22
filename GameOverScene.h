@@ -1,11 +1,14 @@
 #pragma once
 #include "SDL.h"
 #include "Scene.h"
+#include "Text.h"
 
 class GameOverScene : public Scene
 {
 public:
-	GameOverScene(SDL_Renderer* renderer) : Scene(renderer) { }
+	GameOverScene(SDL_Renderer* renderer);
+	~GameOverScene();
+
 
 	// Inherited via Scene
 	virtual void OnStart() override;
@@ -13,6 +16,9 @@ public:
 	virtual void Render() override;
 	virtual void OnEnd() override;
 	virtual void Exit() override;
+
+private:
+	Text* titleText;
 
 };
 
