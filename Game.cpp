@@ -36,6 +36,7 @@ Game::Game(int width, int height, bool fullScreen)
 	instance.ShowCursor(false);
 
 	TextureManager& texManager = TextureManager::Instance();
+	texManager.Add("tilemap", "tilemap.png", m_renderer);
 	texManager.Add("test-tex", "test.png", m_renderer);
 	texManager.Add("test-anim", "test-anim.png", m_renderer);
 	texManager.Add("reticle", "reticle.png", m_renderer);

@@ -20,10 +20,21 @@ GameScene::GameScene(SDL_Renderer* renderer) : Scene(renderer), inputManager(Inp
 {
 	SDL_Log("GameScene ctor");
 
+	//Initialise player & bullets
 	objects = new GameObjectList();
 	BulletManager::Initialise(this, 100);
 	player = new PlayerObject(this);
 	objects->Add(player);
+
+	//Create tilemap
+	tilemap = new Tilemap(this, renderer);
+	tilemap->SetMapSize(32, 32);
+	tilemap->SetPosition(Vector2(0, 0));
+	tilemap->SetTexture(TextureManager::Instance()["tilemap"], 8, 13);
+	tilemap->SetTileSize(16);
+	tilemap->SetScale(2);
+	tilemap->SetPlayerObject(player);
+	tilemap->Initialise();
 
 	//Create reticle
 	this->reticle = new ReticleObject(this);
@@ -119,6 +130,7 @@ void GameScene::Update()
 
 void GameScene::Render()
 {
+	tilemap->Render();
 	objects->Render(renderer);
 	BulletManager::Render();
 	hpBar->Render();
@@ -146,6 +158,7 @@ void GameScene::Exit()
 	delete objects;
 	delete hpBar;
 	delete hpText;
+	delete tilemap;
 
 	//BulletManager::Exit();
 }

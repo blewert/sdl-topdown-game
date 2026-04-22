@@ -3,6 +3,7 @@
 #include "GameObjectList.h"
 #include "HealthBar.h"
 #include "Text.h"
+#include "Tilemap.h"
 
 class InputManager;
 class ReticleObject;
@@ -31,5 +32,7 @@ protected:
 
 	HealthBar* hpBar;
 	Text* hpText;
+
+	Tilemap* tilemap;
 };
 

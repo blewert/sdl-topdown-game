@@ -159,6 +159,7 @@
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="Tilemap.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="VFXManager.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="Text.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="Tilemap.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="VFXManager.h" />
