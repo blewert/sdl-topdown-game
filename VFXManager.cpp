@@ -1,6 +1,7 @@
 #include "VFXManager.h"
 #include "Time.h"
 #include "TextureManager.h"
+#include "Math.h"
 
 VFXManager* VFXManager::instance = nullptr;
 
@@ -27,6 +28,24 @@ void VFXManager::Update()
 {
     VFXManager* instance = GetInstance();
     bool needsCullObjs = false;
+
+    if (instance->currentShakeParams.active)
+    {
+        instance->currentShakeParams.time -= Time::deltaTime;
+
+        if (instance->currentShakeParams.time <= 0)
+        {
+            instance->currentShakeParams.active = false;
+            instance->currentShakeParams.time = 0.0f;
+        }
+        else
+        {
+            Vector2 camPos = instance->camera->GetPosition();
+            camPos += Random::InUnitCircle() * instance->currentShakeParams.intensity;
+
+            instance->camera->SetPosition(camPos);
+        }
+    }
 
     for (VFXInstance& vfxInst : *instance->instancePool)
     {
@@ -81,6 +100,7 @@ void VFXManager::Render(SDL_Renderer* renderer)
 {
     VFXManager* instance = GetInstance();
 
+
     for (VFXInstance& vfxInst : *instance->instancePool)
     {
         if (!vfxInst.enabled)
@@ -123,6 +143,15 @@ void VFXManager::Render(SDL_Renderer* renderer)
 
         SDL_RenderCopyExF(renderer, texData.tex->GetSDLTexture(), &rctSrc, &rctDst, vfxInst.angleDegrees, NULL, SDL_FLIP_NONE);
     }
+}
+
+void VFXManager::CameraShake(float time, float intensity)
+{
+    VFXManager* instance = GetInstance();
+
+    instance->currentShakeParams.active = true;
+    instance->currentShakeParams.time = time;
+    instance->currentShakeParams.intensity = intensity;
 }
 
 void VFXManager::LoadEffect(Texture* tex, const std::string& effectKey, int cols, int rows, const Vector2& frameSize)

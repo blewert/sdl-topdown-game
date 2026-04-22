@@ -18,7 +18,8 @@ Text::Text(SDL_Renderer* renderer, const std::string& text, const std::string& f
 
 Text::~Text()
 {
-    delete fontTexture;
+    SDL_DestroyTexture(fontTexture);
+    fontTexture = nullptr;
 }
 
 void Text::SetAlign(TextAlign horizontalAlign, TextAlign verticalAlign)
@@ -33,6 +34,9 @@ void Text::Render()
     SDL_assert(fontObj != nullptr);
 
     SDL_FRect renderBox = { position.x, position.y, fontBBox.w, fontBBox.h };
+
+    float scaleX, scaleY;
+    SDL_RenderGetScale(renderer, &scaleX, &scaleY);
 
     //Horizontal alignment
     if (horizontalAlign == TextAlign::Center)
@@ -49,6 +53,13 @@ void Text::Render()
     else if (verticalAlign == TextAlign::End)
         renderBox.y -= fontBBox.h;
     //---
+
+    //To cirumvent render scale affecting render size
+    float antiScaleFactor = 1.0f / scaleY;
+    renderBox.w *= antiScaleFactor;
+    renderBox.h *= antiScaleFactor;
+    renderBox.x *= antiScaleFactor;
+    renderBox.y *= antiScaleFactor;
 
     SDL_RenderCopyF(renderer, fontTexture, NULL, &renderBox);
 }
@@ -112,13 +123,13 @@ void Text::CreateTexture(const std::string& text)
     }
 
     //Create texture
-    SDL_Surface* surf = TTF_RenderText_Blended(fontObj, text.c_str(), color);
+    SDL_Surface* surf = TTF_RenderText_Blended_Wrapped(fontObj, text.c_str(), color, 0);
     fontTexture = SDL_CreateTextureFromSurface(renderer, surf);
     SDL_FreeSurface(surf);
 
     //Create size box
     int w, h;
-    TTF_SizeText(fontObj, text.c_str(), &w, &h);
+    SDL_QueryTexture(fontTexture, NULL, NULL, &w, &h);
     this->fontBBox = { 0, 0, w, h };
 }
 

@@ -14,6 +14,7 @@
 #include "VFXManager.h"
 #include "EnemyObject.h"
 #include "SceneManager.h"
+#include "Game.h"
 
 GameScene::GameScene(SDL_Renderer* renderer) : Scene(renderer), inputManager(InputManager::Instance())
 {
@@ -34,6 +35,8 @@ GameScene::GameScene(SDL_Renderer* renderer) : Scene(renderer), inputManager(Inp
 	//Create camera
 	camera = new Camera(this, 2.0f);
 	VFXManager::SetCamera(camera);
+
+	Game::ResetEnemiesKilled();
 
 	for (int i = 0; i < 30; i++)
 	{
@@ -56,6 +59,7 @@ GameScene::~GameScene()
 
 void GameScene::OnStart()
 {
+	Time::elapsedTime = 0.0f;
 	objects->OnStart();
 }
 
@@ -73,7 +77,7 @@ void GameScene::Update()
 
 	Vector2 mousePos = inputManager.GetMouseNormScreenPos(GetCamera(), true);
 	
-	if (InputManager::Instance().GetLeftMouseDownThisFrame())
+	if (InputManager::Instance().GetLeftMouseDownThisFrame() || player->GetHealth() <= 0.0f)
 	{
 		SceneManager::Instance().LoadScene("gameOverScene");
 		return;

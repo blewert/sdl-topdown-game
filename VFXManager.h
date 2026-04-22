@@ -5,6 +5,13 @@
 #include <map>
 #include "Camera.h"
 
+struct VFXCameraShake
+{
+	float intensity;
+	float time;
+	bool active;
+};
+
 struct VFXTexData
 {
 	Texture* tex;
@@ -42,6 +49,8 @@ public:
 	static void Update();
 	static void Render(SDL_Renderer* renderer);
 
+	static void CameraShake(float time, float intensity);
+
 	static void LoadEffect(Texture* tex, const std::string& effectKey, int cols, int rows, const Vector2& frameSize);
 	static void SpawnEffect(const Vector2& position, const std::string& key, float fps=8, float scale = 1.0f, float angle=0.0f, bool loop=false, float timeLeft=-1.0f);
 
@@ -52,5 +61,7 @@ private:
 	static VFXManager* GetInstance();
 	static VFXManager* instance;
 	Camera* camera = nullptr;
+
+	VFXCameraShake currentShakeParams;
 };
 

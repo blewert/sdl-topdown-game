@@ -19,6 +19,8 @@ public:
 
 private:
 	Text* titleText;
+	Text* infoText;
+	Text* highScoreText;
 
 };
 

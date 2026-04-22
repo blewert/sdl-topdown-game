@@ -5,6 +5,7 @@
 #include "TextureManager.h"
 #include "VFXManager.h"
 #include "Math.h"
+#include "Game.h"
 
 EnemyObject::EnemyObject(Scene* parentScene) 
 	: GameObject(parentScene), inputManager(InputManager::Instance()), texManager(TextureManager::Instance())
@@ -83,6 +84,8 @@ void EnemyObject::Update()
 			playerObj->Damage(1.5f);
 
 			Vector2 pos = playerObj->GetPosition();
+			pos += Random::InUnitCircle() * 10;
+
 			VFXManager::SpawnEffect(pos, "explosion-1", 12, 0.5f);
 		}
 	}
@@ -107,6 +110,10 @@ void EnemyObject::OnCollisionWithBullet(Rigidbody& thisRb, Bullet* bulletObj)
 	{
 		this->Destroy();
 		VFXManager::SpawnEffect(GetPosition()+Vector2(4, 4), "explosion-1");
+
+		Game::OnEnemyKilled();
+
+		VFXManager::CameraShake(0.05f, 2);
 
 		for (int i = 0; i < 5; i++)
 		{

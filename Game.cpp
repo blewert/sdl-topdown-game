@@ -6,6 +6,7 @@
 #include "Text.h"
 
 bool Game::sdlInitialised = false;
+int Game::enemiesKilled = 0;
 
 Game::Game(int width, int height, bool fullScreen)
 {
@@ -46,11 +47,14 @@ Game::Game(int width, int height, bool fullScreen)
 	texManager.Add("muzzleFlash2", "muzzleFlash2.png", m_renderer);
 	texManager.Add("enemy", "enemy.png", m_renderer);
 
-	Text::LoadFont("square-16", "fonts/Square.ttf", 16);
 	Text::LoadFont("square-24", "fonts/Square.ttf", 24);
 	Text::LoadFont("square-32", "fonts/Square.ttf", 32);
+	Text::LoadFont("square-48", "fonts/Square.ttf", 48);
+	Text::LoadFont("square-72", "fonts/Square.ttf", 72);
 	Text::LoadFont("pix-12", "fonts/Pix32.ttf", 12);
-	Text::LoadFont("pix-14", "fonts/Pix32.ttf", 14);
+	Text::LoadFont("pix-16", "fonts/Pix32.ttf", 16);
+	Text::LoadFont("pix-18", "fonts/Pix32.ttf", 18);
+	Text::LoadFont("pix-24", "fonts/Pix32.ttf", 24);
 
 	SceneManager& sceneManager = SceneManager::Instance();
 	sceneManager.Initialise(this, m_renderer);
