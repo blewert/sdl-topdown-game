@@ -142,6 +142,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectList.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="HealthBar.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MultipassRenderer.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectList.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="HealthBar.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="MultipassRenderer.h" />
     <ClInclude Include="ObjectPool.h" />

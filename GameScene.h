@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene.h"
 #include "GameObjectList.h"
+#include "HealthBar.h"
 
 class InputManager;
 class ReticleObject;
@@ -26,5 +27,7 @@ protected:
 	
 	ReticleObject* reticle;
 	PlayerObject* player;
+
+	HealthBar* hpBar;
 };
 

@@ -27,6 +27,10 @@ GameScene::GameScene(SDL_Renderer* renderer) : Scene(renderer), inputManager(Inp
 	this->reticle = new ReticleObject(this);
 	objects->Add(reticle);
 
+	//Create health bar
+	hpBar = new HealthBar(renderer, player);
+
+	//Create camera
 	camera = new Camera(this, 2.0f);
 	VFXManager::SetCamera(camera);
 
@@ -103,6 +107,7 @@ void GameScene::Render()
 {
 	objects->Render(renderer);
 	BulletManager::Render();
+	hpBar->Render();
 }
 
 void GameScene::PostRender()
@@ -120,9 +125,11 @@ void GameScene::OnEnd()
 void GameScene::Exit()
 {
 	SDL_Log("GameScene::Exit");
+
 	delete camera;
 	delete reticle;
 	delete objects;
+	delete hpBar;
 
 	BulletManager::Exit();
 }

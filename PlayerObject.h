@@ -19,6 +19,7 @@ public:
 	void HandlePlayerFiring();
 
 	void Damage(float value);
+	float GetHealth() { return health;  }
 	void OnPlayerDie();
 
 
