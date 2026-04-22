@@ -131,6 +131,6 @@ void GameScene::Exit()
 	delete objects;
 	delete hpBar;
 
-	BulletManager::Exit();
+	//BulletManager::Exit();
 }
 

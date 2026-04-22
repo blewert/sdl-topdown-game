@@ -16,7 +16,7 @@ GameObject::GameObject(Scene* parentScene)
 
 GameObject::~GameObject()
 {
-	if (this->components != nullptr && this->components->Count() > 0)
+	if (this->components != NULL && this->components != nullptr && this->components->Count() > 0)
 		delete this->components;
 
 	//TODO: Fix this as currently it blows up if 
