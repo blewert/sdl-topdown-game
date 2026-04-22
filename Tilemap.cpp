@@ -31,6 +31,31 @@ void Tilemap::Initialise()
 	AddLayer();
 }
 
+void Tilemap::GetStreamingCoordsForObject(const SDL_Point& kernel, GameObject* obj, SDL_Point* start, SDL_Point* end)
+{
+	//Get camera properties for conversion to cam space
+	Camera* cam = parentScene->GetCamera();
+	Vector2 camPos = cam->GetPosition();
+	float pixelScale = cam->GetPixelScale();
+
+	//Find the object's position with respect to the grid of
+	//this tilemap
+	Vector2 objPos = obj->GetPosition();
+	objPos -= position;
+	objPos /= (tilePixelSize / pixelScale) * scale;
+
+	//Floor position to get true grid position
+	SDL_Point objGridPos{ floorf(objPos.x), floorf(objPos.y) };
+
+	//Find lower bound (clamp x & y to valid ranges)
+	start->x = SDL_clamp(objGridPos.x - kernel.x, 0, mapWidth - 1);
+	start->y = SDL_clamp(objGridPos.y - kernel.y, 0, mapHeight - 1);
+
+	//Find upper bound (clamp x & y to valid ranges)
+	end->x = SDL_clamp(objGridPos.x + kernel.x, 0, mapWidth - 1);
+	end->y = SDL_clamp(objGridPos.y + kernel.y, 0, mapHeight - 1);
+}
+
 SDL_Point Tilemap::Convert1DTo2DCoord(int id, int cols, int rows)
 {
 	int x = id % cols;
@@ -55,21 +80,8 @@ void Tilemap::Render()
 	Vector2 camPos = cam->GetPosition();
 	float pixelScale = cam->GetPixelScale();
 
-	Vector2 playerPos = playerObject->GetPosition();
-	playerPos -= position;
-	playerPos /= (tilePixelSize / pixelScale) * scale;
-
-	SDL_Point playerGridPos { floorf(playerPos.x), floorf(playerPos.y) };
-	
-	static int kernelSize = 8;
-
-	SDL_Point start;
-	start.x = SDL_clamp(playerGridPos.x - kernelSize, 0, mapWidth - 1);
-	start.y = SDL_clamp(playerGridPos.y - kernelSize, 0, mapHeight - 1);
-
-	SDL_Point end;
-	end.x = SDL_clamp(playerGridPos.x + kernelSize, 0, mapWidth - 1);
-	end.y = SDL_clamp(playerGridPos.y + kernelSize, 0, mapHeight - 1);
+	SDL_Point start, end;
+	GetStreamingCoordsForObject({ 10, 7 }, playerObject, &start, &end);
 
 	SDL_Point diff = { start.x - end.x, start.y - end.y };
 	

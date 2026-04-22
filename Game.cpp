@@ -83,6 +83,8 @@ void Game::Update()
 	Time::Tick();
 	InputManager::Instance().Update();
 
+	uint32_t flags = SDL_GetWindowFlags(m_window);
+
 	SDL_Event e;
 	while (SDL_PollEvent(&e))
 	{
@@ -95,6 +97,9 @@ void Game::Update()
 		else if (e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEBUTTONUP || e.type == SDL_MOUSEMOTION)
 			InputManager::Instance().ProcessEvent(e);
 	}
+
+	if (!(flags & SDL_WINDOW_INPUT_FOCUS))
+		return;
 
 	static float timer = 0;
 	timer += Time::deltaTime;

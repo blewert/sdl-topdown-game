@@ -47,6 +47,8 @@ public:
 	void SetPlayerObject(GameObject* object) { playerObject = object;  }
 	void Initialise();
 
+	void GetStreamingCoordsForObject(const SDL_Point& kernel, GameObject* obj, SDL_Point* start, SDL_Point* end);
+
 	static SDL_Point Convert1DTo2DCoord(int id, int cols, int rows);
 
 	TilemapLayer& AddLayer();

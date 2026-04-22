@@ -66,13 +66,38 @@ void InputManager::ProcessKeyEvent(SDL_Event e)
 				continue;
 			}
 
-			//Otherwise assign high if high pressed
-			if (lohiAxis->highKey == e.key.keysym.sym)
-				value = (e.type == SDL_KEYDOWN) ? (lohiAxis->highValue) : (0.0f);
+			if (e.key.repeat)
+				continue;
 
-			//Or low if low pressed
-			else if (lohiAxis->lowKey == e.key.keysym.sym)
-				value = (e.type == SDL_KEYDOWN) ? (lohiAxis->lowValue) : (0.0f);
+			bool isLowKey  = lohiAxis->lowKey == e.key.keysym.sym;
+			bool isHighKey = lohiAxis->highKey == e.key.keysym.sym;
+
+			if (e.type == SDL_KEYDOWN)
+			{
+				if (isLowKey)
+				{
+					value = lohiAxis->lowValue;
+					lohiAxis->lowKeyDown = true;
+				}
+				else if (isHighKey)
+				{
+					value = lohiAxis->highValue;
+					lohiAxis->highKeyDown = true;
+				}
+			}
+			else if (e.type == SDL_KEYUP)
+			{
+				if (isLowKey)
+				{
+					value = (lohiAxis->highKeyDown) ? lohiAxis->highValue : 0.0f;
+					lohiAxis->lowKeyDown = false;
+				}
+				else if (isHighKey)
+				{
+					value = (lohiAxis->lowKeyDown) ? lohiAxis->lowValue : 0.0f;
+					lohiAxis->highKeyDown = false;
+				}
+			}
 
 			//Change underlying value
 			lohiAxis->value = value;

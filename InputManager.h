@@ -8,6 +8,9 @@ class Camera;
 
 struct KeyAxis
 {
+	bool lowKeyDown = false;
+	bool highKeyDown = false;
+
 	SDL_KeyCode lowKey;
 	float lowValue;
 
