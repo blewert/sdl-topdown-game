@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "DebugScene.h"
 #include "GameScene.h"
+#include "GameOverScene.h"
 
 SceneManager* SceneManager::instance = nullptr;
 
@@ -44,8 +45,16 @@ void SceneManager::LoadScene(Game* game, const std::string& sceneKey)
 	game->GetCurrentScene()->OnStart();
 }
 
+void SceneManager::LoadScene(const std::string& sceneKey)
+{
+	LoadScene(this->game, sceneKey);
+}
+
 void SceneManager::Initialise(Game* game, SDL_Renderer* renderer)
 {
-	AddScene("debugScene", new DebugScene(renderer));
+	this->game = game;
+
+	//AddScene("debugScene", new DebugScene(renderer));
 	AddScene("gameScene", new GameScene(renderer));
+	AddScene("gameOverScene", new GameOverScene(renderer));
 }

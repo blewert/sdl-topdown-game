@@ -13,6 +13,7 @@
 #include "BulletManager.h"
 #include "VFXManager.h"
 #include "EnemyObject.h"
+#include "SceneManager.h"
 
 GameScene::GameScene(SDL_Renderer* renderer) : Scene(renderer), inputManager(InputManager::Instance())
 {
@@ -72,6 +73,11 @@ void GameScene::Update()
 
 	Vector2 mousePos = inputManager.GetMouseNormScreenPos(GetCamera(), true);
 	
+	if (InputManager::Instance().GetLeftMouseDownThisFrame())
+	{
+		SceneManager::Instance().LoadScene("gameOverScene");
+		return;
+	}
 
 	if (InputManager::Instance().GetRightMouseDownThisFrame())
 	{

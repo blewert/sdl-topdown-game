@@ -23,9 +23,11 @@ public:
 	void Exit();
 	void AddScene(const std::string& sceneKey, Scene* scene);
 	void LoadScene(Game* game, const std::string& sceneKey);
+	void LoadScene(const std::string& sceneKey);
 	void Initialise(Game* game, SDL_Renderer* renderer);
 
 private:
+	Game* game;
 	static SceneManager* instance;
 	std::map<std::string, Scene*> sceneMap;
 };
