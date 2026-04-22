@@ -39,7 +39,7 @@ void PlayerObject::FireBullet()
 
 	Vector2 fireDirection = Vector2::FromPolar(angle, 1.0f).Normalized();
 	fireDirection *= 250;
-
+	
 	Vector2 spawnPos = playerPos + direction * 10;
 
 	BulletManager::FireBullet(spawnPos, fireDirection);
@@ -97,6 +97,27 @@ void PlayerObject::HandlePlayerFiring()
 			lastShellTime = Time::elapsedTime;
 		}
 	}
+}
+
+void PlayerObject::Damage(float value)
+{
+	if (playerDead)
+		return;
+
+	this->health -= value;
+
+	SDL_Log("Damage %f", health);
+
+	if (this->health <= 0.0f)
+	{
+		playerDead = true;
+		OnPlayerDie();
+	}
+}
+
+void PlayerObject::OnPlayerDie()
+{
+	SDL_Log("You died");
 }
 
 void PlayerObject::OnStart()

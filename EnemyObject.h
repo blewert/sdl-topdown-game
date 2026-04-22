@@ -4,6 +4,7 @@
 #include "MultipassRenderer.h"
 #include "Rigidbody.h"
 #include "Bullet.h"
+#include "PlayerObject.h"
 
 class TextureManager;
 class InputManager;
@@ -47,10 +48,11 @@ private:
 	float gunTimer = 0;
 	float lastShellTime = 0;
 	float hurtTimer = 0;
+	float damageTimer;
 	SDL_Color hurtColor = { 255, 0, 0, 255 };
 	SpriteRenderer* sprRenderer;
 
-	GameObject* playerObj;
+	PlayerObject* playerObj;
 };
 
 

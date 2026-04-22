@@ -18,6 +18,10 @@ public:
 
 	void HandlePlayerFiring();
 
+	void Damage(float value);
+	void OnPlayerDie();
+
+
 protected:
 	TextureManager& texManager;
 	InputManager& inputManager;
@@ -30,6 +34,8 @@ private:
 	void SetupRenderers();
 	float gunTimer = 0;
 	float lastShellTime = 0;
+	float health = 100.0f;
+	bool playerDead = false;
 
 };
 

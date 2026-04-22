@@ -45,8 +45,8 @@ EnemyObject::~EnemyObject()
 
 void EnemyObject::OnStart()
 {
-	this->playerObj = parentScene->GetObjects()->FindFirstObjectByTag("player");
-
+	this->playerObj = dynamic_cast<PlayerObject*>(parentScene->GetObjects()->FindFirstObjectByTag("player"));
+	
 	SDL_assert(this->playerObj != nullptr);
 }
 
@@ -55,9 +55,11 @@ void EnemyObject::Update()
 	components->Update();
 
 	Vector2 dirToPlayer = this->playerObj->GetPosition() - GetPosition();
-	dirToPlayer.Normalize();
+	Vector2 dirToPlayerNorm = dirToPlayer.Normalized();
 
-	components->rigidbody->SetVelocity(dirToPlayer * 10);
+	dirToPlayerNorm += Random::InUnitCircle() * Random::Range(10, 20);
+
+	components->rigidbody->SetVelocity(dirToPlayerNorm * 15);
 
 	if (hurtTimer > 0)
 	{
@@ -67,6 +69,22 @@ void EnemyObject::Update()
 	else
 	{
 		sprRenderer->SetRenderMod(RenderMod().WithActivated(false));
+	}
+
+
+	if (dirToPlayer.Magnitude() <= 25.0f)
+	{
+		damageTimer += Time::deltaTime;
+		components->rigidbody->SetVelocity(Vector2::zero);
+
+		if (damageTimer >= 0.5f)
+		{
+			damageTimer = Time::deltaTime;
+			playerObj->Damage(1.5f);
+
+			Vector2 pos = playerObj->GetPosition();
+			VFXManager::SpawnEffect(pos, "explosion-1", 12, 0.5f);
+		}
 	}
 }
 
