@@ -1,6 +1,8 @@
 #pragma once
 #include "Scene.h"
 #include "Texture.h"
+#include "json.hpp"
+#include <fstream>
 
 struct Tile
 {
@@ -16,6 +18,8 @@ struct Tile
 struct TilemapLayer
 {
 	std::vector<std::vector<Tile>> tileData;
+	bool collision = false;
+	std::string name;
 
 	TilemapLayer(int width, int height)
 	{
@@ -26,7 +30,7 @@ struct TilemapLayer
 			std::vector<Tile> innerLayer;
 
 			for (int x = 0; x < width; x++)
-				innerLayer.push_back(Tile(rand() % 101 + 1, x, y));
+				innerLayer.push_back(Tile(-1, x, y));
 
 			tileData.push_back(innerLayer);
 		}
@@ -46,6 +50,8 @@ public:
 	void SetScale(float scale) { this->scale = scale; }
 	void SetPlayerObject(GameObject* object) { playerObject = object;  }
 	void Initialise();
+
+	void LoadFromDisk(const std::string& path);
 
 	void GetStreamingCoordsForObject(const SDL_Point& kernel, GameObject* obj, SDL_Point* start, SDL_Point* end);
 

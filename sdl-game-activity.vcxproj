@@ -185,6 +185,7 @@
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="HealthBar.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="json.hpp" />
     <ClInclude Include="MultipassRenderer.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="PlayerObject.h" />

@@ -27,8 +27,54 @@ void Tilemap::Initialise()
 		return;
 
 	hasInited = true;
+}
 
-	AddLayer();
+void Tilemap::LoadFromDisk(const std::string& path)
+{
+	using namespace nlohmann;
+
+	Initialise();
+
+	std::ifstream jsonFile(path);
+	SDL_assert(jsonFile.is_open());
+
+	json jsonObj = json::parse(jsonFile);
+	jsonFile.close();
+
+	//----
+
+	int tileSize = jsonObj["tileSize"];
+	int mapWidth = jsonObj["mapWidth"] + 2;
+	int mapHeight = jsonObj["mapHeight"] + 2;
+
+	this->tilePixelSize = tileSize;
+	this->mapHeight = mapHeight;
+	this->mapWidth = mapWidth;
+
+	std::vector<json> layers = jsonObj["layers"];
+
+	for (json& layer : layers)
+	{
+		std::string name = layer["name"];
+		std::vector<json> tiles = layer["tiles"];
+
+		TilemapLayer& layer = AddLayer();
+
+		layer.name = name;
+		layer.collision = (name == "Collision");
+
+		for (json& tile : tiles)
+		{
+			std::string idStr = tile["id"];
+			int id = std::stoi(idStr);
+			int x = tile["x"];
+			int y = tile["y"];
+
+			layer.tileData[x][y] = Tile(id, x, y);
+		}
+	}
+	
+	std::reverse(this->layers.begin(), this->layers.end());
 }
 
 void Tilemap::GetStreamingCoordsForObject(const SDL_Point& kernel, GameObject* obj, SDL_Point* start, SDL_Point* end)
@@ -115,7 +161,10 @@ void Tilemap::Render()
 				destRect.x -= camPos.x * pixelScale;
 				destRect.y -= camPos.y * pixelScale;
 
-				SDL_RenderCopyF(renderer, tilemapTex->GetSDLTexture(), &srcRect, &destRect);
+				//This fixes screen tearing issues
+				SDL_Rect destRectI = { SDL_floor(destRect.x), SDL_floor(destRect.y), SDL_floor(destRect.w), SDL_floor(destRect.h) };
+
+				SDL_RenderCopy(renderer, tilemapTex->GetSDLTexture(), &srcRect, &destRectI);
 			}
 		}
 	}

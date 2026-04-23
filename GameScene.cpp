@@ -34,7 +34,7 @@ GameScene::GameScene(SDL_Renderer* renderer) : Scene(renderer), inputManager(Inp
 	tilemap->SetTileSize(16);
 	tilemap->SetScale(2);
 	tilemap->SetPlayerObject(player);
-	tilemap->Initialise();
+	tilemap->LoadFromDisk("map.json");
 
 	//Create reticle
 	this->reticle = new ReticleObject(this);
