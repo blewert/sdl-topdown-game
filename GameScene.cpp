@@ -28,9 +28,7 @@ GameScene::GameScene(SDL_Renderer* renderer) : Scene(renderer), inputManager(Inp
 
 	//Create tilemap
 	tilemap = new Tilemap(this, renderer);
-	tilemap->SetMapSize(32, 32);
-	tilemap->SetPosition(Vector2(0, 0));
-	tilemap->SetTexture(TextureManager::Instance()["tilemap"], 8, 13);
+	tilemap->SetTexture(TextureManager::Instance()["tilemap"], 8, 6);
 	tilemap->SetTileSize(16);
 	tilemap->SetScale(2);
 	tilemap->SetPlayerObject(player);

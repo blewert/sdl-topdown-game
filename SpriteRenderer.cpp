@@ -113,6 +113,8 @@ void SpriteRenderer::Render()
 		//Reset blend mode & get rid of scratch texture
 		SDL_SetTextureBlendMode(spriteTex, SDL_BLENDMODE_BLEND);
 		SDL_DestroyTexture(targetTex);
+
+		SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_NONE);
 	}
 	else
 	{

@@ -33,8 +33,6 @@ void Tilemap::LoadFromDisk(const std::string& path)
 {
 	using namespace nlohmann;
 
-	Initialise();
-
 	std::ifstream jsonFile(path);
 	SDL_assert(jsonFile.is_open());
 
@@ -50,6 +48,8 @@ void Tilemap::LoadFromDisk(const std::string& path)
 	this->tilePixelSize = tileSize;
 	this->mapHeight = mapHeight;
 	this->mapWidth = mapWidth;
+
+	Initialise();
 
 	std::vector<json> layers = jsonObj["layers"];
 
@@ -70,7 +70,7 @@ void Tilemap::LoadFromDisk(const std::string& path)
 			int x = tile["x"];
 			int y = tile["y"];
 
-			layer.tileData[x][y] = Tile(id, x, y);
+			layer.tileData[y][x] = Tile(id, x, y);
 		}
 	}
 	

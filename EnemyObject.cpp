@@ -53,7 +53,8 @@ void EnemyObject::OnStart()
 
 void EnemyObject::Update()
 {
-	components->Update();
+	if(health > 0)
+		components->Update();
 
 	Vector2 dirToPlayer = this->playerObj->GetPosition() - GetPosition();
 	Vector2 dirToPlayerNorm = dirToPlayer.Normalized();
