@@ -77,6 +77,8 @@ void SpriteRenderer::Render()
 
 	if (renderTexMod.activated)
 	{
+		SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_ADD);
+
 		//Create target texture from this
 		SDL_Texture* spriteTex = tex->GetSDLTexture();
 		SDL_Texture* targetTex = CreateBlankSDLTexFromExisting(spriteTex);
@@ -94,12 +96,14 @@ void SpriteRenderer::Render()
 			SDL_BLENDFACTOR_SRC_COLOR,
 			SDL_BLENDOPERATION_ADD,
 			SDL_BLENDFACTOR_ZERO,
-			SDL_BLENDFACTOR_SRC_ALPHA,
+			SDL_BLENDFACTOR_DST_ALPHA,
 			SDL_BLENDOPERATION_ADD
 		);
 
+		blendMode = SDL_BLENDMODE_ADD;
+
 		//Copy existing tex using this blend func
-		SDL_SetTextureBlendMode(spriteTex, blendMode);
+		SDL_SetTextureBlendMode(targetTex, blendMode);
 		SDL_RenderCopy(renderer, spriteTex, NULL, NULL);
 
 		//Reset renderer to screen, Render the masked sprite

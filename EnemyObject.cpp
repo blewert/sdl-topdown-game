@@ -99,7 +99,7 @@ void EnemyObject::OnCollisionWithBullet(Rigidbody& thisRb, Bullet* bulletObj)
 	VFXManager::SpawnEffect(bulletPosition, "explosion-1", 12, 0.25f);
 	bulletObj->SetAlive(false);
 
-	this->ApplyHurtEffect(0.05f, SDL_Color { 255, 0, 0, 255 });
+	this->ApplyHurtEffect(0.1f, SDL_Color { 255, 0, 0, 255 });
 	SDL_Log("Collision!");
 
 	this->health -= 35.0f;
