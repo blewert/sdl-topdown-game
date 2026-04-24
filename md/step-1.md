@@ -1,9 +1,12 @@
-[🡐 Previous step](../README.md) | &nbsp; | [Next step  🡒](./step-2.md) |
-|---------------|----|---------|
+<p align="center">
+    <table>
+        <tr>
+            <td><a href="../README.md">🡐 Previous step</a></td>
+            <td><a href="./step-2.md">Next step  🡒</a></td>
+        </tr>
+    </table>
+</p>
 
-
-&nbsp;
-&nbsp;
 
 &nbsp;
 &nbsp;
@@ -108,10 +111,11 @@ The console window *(1 in above image)* is the debug console which we can use to
 ## Next up..
 In the next step, we will be making the tilemap load in correctly and adding some camera movement!
 
-<p align="left" style="float: left;">
-    <a href="../README.md">🡐 Previous step</a>
-</p>
-
 <p align="right" style="float: right;">
-    <a href="./step-2.md">Next step  🡒</a>
+    <table>
+        <tr>
+            <td><a href="../README.md">🡐 Previous step</a></td>
+            <td><a href="./step-2.md"><b>Next step  🡒</b></a></td>
+        </tr>
+    </table>
 </p>
