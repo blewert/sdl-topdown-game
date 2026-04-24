@@ -62,7 +62,7 @@ void PlayerObject::OnStart()
 void PlayerObject::HandlePlayerFiring()
 {
 	//Add code here to fire a bullet
-	// 
+	
 	//Add code here to fire a shell
 }
 
