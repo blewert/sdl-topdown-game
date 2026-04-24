@@ -51,6 +51,7 @@ GameScene::GameScene(SDL_Renderer* renderer) : Scene(renderer), inputManager(Inp
 	//Create enemy spawner
 	spawner = new EnemySpawner("spawnpoints.json", this);
 
+	//Reset enemy tallies back to normal
 	Game::ResetEnemyTallies();
 }
 
@@ -67,36 +68,30 @@ void GameScene::OnStart()
 
 void GameScene::Update()
 {
-	Vector2 camPos = camera->GetPosition();
-	Vector2 playerPos = player->GetPosition();
-	Vector2 playerPosCam = camera->LookAtPos(playerPos);
-	float camMoveSpeed = 100;
-
 	spawner->Update();
-
-	//camera->SetPosition(Vector2::MoveTowards(camPos, playerPos, 100 * Time::deltaTime));
-	//camera->SetPosition(Vector2(-20, -20));
-	//camera->SetPosition(Vector2::left * SDL_sinf(Time::elapsedTime) * 100);
-
-	Vector2 mousePos = inputManager.GetMouseNormScreenPos(GetCamera(), true);
-
-	hpText->SetText("HP: " + std::to_string((int)player->GetHealth()));
-
-	//playerPos = player->GetPosition();
-	//Vector2 diff = playerPos - mousePos;
-
-	//float angle = atan2(diff.y, diff.x) * Math::radToDeg;
-	//angle += 90;
-
-	Vector2 camOffsetPos = playerPosCam + mousePos * 25.0f;
-	camera->SetPosition(camOffsetPos);
-
-	//camera->SetPosition(playerPos);
 	objects->Update();
-
-	//SDL_Log("%s", camera->GetPosition().ToString().c_str())
 	BulletManager::Update();
+
+	//Set HP bar text
+	hpText->SetText("HP: " + GetHPAsString());
+
+	HandleCameraMovement();
 }
+
+
+void GameScene::HandleCameraMovement()
+{
+	float camMoveDist = 25.0f;
+
+	Vector2 playerPos = GetPlayerPos();
+	Vector2 mousePos = GetMouseScreenPos();
+
+	//Set camera position
+	Vector2 camOffsetPos = playerPos + mousePos * camMoveDist;
+	camera->SetPosition(camOffsetPos);
+}
+
+
 
 void GameScene::Render()
 {
@@ -133,4 +128,3 @@ void GameScene::Exit()
 
 	//BulletManager::Exit();
 }
-

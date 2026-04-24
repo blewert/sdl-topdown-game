@@ -5,8 +5,7 @@
 #include "Text.h"
 #include "Tilemap.h"
 #include "EnemySpawner.h"
-
-class InputManager;
+#include "InputManager.h"
 class ReticleObject;
 class PlayerObject;
 
@@ -24,6 +23,23 @@ public:
 	virtual void OnEnd() override;
 	virtual void Exit() override;
 
+	Vector2 GetPlayerPos()
+	{
+		return camera->LookAtPos(player->GetPosition());
+	}
+
+	Vector2 GetMouseScreenPos()
+	{
+		return inputManager.GetMouseNormScreenPos(GetCamera(), true);
+	}
+
+	void HandleCameraMovement();
+
+	std::string GetHPAsString()
+	{
+		std::string str = std::to_string(int(player->GetHealth()));
+		return str;
+	}
 
 protected:
 	InputManager& inputManager;
