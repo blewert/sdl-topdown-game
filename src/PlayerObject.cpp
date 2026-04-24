@@ -16,7 +16,6 @@ PlayerObject::PlayerObject(Scene* parentScene)
 	this->SetTag("player");
 
 	this->SetPosition(Vector2(100, 100));
-
 	this->SetupRenderers();
 
 	gunTimer = Timer(0.1f);
