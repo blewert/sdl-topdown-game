@@ -47,6 +47,12 @@ The code editor supports many common hotkeys, e.g. `Ctrl+Z`/`Ctrl+Y` for undo/re
 | `Ctrl+K` followed by `Ctrl+U` | Uncomment selected region of code.
 | `Ctrl+K` followed by `Ctrl+O` | Switch between `.h` and `.cpp` of selected file.
 
+You can use the *Navigation bar* of the code editor to easily swap between functions -- this might make navigating throughout the code for this session a little easier. These are the three dropdown boxes at the top of the tab. The left most is the project drop down, we won't be using this. The middle is the **class** selector, and the right-most is the **function** selector. These are shown below.
+
+![](./img/step-2-nav.png)
+
+Here #1 can be used to select the current class, and #2 can be used to quickly navigate to the portion of code for the selected function.
+
 
 ## Solution explorer
 The solution explorer *(blue panel 2 in above image)* is how you can navigate between files in the project. If the tutorial tells you to "open a file", it means to double click on that file in this panel. Normally, source code files are named after their functionality -- e.g. the `HealthBar.cpp` and `HealthBar.h` files deal with rendering the player's health bar to the screen.

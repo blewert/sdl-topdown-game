@@ -25,7 +25,7 @@ GameScene::GameScene(SDL_Renderer* renderer) : Scene(renderer), inputManager(Inp
 	BulletManager::Initialise(this, 100);
 	player = new PlayerObject(this);
 	objects->Add(player);
-
+	
 	//Create tilemap
 	tilemap = new Tilemap(this, renderer);
 	tilemap->SetTexture(TextureManager::Instance()["tilemap"], 8, 6);
@@ -35,6 +35,7 @@ GameScene::GameScene(SDL_Renderer* renderer) : Scene(renderer), inputManager(Inp
 	player->SetTilemap(tilemap);
 
 	//! Add code to load tilemap from disk here.
+	tilemap->LoadFromDisk("data/map.json");
 
 	//Create reticle
 	this->reticle = new ReticleObject(this);
@@ -83,6 +84,14 @@ void GameScene::Update()
 void GameScene::HandleCameraMovement()
 {
 	//! Add code to handle camera movement here.
+	float camMoveDist = 75.0f;
+
+	Vector2 playerPos = GetPlayerPos();
+	Vector2 mousePos = GetMouseScreenPos();
+
+	//Set camera position
+	Vector2 camOffsetPos = playerPos + mousePos * camMoveDist;
+	camera->SetPosition(camOffsetPos);
 }
 
 
