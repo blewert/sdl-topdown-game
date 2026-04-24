@@ -1,8 +1,8 @@
 <p align="center">
     <table>
         <tr>
-            <td><a href="../README.md">🡐 Previous step</a></td>
-            <td><a href="./step-1.md">Next step  🡒</a></td>
+            <td><a href="../step-3.md">🡐 Previous step</a></td>
+            <td><a href="./step-5.md"><b>Next step  🡒</b></a></td>
         </tr>
     </table>
 </p>
@@ -109,7 +109,7 @@ components->rigidbody->SetVelocity(Vector2::zero);
 
 This sets the velocity of the enemy when they reach the player. Finally, save everything and play the game -- you should see enemies moving towards the player.
 
-## Enemy -> Player damage
+## Enemy $\rightarrow$ Player damage
 You may have noticed, there is a HP bar in the top left of the game. So far, this has not changed at all. This because the enemies don't damage the player just yet. They just move towards the player and stop at a certain distance.
 
 The next thing we'll do is actually damage the player. Below the line you just added (`components->rigidbody->SetVelocity(Vector2::zero)`), add the following:
@@ -162,7 +162,7 @@ SceneManager::Instance().LoadScene("gameOverScene");
 ```
 
 
-## Player -> Enemy damage
+## Player $\rightarrow$ Enemy damage
 We're almost there! The last thing to do is to add damage from the player to the enemies. Or rather, damage from the *bullet* and *shell* objects spawned by the player. Without this, the player has no way of fending off enemies, and the game is not really fun to play!
 
 Save up `PlayerObject.cpp` and go back to the `EnemyObject.cpp` file. In here, we need to two things:
@@ -236,8 +236,8 @@ VFXManager::CameraShake(0.05f, 2);
 <p align="right" style="float: right;">
     <table>
         <tr>
-            <td><a href="../README.md">🡐 Previous step</a></td>
-            <td><a href="./step-1.md"><b>Next step  🡒</b></a></td>
+            <td><a href="../step-3.md">🡐 Previous step</a></td>
+            <td><a href="./step-5.md"><b>Next step  🡒</b></a></td>
         </tr>
     </table>
 </p>
