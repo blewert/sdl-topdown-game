@@ -30,7 +30,7 @@ You can do this by either:
 Within this function, you should see a variety of comments. These are typically coloured in green. Find the comment which says:
 
 ```cpp
-//! Add code to load tilemap from disk here.
+//Add code to load tilemap from disk here.
 ```
 
 Underneath this line, we need to add a single line of code to load the tilemap. Copy and paste the following line of code, placing it underneath the commented line:
@@ -52,13 +52,13 @@ Next up, we need to make the camera follow the player, and move slightly towards
 Navigate to the `HandleCameraMovement` function in `GameScene.cpp`. You should see a comment prompting you as to where the code should go:
 
 ```cpp
-//! Add code to handle camera movement here.
+//Add code to handle camera movement here.
 ```
 
 Underneath this line, paste the following code:
 
 ```cpp
-float camMoveDist = 25.0f;
+float camMoveDist = 24.0f;
 
 Vector2 playerPos = GetPlayerPos();
 Vector2 mousePos = GetMouseScreenPos();
@@ -72,7 +72,7 @@ There is a few things going on here. Firstly, we get the player's position (the 
 
 Things to try:
 - Play the game and see what happens when you move the mouse.
-- Try change the `camMoveDist` value from `25.0f` to `50.0f`.
+- Try change the `camMoveDist` value from `24.0f` to `50.0f`.
 - Try the value `2.0` instead; play with this value until you get something you like.
 
 For those with programming experience:

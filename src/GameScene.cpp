@@ -84,7 +84,7 @@ void GameScene::Update()
 void GameScene::HandleCameraMovement()
 {
 	//! Add code to handle camera movement here.
-	float camMoveDist = 75.0f;
+	float camMoveDist = 24.0f;
 
 	Vector2 playerPos = GetPlayerPos();
 	Vector2 mousePos = GetMouseScreenPos();

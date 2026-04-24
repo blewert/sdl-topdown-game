@@ -46,6 +46,7 @@ The code editor supports many common hotkeys, e.g. `Ctrl+Z`/`Ctrl+Y` for undo/re
 | `Ctrl+K` followed by `Ctrl+C` | Comment selected region of code.
 | `Ctrl+K` followed by `Ctrl+U` | Uncomment selected region of code.
 | `Ctrl+K` followed by `Ctrl+O` | Switch between `.h` and `.cpp` of selected file.
+| `Ctrl+Click` function name | Navigate to function in code.
 
 You can use the *Navigation bar* of the code editor to easily swap between functions -- this might make navigating throughout the code for this session a little easier. These are the three dropdown boxes at the top of the tab. The left most is the project drop down, we won't be using this. The middle is the **class** selector, and the right-most is the **function** selector. These are shown below.
 
