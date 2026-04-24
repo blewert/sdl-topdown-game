@@ -87,14 +87,26 @@ void PlayerObject::FireBullet()
 
 void PlayerObject::Damage(float value)
 {
-	//! Add code to damage player here.
+	//Add code to damage player here.
+	if (playerDead)
+		return;
+
+	this->health -= value;
+
+	if (this->health <= 0.0f)
+	{
+		this->health = 0.0f;
+		playerDead = true;
+		OnPlayerDie();
+	}
 }
 
 void PlayerObject::OnPlayerDie()
 {
 	SDL_Log("You died");
-	
-	//! Add code to load game over screen here.
+
+	//Add code to load game over screen here.
+	SceneManager::Instance().LoadScene("gameOverScene");
 }
 
 void PlayerObject::OnStart()

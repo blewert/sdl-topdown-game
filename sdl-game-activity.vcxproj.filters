@@ -141,6 +141,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="data\map.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="data\spawnpoints.json">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\BoxCollider.h">
