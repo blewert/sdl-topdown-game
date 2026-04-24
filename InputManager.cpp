@@ -16,6 +16,8 @@ InputManager::InputManager()
 	this->RegisterBinding(Keybinding("S", SDLK_s, false));
 	this->RegisterBinding(Keybinding("D", SDLK_d, false));
 
+	this->RegisterBinding(Keybinding("Escape", SDLK_ESCAPE, false));
+
 	this->RegisterBinding(Keybinding("Up", SDLK_UP, false));
 	this->RegisterBinding(Keybinding("Left", SDLK_LEFT, false));
 	this->RegisterBinding(Keybinding("Down", SDLK_DOWN, false));

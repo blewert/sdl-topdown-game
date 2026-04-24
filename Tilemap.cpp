@@ -166,10 +166,24 @@ void Tilemap::Render()
 {
 	Camera* cam = parentScene->GetCamera();
 	Vector2 camPos = cam->GetPosition();
+
 	float pixelScale = cam->GetPixelScale();
 
+	int kernelX = 0, kernelY = 0;
+
+	int w, h;
+	SDL_GetWindowSize(SDL_RenderGetWindow(renderer), &w, &h);
+
+	//Figure out how much tiles we can fit into the window such
+	//there is no overlap
+	int kernelFudge = 4;
+	kernelX = (w / (tilePixelSize * pixelScale * this->scale)) / 2 + kernelFudge;
+	kernelY = (h / (tilePixelSize * pixelScale * this->scale)) / 2 + kernelFudge;
+
+	SDL_Log("%d x %d", kernelX, kernelY);
+
 	SDL_Point start, end;
-	GetStreamingCoordsForObject({ 10, 7 }, playerObject, &start, &end);
+	GetStreamingCoordsForObject({ kernelX, kernelY }, playerObject, &start, &end);
 
 	SDL_Point diff = { start.x - end.x, start.y - end.y };
 	

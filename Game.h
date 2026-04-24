@@ -33,6 +33,7 @@ public:
 private:
 	void InitialiseSDL();
 	void ExitSDL();
+	void UpdateWindowTitle();
 
 	Scene* currentScene;
 

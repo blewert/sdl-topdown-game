@@ -167,7 +167,7 @@ void PlayerObject::HandlePlayerMovement()
 		return;
 
 	//Otherwise, set position to this new target
-	baseRenderer->DrawLine(tankPos, tankPos + tankMoveVec.Normalized() * 250, 0xff00ffff);
+	//baseRenderer->DrawLine(tankPos, tankPos + tankMoveVec.Normalized() * 250, 0xff00ffff);
 	SetPosition(targetPos);
 }
 
