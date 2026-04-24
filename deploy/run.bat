@@ -26,7 +26,11 @@ echo Checking processes running (no output = not running):
 echo .. Caffiene:
 tasklist | find "caff"
 
-echo .. :
-tasklist | find "caff"
+echo .. Visual Studio:
+tasklist | find "devenv"
+
+echo .. Browser:
+tasklist | find "edge"
+tasklist | find "chrome"
 
 timeout /t 5
