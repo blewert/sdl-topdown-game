@@ -81,6 +81,12 @@ void GameScene::Update()
 	Vector2 playerPosCam = camera->LookAtPos(playerPos);
 	float camMoveSpeed = 100;
 
+	if (player->GetHealth() <= 0)
+	{
+		SceneManager::Instance().LoadScene("gameOverScene");
+		return;
+	}
+
 	//camera->SetPosition(Vector2::MoveTowards(camPos, playerPos, 100 * Time::deltaTime));
 	//camera->SetPosition(Vector2(-20, -20));
 	//camera->SetPosition(Vector2::left * SDL_sinf(Time::elapsedTime) * 100);

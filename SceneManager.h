@@ -24,6 +24,7 @@ public:
 	void AddScene(const std::string& sceneKey, Scene* scene);
 	void LoadScene(Game* game, const std::string& sceneKey);
 	void LoadScene(const std::string& sceneKey);
+	void ReloadScene(const std::string& sceneKey, Scene* obj);
 	void Initialise(Game* game, SDL_Renderer* renderer);
 
 private:

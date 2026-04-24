@@ -50,6 +50,22 @@ void SceneManager::LoadScene(const std::string& sceneKey)
 	LoadScene(this->game, sceneKey);
 }
 
+void SceneManager::ReloadScene(const std::string& sceneKey, Scene* obj)
+{
+	//TODO: Seems to be a wee leak here that needs plugging.
+	
+	//Exit unloaded scene
+	Scene* scene = sceneMap[sceneKey];
+	scene->Exit();
+	delete scene;
+
+	//Reinitialise
+	sceneMap[sceneKey] = obj;
+
+	//Call load scene with this new key
+	LoadScene(sceneKey);
+}
+
 void SceneManager::Initialise(Game* game, SDL_Renderer* renderer)
 {
 	this->game = game;

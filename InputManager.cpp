@@ -16,10 +16,12 @@ InputManager::InputManager()
 	this->RegisterBinding(Keybinding("S", SDLK_s, false));
 	this->RegisterBinding(Keybinding("D", SDLK_d, false));
 
-	this->RegisterBinding(Keybinding("Up",    SDLK_UP,    false));
-	this->RegisterBinding(Keybinding("Left",  SDLK_LEFT,  false));
-	this->RegisterBinding(Keybinding("Down",  SDLK_DOWN,  false));
+	this->RegisterBinding(Keybinding("Up", SDLK_UP, false));
+	this->RegisterBinding(Keybinding("Left", SDLK_LEFT, false));
+	this->RegisterBinding(Keybinding("Down", SDLK_DOWN, false));
 	this->RegisterBinding(Keybinding("Right", SDLK_RIGHT, false));
+
+	this->RegisterBinding(Keybinding("R", SDLK_r, false));
 
 	KeyAxis wasdHoriz = KeyAxis(SDLK_a, -1, SDLK_d, 1);
 	KeyAxis wasdVert  = KeyAxis(SDLK_s, -1, SDLK_w, 1);

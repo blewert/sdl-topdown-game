@@ -1,6 +1,7 @@
 #include "GameOverScene.h"
 #include "Time.h"
 #include "Game.h"
+#include "GameScene.h"
 
 GameOverScene::GameOverScene(SDL_Renderer* renderer) : Scene(renderer)
 {
@@ -11,7 +12,7 @@ GameOverScene::GameOverScene(SDL_Renderer* renderer) : Scene(renderer)
 	titleText->SetPosition(Vector2(w / 2, h / 2) - Vector2::up * 150);
 	titleText->SetAlign(TextAlign::Center);
 
-	infoText = new Text(renderer, "Press any key to restart the game.", "square-24");
+	infoText = new Text(renderer, "Press R to restart the game.", "square-24");
 	infoText->SetPosition(Vector2(w / 2, h / 2) - Vector2::up * 50);
 	infoText->SetAlign(TextAlign::Center, TextAlign::Center);
 
@@ -45,6 +46,10 @@ void GameOverScene::OnStart()
 
 void GameOverScene::Update()
 {
+	if (InputManager::Instance().FindBindingByName("R")->pressed)
+	{
+		SceneManager::Instance().ReloadScene("gameScene", new GameScene(renderer));
+	}
 }
 
 void GameOverScene::Render()
