@@ -68,6 +68,7 @@ protected:
 
 private:
 	float health = 100.0f;
+	float speed = 1.0f;
 	float gunTimer = 0;
 	float lastShellTime = 0;
 	float hurtTimer = 0;

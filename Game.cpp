@@ -7,6 +7,7 @@
 
 bool Game::sdlInitialised = false;
 int Game::enemiesKilled = 0;
+int Game::enemiesCount = 0;
 
 Game::Game(int width, int height, bool fullScreen)
 {

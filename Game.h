@@ -16,9 +16,12 @@ public:
 	void Render();
 	void Exit();
 
-	static void OnEnemyKilled() { enemiesKilled++; }
-	static void ResetEnemiesKilled() { enemiesKilled = 0; }
+	static void OnEnemySpawned() { enemiesCount++; }
+	static void OnEnemyKilled() { enemiesKilled++; enemiesCount--; }
+	static void ResetEnemyTallies() { enemiesKilled = 0; enemiesCount = 0; }
 	static int GetEnemiesKilled() { return enemiesKilled; }
+
+	static int GetEnemiesCurrentlySpawned() { return enemiesCount; }
 
 	SDL_Window* GetWindow();
 	SDL_Renderer* GetRenderer();
@@ -36,6 +39,7 @@ private:
 	bool needsToExit = false;
 	static bool sdlInitialised;
 	static int enemiesKilled;
+	static int enemiesCount;
 
 	SDL_Window* m_window = nullptr;
 	SDL_Renderer* m_renderer = nullptr;

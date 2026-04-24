@@ -51,7 +51,7 @@ GameScene::GameScene(SDL_Renderer* renderer) : Scene(renderer), inputManager(Inp
 	//Create enemy spawner
 	spawner = new EnemySpawner("spawnpoints.json", this);
 
-	Game::ResetEnemiesKilled();
+	Game::ResetEnemyTallies();
 }
 
 GameScene::~GameScene()

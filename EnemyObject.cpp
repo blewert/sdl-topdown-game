@@ -12,6 +12,8 @@ EnemyObject::EnemyObject(Scene* parentScene)
 {
 	components = new ComponentList();
 
+	Game::OnEnemySpawned();
+
 	this->SetName("enemy");
 	this->SetTag("enemy");
 
@@ -35,6 +37,7 @@ EnemyObject::EnemyObject(Scene* parentScene)
 
 	parentScene->GetObjects()->AddRigidbody(rb);
 
+	this->speed = Random::Range(10, 20);
 	this->renderer = sprRenderer;	
 }
 
@@ -53,15 +56,16 @@ void EnemyObject::OnStart()
 
 void EnemyObject::Update()
 {
+	SDL_Log("%d enemies", Game::GetEnemiesCurrentlySpawned());
+
 	if(health > 0)
 		components->Update();
 
 	Vector2 dirToPlayer = this->playerObj->GetPosition() - GetPosition();
 	Vector2 dirToPlayerNorm = dirToPlayer.Normalized();
 
-	dirToPlayerNorm += Random::InUnitCircle() * Random::Range(10, 20);
 
-	components->rigidbody->SetVelocity(dirToPlayerNorm * 15);
+	components->rigidbody->SetVelocity(dirToPlayerNorm * speed);
 
 	if (hurtTimer > 0)
 	{

@@ -3,7 +3,7 @@
 #include "EnemyObject.h"
 #include "Scene.h"
 
-EnemySpawner::EnemySpawner(const std::string& spawnPointsFile, Scene* scene) : parent(scene)
+EnemySpawner::EnemySpawner(const std::string& spawnPointsFile, Scene* scene, int spawnCap) : parent(scene), spawnCap(spawnCap)
 {
 	LoadSpawnpointsFromDisk(spawnPointsFile);
 	spawnTimer = Timer(1.0f);
@@ -13,6 +13,9 @@ void EnemySpawner::Update()
 {
 	if (spawnTimer.Tick())
 	{
+		if (Game::GetEnemiesCurrentlySpawned() >= spawnCap)
+			return;
+
 		EnemyObject* enemy = new EnemyObject(parent);
 
 		SDL_FPoint randomSpawnpoint = Random::Select(spawnPoints);
