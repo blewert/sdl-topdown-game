@@ -76,7 +76,6 @@ void GameScene::OnStart()
 
 void GameScene::Update()
 {
-
 	Vector2 camPos = camera->GetPosition();
 	Vector2 playerPos = player->GetPosition();
 	Vector2 playerPosCam = camera->LookAtPos(playerPos);
@@ -89,26 +88,6 @@ void GameScene::Update()
 	Vector2 mousePos = inputManager.GetMouseNormScreenPos(GetCamera(), true);
 
 	hpText->SetText("HP: " + std::to_string((int)player->GetHealth()));
-	
-	if (InputManager::Instance().GetLeftMouseDownThisFrame() || player->GetHealth() <= 0.0f)
-	{
-		SceneManager::Instance().LoadScene("gameOverScene");
-		return;
-	}
-
-	if (InputManager::Instance().GetRightMouseDownThisFrame())
-	{
-		Vector2 pos = InputManager::Instance().GetMouseWorldPos(GetCamera());
-
-		for (int i = 0; i < 5; i++)
-		{
-			float randomScale = Random::Range(0.5f, 1.0f);
-			Vector2 randomPos = pos + Random::InUnitCircle() * 20;
-
-			VFXManager::SpawnEffect(randomPos, "explosion-1", 12, randomScale);
-		}
-	}
-
 
 	//playerPos = player->GetPosition();
 	//Vector2 diff = playerPos - mousePos;

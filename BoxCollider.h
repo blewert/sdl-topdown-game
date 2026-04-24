@@ -16,7 +16,7 @@ public:
 
 	~BoxCollider()
 	{
-		SDL_Log("dtor box collider");
+
 	}
 
 	SDL_FRect GetWorldBoundsF();

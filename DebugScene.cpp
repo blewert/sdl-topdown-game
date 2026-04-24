@@ -70,14 +70,7 @@ void DebugScene::Update()
 	//Vector2 calcPos = camera->GetPosition() + direction * Time::deltaTime * 35;
 
 	InputManager& inputManager = InputManager::Instance();
-
-	if (inputManager.GetLeftMouseDown())
-	{
-		Vector2 calcPos = camera->GetPosition();
-		calcPos += inputManager.GetMouseDelta() * Time::deltaTime * 250;
-		camera->SetPosition(calcPos);
-		SDL_Log("%s", inputManager.GetMouseDelta().ToString().c_str());
-	}	
+	
 }
 
 void DebugScene::OnEnd()

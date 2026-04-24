@@ -155,6 +155,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Math.h" />
+    <ClCompile Include="ShellCollisionObject.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -194,6 +195,7 @@
     <ClInclude Include="Rigidbody.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="ShellCollisionObject.h" />
     <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="Texture.h" />

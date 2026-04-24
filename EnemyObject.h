@@ -5,6 +5,8 @@
 #include "Rigidbody.h"
 #include "Bullet.h"
 #include "PlayerObject.h"
+#include "Game.h"
+#include "VFXManager.h"
 
 class TextureManager;
 class InputManager;
@@ -20,12 +22,33 @@ public:
 
 	void OnCollisionEnter(Rigidbody& thisRb, Rigidbody& otherRb) override final
 	{
+		if (otherRb.parent->GetTag() == "shell")
+		{
+			SDL_Log("Collision with shell");
+			this->Destroy();
+			VFXManager::SpawnEffect(GetPosition() + Vector2(4, 4), "explosion-1");
+			Game::OnEnemyKilled();
+			return;
+		}
+
 		Bullet* bulletObj = dynamic_cast<Bullet*>(otherRb.parent);
 
 		if (bulletObj == nullptr)
 			return;
 
 		OnCollisionWithBullet(thisRb, bulletObj);
+	}
+
+	void OnCollisionStay(Rigidbody& thisRb, Rigidbody& otherRb) override final
+	{
+		if (otherRb.parent->GetTag() == "shell")
+		{
+			SDL_Log("Collision with shell stay");
+			this->Destroy();
+			VFXManager::SpawnEffect(GetPosition() + Vector2(4, 4), "explosion-1");
+			Game::OnEnemyKilled();
+			return;
+		}
 	}
 
 	void OnCollisionWithBullet(Rigidbody& thisRb, Bullet* bulletObj);

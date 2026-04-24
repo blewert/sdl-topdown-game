@@ -6,6 +6,8 @@
 #include "Rigidbody.h"
 #include "BulletManager.h"
 #include "VFXManager.h"
+#include "EnemyObject.h"
+#include "ShellCollisionObject.h"
 
 PlayerObject::PlayerObject(Scene* parentScene) 
 	: GameObject(parentScene), inputManager(InputManager::Instance()), texManager(TextureManager::Instance())
@@ -27,6 +29,28 @@ PlayerObject::~PlayerObject()
 	delete baseRenderer;
 	delete turretRenderer;
 }
+
+void PlayerObject::FireShell()
+{
+	Vector2 playerPos = GetPosition();
+	Vector2 mousePosWorld = inputManager.GetMouseWorldPos(parentScene->GetCamera());
+
+	Vector2 direction = (mousePosWorld - playerPos).Normalized();
+	float origAngle = SDL_atan2f(direction.y, direction.x) * Math::radToDeg;
+	float angle = origAngle + Random::Range(-2.0f, 2.0f);
+
+	Vector2 fireDirection = Vector2::FromPolar(angle, 1.0f).Normalized();
+	fireDirection *= 250;
+
+	Vector2 spawnPos = playerPos + direction * 15;
+	VFXManager::SpawnEffect(spawnPos + direction * 3, "muzzleFlashBig", 24, 1.0f, origAngle + 90);
+	VFXManager::SpawnEffect(spawnPos + direction * 3, "explosion-1", 24, 1.0f, origAngle + 90);
+
+	VFXManager::CameraShake(0.25f, 10);
+
+	parentScene->AddObject(new ShellCollisionObject(inputManager.GetMousePos(), 15, parentScene));
+}
+
 
 void PlayerObject::FireBullet()
 {
@@ -95,6 +119,7 @@ void PlayerObject::HandlePlayerFiring()
 		{
 			//SDL_Log("Firing bullet");
 			lastShellTime = Time::elapsedTime;
+			FireShell();
 		}
 	}
 }
@@ -105,8 +130,6 @@ void PlayerObject::Damage(float value)
 		return;
 
 	this->health -= value;
-
-	SDL_Log("Damage %f", health);
 
 	if (this->health <= 0.0f)
 	{

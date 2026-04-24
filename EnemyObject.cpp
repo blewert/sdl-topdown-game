@@ -101,7 +101,7 @@ void EnemyObject::OnCollisionWithBullet(Rigidbody& thisRb, Bullet* bulletObj)
 	bulletObj->SetAlive(false);
 
 	this->ApplyHurtEffect(0.1f, SDL_Color { 255, 0, 0, 255 });
-	SDL_Log("Collision!");
+	//SDL_Log("Collision!");
 
 	this->health -= 35.0f;
 

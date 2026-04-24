@@ -117,7 +117,7 @@ void Rigidbody::HandleCollisionEvents(Rigidbody& other, bool colliding)
         //Collision exit: from > 0 to -1
         this->parent->OnCollisionExit(*this, other);
     }
-    else if (oldState > 0 && newState > 0)
+    else if (oldState >= 0 && newState >= 0)
     {
         //Collision stay: from > 0 to > 0
         this->parent->OnCollisionStay(*this, other);

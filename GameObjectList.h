@@ -35,7 +35,11 @@ private:
 	std::vector<GameObject*> objects;
 	std::vector<Rigidbody*> bodies;
 
+	std::vector<GameObject*> pendingAddObjects;
+
 	void CullPendingDeleteObjects();
 	void CullPendingDeleteRBs();
+
+	friend class Scene;
 };
 

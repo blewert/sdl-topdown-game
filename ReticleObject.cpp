@@ -29,6 +29,7 @@ ReticleObject::ReticleObject(Scene* scene) : GameObject(scene)
 
 ReticleObject::~ReticleObject()
 {
+	SDL_Log("reticle dtor");
 	delete components;
 	delete renderer;
 	renderer = nullptr;

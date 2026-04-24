@@ -13,6 +13,8 @@ public:
 	~PlayerObject();
 
 	void FireBullet();
+	void FireShell();
+
 	void OnStart() override final;
 	void Update() override final;
 

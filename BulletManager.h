@@ -87,7 +87,7 @@ public:
 
 			if (!obj->IsAlive())
 			{
-				SDL_Log("Cull rb for obj %d", obj->id);
+				//SDL_Log("Cull rb for obj %d", obj->id);
 
 				bulletsNeedCull = true;
 				obj->enabled = false;

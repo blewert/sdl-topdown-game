@@ -1,6 +1,7 @@
 #pragma once
 #include "SDL.h"
 #include "Camera.h"
+#include "GameObjectList.h"
 
 class Camera;
 
@@ -20,6 +21,11 @@ public:
 
 	Camera* GetCamera() { return camera; }
 	void SetCamera(Camera* camera) { this->camera = camera; }
+
+	void AddObject(GameObject* obj)
+	{
+		objects->pendingAddObjects.push_back(obj);
+	}
 
 protected:
 	SDL_Renderer* renderer;

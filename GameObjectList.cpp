@@ -85,8 +85,19 @@ void GameObjectList::Update()
 	bool needsCull = false;
 	bool rbsNeedCull = false;
 
+	if (pendingAddObjects.size() > 0)
+	{
+		for (GameObject* obj : pendingAddObjects)
+			objects.push_back(obj);
+
+		pendingAddObjects.clear();
+	}
+
 	for (GameObject* obj : objects)
 	{
+		if (obj == nullptr)
+			continue;
+
 		if (!obj->enabled)
 			continue;
 
@@ -178,13 +189,12 @@ void GameObjectList::CullPendingDeleteRBs()
 		{
 			if (bodies[i]->GetDeallocOnRemoval())
 			{
+				SDL_Log("Delete body %s", bodies[i]->parent->name.c_str());
 				delete bodies[i];
 				bodies[i] = nullptr;
 			}
 		}
 	}
-
-	SDL_Log("Rbs swap %d for %d", bodies.size(), tmpBodies.size());
 
 	std::swap(this->bodies, tmpBodies);
 }
@@ -198,15 +208,15 @@ void GameObjectList::CullPendingDeleteObjects()
 		//If not pending delete, add to temp list
 		if (!objects[i]->pendingDelete)
 		{
-			SDL_Log("No delete object %s", objects[i]->GetName().c_str());
 			tmpObjs.push_back(objects[i]);
 		}
 
 		//Otherwise, call destructor: this will no longer exist
 		else
 		{
-			SDL_Log("Delete object %s", objects[i]->GetName().c_str());
+			SDL_Log("Delete obj %s", objects[i]->name.c_str());
 			delete objects[i];
+			objects[i] = nullptr;
 		}
 	}
 
