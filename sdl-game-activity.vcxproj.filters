@@ -16,32 +16,8 @@
     <Filter Include="Header Files\engine">
       <UniqueIdentifier>{4134aafd-7b49-48fc-8531-531fcc1c86f1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\engine\components">
-      <UniqueIdentifier>{aecc4df9-bae9-4c0b-90ea-670aa584b95d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\engine\collections">
-      <UniqueIdentifier>{c7b51cbb-e2a1-4ac6-8bd6-f9ab7190914b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\engine">
       <UniqueIdentifier>{d78fe493-b4f1-4c9d-b238-644466df8cfe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\engine\components">
-      <UniqueIdentifier>{1427e7f7-baa8-4df8-9fbb-9ac8357f824c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\engine\collections">
-      <UniqueIdentifier>{54355b15-5876-4829-98ab-ec18f2092610}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\engine\scenes">
-      <UniqueIdentifier>{eaf9e702-7581-45f1-bc19-ca0445c72777}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\engine\scenes">
-      <UniqueIdentifier>{4357db02-0757-42be-8f42-935fc0cd4495}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\engine\utils">
-      <UniqueIdentifier>{edb0826c-e1db-467b-be47-6635798e82e5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\engine\utils">
-      <UniqueIdentifier>{093cd1a5-73d6-4fe3-9278-641bf6325609}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\game">
       <UniqueIdentifier>{583e9f9d-23c3-4de7-93a1-fff54cabd751}</UniqueIdentifier>
@@ -51,109 +27,115 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Component.cpp">
-      <Filter>Source Files\engine\components</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer.cpp">
-      <Filter>Source Files\engine\components</Filter>
-    </ClCompile>
-    <ClCompile Include="ComponentList.cpp">
-      <Filter>Source Files\engine\collections</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObjectList.cpp">
-      <Filter>Source Files\engine\collections</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
+    <ClCompile Include="src\BoxCollider.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp">
+    <ClCompile Include="src\Bullet.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Source Files\engine\scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>Source Files\engine\scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="InputManager.cpp">
+    <ClCompile Include="src\BulletManager.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
-    <ClCompile Include="Vector2.cpp">
-      <Filter>Source Files\engine\utils</Filter>
+    <ClCompile Include="src\Camera.cpp">
+      <Filter>Source Files\engine</Filter>
     </ClCompile>
-    <ClCompile Include="Math.h">
-      <Filter>Header Files\engine\utils</Filter>
+    <ClCompile Include="src\Component.cpp">
+      <Filter>Source Files\engine</Filter>
     </ClCompile>
-    <ClCompile Include="Time.cpp">
-      <Filter>Source Files\engine\utils</Filter>
+    <ClCompile Include="src\ComponentList.cpp">
+      <Filter>Source Files\engine</Filter>
     </ClCompile>
-    <ClCompile Include="DebugObject.cpp">
+    <ClCompile Include="src\DebugObject.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DebugRenderer.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DebugScene.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EnemyObject.cpp">
       <Filter>Source Files\game</Filter>
     </ClCompile>
-    <ClCompile Include="DebugRenderer.cpp">
+    <ClCompile Include="src\EnemySpawner.cpp">
       <Filter>Source Files\game</Filter>
     </ClCompile>
-    <ClCompile Include="DebugScene.cpp">
+    <ClCompile Include="src\Game.cpp">
       <Filter>Source Files\game</Filter>
     </ClCompile>
-    <ClCompile Include="BoxCollider.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\GameObject.cpp">
+      <Filter>Source Files\engine</Filter>
     </ClCompile>
-    <ClCompile Include="Bullet.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\GameObjectList.cpp">
+      <Filter>Source Files\engine</Filter>
     </ClCompile>
-    <ClCompile Include="BulletManager.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\GameOverScene.cpp">
+      <Filter>Source Files\game</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\GameScene.cpp">
+      <Filter>Source Files\game</Filter>
     </ClCompile>
-    <ClCompile Include="GameScene.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\HealthBar.cpp">
+      <Filter>Source Files\game</Filter>
     </ClCompile>
-    <ClCompile Include="MultipassRenderer.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\InputManager.cpp">
+      <Filter>Source Files\engine</Filter>
     </ClCompile>
-    <ClCompile Include="ObjectPool.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\MultipassRenderer.cpp">
+      <Filter>Source Files\engine</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerObject.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\ObjectPool.cpp">
+      <Filter>Source Files\engine</Filter>
     </ClCompile>
-    <ClCompile Include="ReticleObject.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\PlayerObject.cpp">
+      <Filter>Source Files\game</Filter>
     </ClCompile>
-    <ClCompile Include="Rigidbody.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\Renderer.cpp">
+      <Filter>Source Files\engine</Filter>
     </ClCompile>
-    <ClCompile Include="SpriteRenderer.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\ReticleObject.cpp">
+      <Filter>Source Files\game</Filter>
     </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\Rigidbody.cpp">
+      <Filter>Source Files\engine</Filter>
     </ClCompile>
-    <ClCompile Include="TextureManager.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\Scene.cpp">
+      <Filter>Source Files\engine</Filter>
     </ClCompile>
-    <ClCompile Include="VFXManager.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\SceneManager.cpp">
+      <Filter>Source Files\engine</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyObject.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\ShellCollisionObject.cpp">
+      <Filter>Source Files\game</Filter>
     </ClCompile>
-    <ClCompile Include="HealthBar.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\SpriteRenderer.cpp">
+      <Filter>Source Files\engine</Filter>
     </ClCompile>
-    <ClCompile Include="GameOverScene.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\Text.cpp">
+      <Filter>Source Files\engine</Filter>
     </ClCompile>
-    <ClCompile Include="Text.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\Texture.cpp">
+      <Filter>Source Files\engine</Filter>
     </ClCompile>
-    <ClCompile Include="Tilemap.cpp">
+    <ClCompile Include="src\TextureManager.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tilemap.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Time.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Timer.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Vector2.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VFXManager.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -161,107 +143,119 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Component.h">
-      <Filter>Header Files\engine\components</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>Header Files\engine\components</Filter>
-    </ClInclude>
-    <ClInclude Include="ComponentList.h">
-      <Filter>Header Files\engine\collections</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObjectList.h">
-      <Filter>Header Files\engine\collections</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
+    <ClInclude Include="src\BoxCollider.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
+    <ClInclude Include="src\Bullet.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Header Files\engine\scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>Header Files\engine\scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="InputManager.h">
+    <ClInclude Include="src\BulletManager.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="Time.h">
-      <Filter>Header Files\engine\utils</Filter>
+    <ClInclude Include="src\Camera.h">
+      <Filter>Header Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="Vector2.h">
-      <Filter>Header Files\engine\utils</Filter>
+    <ClInclude Include="src\Component.h">
+      <Filter>Header Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="DebugObject.h">
+    <ClInclude Include="src\ComponentList.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DebugObject.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DebugRenderer.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DebugScene.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EnemyObject.h">
       <Filter>Header Files\game</Filter>
     </ClInclude>
-    <ClInclude Include="DebugRenderer.h">
+    <ClInclude Include="src\EnemySpawner.h">
       <Filter>Header Files\game</Filter>
     </ClInclude>
-    <ClInclude Include="DebugScene.h">
+    <ClInclude Include="src\Game.h">
       <Filter>Header Files\game</Filter>
     </ClInclude>
-    <ClInclude Include="BoxCollider.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\GameObject.h">
+      <Filter>Header Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="Bullet.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\GameOverScene.h">
+      <Filter>Header Files\game</Filter>
     </ClInclude>
-    <ClInclude Include="BulletManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\GameObjectList.h">
+      <Filter>Header Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\GameScene.h">
+      <Filter>Header Files\game</Filter>
     </ClInclude>
-    <ClInclude Include="GameScene.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\HealthBar.h">
+      <Filter>Header Files\game</Filter>
     </ClInclude>
-    <ClInclude Include="MultipassRenderer.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\InputManager.h">
+      <Filter>Header Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectPool.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\json.hpp">
+      <Filter>Header Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerObject.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\Math.h">
+      <Filter>Header Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="ReticleObject.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\MultipassRenderer.h">
+      <Filter>Header Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="Rigidbody.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\ObjectPool.h">
+      <Filter>Header Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="SpriteRenderer.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\PlayerObject.h">
+      <Filter>Header Files\game</Filter>
     </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\Renderer.h">
+      <Filter>Header Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="TextureManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\ReticleObject.h">
+      <Filter>Header Files\game</Filter>
     </ClInclude>
-    <ClInclude Include="VFXManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\Rigidbody.h">
+      <Filter>Header Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyObject.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\Scene.h">
+      <Filter>Header Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="HealthBar.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\SceneManager.h">
+      <Filter>Header Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="GameOverScene.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\ShellCollisionObject.h">
+      <Filter>Header Files\game</Filter>
     </ClInclude>
-    <ClInclude Include="Text.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\SpriteRenderer.h">
+      <Filter>Header Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="Tilemap.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\Text.h">
+      <Filter>Header Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="json.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\Texture.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TextureManager.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tilemap.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Time.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Timer.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Vector2.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VFXManager.h">
+      <Filter>Header Files\engine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
