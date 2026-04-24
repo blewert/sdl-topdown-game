@@ -1,7 +1,7 @@
 <p align="center">
     <table>
         <tr>
-            <td><a href="../step-3.md">🡐 Previous step</a></td>
+            <td><a href="./step-3.md">🡐 Previous step</a></td>
             <td><a href="./step-5.md"><b>Next step  🡒</b></a></td>
         </tr>
     </table>
@@ -236,7 +236,7 @@ VFXManager::CameraShake(0.05f, 2);
 <p align="right" style="float: right;">
     <table>
         <tr>
-            <td><a href="../step-3.md">🡐 Previous step</a></td>
+            <td><a href="./step-3.md">🡐 Previous step</a></td>
             <td><a href="./step-5.md"><b>Next step  🡒</b></a></td>
         </tr>
     </table>

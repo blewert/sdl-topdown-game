@@ -1,8 +1,8 @@
 <p align="center">
     <table>
         <tr>
-            <td><a href="./README.md"><b>🡐 Back to start</b></a></td>
-            <td><a href="../step-4.md">🡐 Previous step</a></td>
+            <td><a href="../README.md"><b>🡐 Back to start</b></a></td>
+            <td><a href="./step-4.md">🡐 Previous step</a></td>
         </tr>
     </table>
 </p>
@@ -34,7 +34,12 @@ If you want to re-do this activity at home, you can visit https://github.com/Sta
 
 ![](qr.png)
 
-Don't forget to star this repository on Github if you enjoyed today, or fork the repostiryo if you want to use it to explore more of SDL and C++. 😊
+Don't forget to star this repository on Github if you enjoyed today, or fork the repository if you want to use it to explore more of SDL and C++. 😊
+
+> [!TIP]
+> If you are just interested in the completed activity, and don't wish to complete the tasks again, there is a `complete` branch with a fully completed solution. First clone the repository, and then change to this branch through `git checkout complete` or via Github Desktop. 
+
+
 
 ## I want to try another taster activity
 We have two other taster day activities which you can try, both at home, and here today:
@@ -99,8 +104,8 @@ The best resource to learn C++ for games is right here at the University of Staf
 <p align="right" style="float: right;">
     <table>
         <tr>
-            <td><a href="./README.md"><b>🡐 Back to start</b></a></td>
-            <td><a href="../step-4.md">🡐 Previous step</a></td>
+            <td><a href="../README.md"><b>🡐 Back to start</b></a></td>
+            <td><a href="./step-4.md">🡐 Previous step</a></td>
         </tr>
     </table>
 </p>

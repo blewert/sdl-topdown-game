@@ -1,7 +1,7 @@
 <p align="center">
     <table>
         <tr>
-            <td><a href="../step-2.md">🡐 Previous step</a></td>
+            <td><a href="./step-2.md">🡐 Previous step</a></td>
             <td><a href="./step-4.md">Next step  🡒</a></td>
         </tr>
     </table>
@@ -181,7 +181,7 @@ Things to note:
 <p align="right" style="float: right;">
     <table>
         <tr>
-            <td><a href="../step-2.md">🡐 Previous step</a></td>
+            <td><a href="./step-2.md">🡐 Previous step</a></td>
             <td><a href="./step-4.md"><b>Next step  🡒</b></a></td>
         </tr>
     </table>
