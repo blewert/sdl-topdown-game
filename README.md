@@ -10,6 +10,6 @@ We hope you enjoy today's taster session, which should last 45 minutes. Click th
 
 -------------
 
-<p style="text-align: right;">
-    <a href="./md/step-1.md" ><code style="padding: 5px;">Get started 🡒</code></a>
+<p align="right">
+    <a href="./md/step-1.md"><code>Get started 🡒</code></a>
 </p>
