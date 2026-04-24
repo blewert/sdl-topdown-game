@@ -59,10 +59,8 @@ void EnemyObject::Update()
 	if(health > 0)
 		components->Update();
 
-	//Add enemy movement code here.
-	Vector2 dirToPlayerNorm = GetDirectionToPlayer().Normalized();
-	components->rigidbody->SetVelocity(dirToPlayerNorm * speed);
-
+	// Add enemy movement code here.
+	
 	//Apply hurt effect
 	HandleHurtTimerEffect();
 	HandleAttackPlayer();
@@ -82,27 +80,13 @@ void EnemyObject::HandleAttackPlayer()
 
 	//-----
 	
-	//Add enemy attack code here.
-	if (damageTimer.Tick())
-	{
-		//Damage the player
-		playerObj->Damage(enemyDamageAmount);
-
-		//Find a random position around the player and spawn an effect
-		Vector2 vfxSpawnPos = GetPlayerPos();
-		vfxSpawnPos += Random::InUnitCircle() * 10;
-		VFXManager::SpawnEffect(vfxSpawnPos, "explosion-1", 12, 0.5f);
-	}
-
-	//Stop the enemy
-	components->rigidbody->SetVelocity(Vector2::zero);
+	// Add enemy attack code here.
 }
 
 
 void EnemyObject::OnCollisionWithShell(Rigidbody& thisRb, Rigidbody& otherRb)
 {
-	//Kill this enemy
-	OnEnemyDie();
+	// Add code here to deal with shell collisions.
 }
 
 void EnemyObject::OnCollisionWithBullet(Rigidbody& thisRb, Bullet* bulletObj)
@@ -114,17 +98,7 @@ void EnemyObject::OnCollisionWithBullet(Rigidbody& thisRb, Bullet* bulletObj)
 	//Delete bullet: release back into pool
 	bulletObj->SetAlive(false);
 
-	//Add code here to deal with bullet collisions.
-	this->health -= 35.0f;
-
-	//Explosions and VFX
-	VFXManager::SpawnEffect(bulletPosition, "explosion-1", 12, 0.25f);
-	this->ApplyHurtEffect(0.1f, SDL_Color{ 0, 0, 0, 255 });
-
-	if (this->health <= 0.0f)
-	{
-		OnEnemyDie();
-	}
+	// Add code here to deal with bullet collisions.
 }
 
 
@@ -139,6 +113,6 @@ void EnemyObject::OnEnemyDie()
 	//-----
 	// 
 	
-	//! Add VFX here!
+	// Add VFX here!
 }
 

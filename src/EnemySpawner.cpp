@@ -11,23 +11,7 @@ EnemySpawner::EnemySpawner(const std::string& spawnPointsFile, Scene* scene, int
 
 void EnemySpawner::Update()
 {
-	//Add code to spawn enemies over time here.
-	if (spawnTimer.Tick())
-	{
-		//More enemies than spawn cap? Skip!
-		if (Game::GetEnemiesCurrentlySpawned() >= spawnCap)
-			return;
-
-		//Make the enemy
-		EnemyObject* enemy = new EnemyObject(parent);
-
-		//Select a random spawn point, move enemy there
-		SDL_FPoint randomSpawnpoint = Random::Select(spawnPoints);
-		enemy->SetPosition(Vector2(randomSpawnpoint));
-
-		//Add the enemy to the scene!
-		parent->GetObjects()->Add(enemy);
-	}
+	// Add code to spawn enemies over time here.
 }
 
 void EnemySpawner::LoadSpawnpointsFromDisk(const std::string& spawnPointsFile)
