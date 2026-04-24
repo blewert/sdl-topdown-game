@@ -56,6 +56,7 @@ void SceneManager::ReloadScene(const std::string& sceneKey, Scene* obj)
 	
 	//Exit unloaded scene
 	Scene* scene = sceneMap[sceneKey];
+	scene->Reset();
 	scene->Exit();
 	delete scene;
 

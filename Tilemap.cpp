@@ -180,8 +180,6 @@ void Tilemap::Render()
 	kernelX = (w / (tilePixelSize * pixelScale * this->scale)) / 2 + kernelFudge;
 	kernelY = (h / (tilePixelSize * pixelScale * this->scale)) / 2 + kernelFudge;
 
-	SDL_Log("%d x %d", kernelX, kernelY);
-
 	SDL_Point start, end;
 	GetStreamingCoordsForObject({ kernelX, kernelY }, playerObject, &start, &end);
 

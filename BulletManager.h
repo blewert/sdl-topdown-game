@@ -37,7 +37,10 @@ public:
 	static void Initialise(Scene* parentScene, int capacity)
 	{
 		if (instance != nullptr)
-			return;
+		{
+			//Scene is being reloaded
+			delete instance;
+		}
 
 		instance = new BulletManager(parentScene, capacity);
 	}

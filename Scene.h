@@ -17,6 +17,12 @@ public:
 	virtual void OnEnd() = 0;
 	virtual void Exit() = 0;
 
+	virtual void Reset()
+	{
+		delete objects;
+		objects = nullptr;
+	}
+
 	SDL_Renderer* GetRenderer() { return renderer; }
 
 	Camera* GetCamera() { return camera; }
