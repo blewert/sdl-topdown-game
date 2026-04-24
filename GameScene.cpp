@@ -33,7 +33,7 @@ GameScene::GameScene(SDL_Renderer* renderer) : Scene(renderer), inputManager(Inp
 	tilemap->SetScale(2);
 	tilemap->SetPlayerObject(player);
 	player->SetTilemap(tilemap);
-	tilemap->LoadFromDisk("map.json");
+	tilemap->LoadFromDisk("data/map.json");
 
 	//Create reticle
 	this->reticle = new ReticleObject(this);
@@ -49,7 +49,7 @@ GameScene::GameScene(SDL_Renderer* renderer) : Scene(renderer), inputManager(Inp
 	VFXManager::SetCamera(camera);
 
 	//Create enemy spawner
-	spawner = new EnemySpawner("spawnpoints.json", this);
+	spawner = new EnemySpawner("data/spawnpoints.json", this);
 
 	//Reset enemy tallies back to normal
 	Game::ResetEnemyTallies();

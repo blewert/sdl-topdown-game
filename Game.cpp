@@ -4,6 +4,7 @@
 #include "TextureManager.h"
 #include "VFXManager.h"
 #include "Text.h"
+#include "Timer.h"
 
 bool Game::sdlInitialised = false;
 int Game::enemiesKilled = 0;
@@ -40,17 +41,17 @@ Game::Game(int width, int height, bool fullScreen)
 	instance.ShowCursor(false);
 
 	TextureManager& texManager = TextureManager::Instance();
-	texManager.Add("tilemap", "tilemap.png", m_renderer);
-	texManager.Add("test-tex", "test.png", m_renderer);
-	texManager.Add("test-anim", "test-anim.png", m_renderer);
-	texManager.Add("reticle", "reticle.png", m_renderer);
-	texManager.Add("player", "tank.png", m_renderer);
-	texManager.Add("bullet", "bullet.png", m_renderer);
-	texManager.Add("explosion1", "explosion1.png", m_renderer);
-	texManager.Add("muzzleFlashBig", "muzzleFlashBig.png", m_renderer);
-	texManager.Add("muzzleFlash", "muzzleFlash.png", m_renderer);
-	texManager.Add("muzzleFlash2", "muzzleFlash2.png", m_renderer);
-	texManager.Add("enemy", "enemy.png", m_renderer);
+	texManager.Add("tilemap", "images/tilemap.png", m_renderer);
+	texManager.Add("test-tex", "images/test.png", m_renderer);
+	texManager.Add("test-anim", "images/test-anim.png", m_renderer);
+	texManager.Add("reticle", "images/reticle.png", m_renderer);
+	texManager.Add("player", "images/tank.png", m_renderer);
+	texManager.Add("bullet", "images/bullet.png", m_renderer);
+	texManager.Add("explosion1", "images/explosion1.png", m_renderer);
+	texManager.Add("muzzleFlashBig", "images/muzzleFlashBig.png", m_renderer);
+	texManager.Add("muzzleFlash", "images/muzzleFlash.png", m_renderer);
+	texManager.Add("muzzleFlash2", "images/muzzleFlash2.png", m_renderer);
+	texManager.Add("enemy", "images/enemy.png", m_renderer);
 
 	Text::LoadFont("square-24", "fonts/Square.ttf", 24);
 	Text::LoadFont("square-32", "fonts/Square.ttf", 32);
@@ -87,8 +88,6 @@ void Game::Update()
 	Time::Tick();
 	InputManager::Instance().Update();
 
-	uint32_t flags = SDL_GetWindowFlags(m_window);
-
 	SDL_Event e;
 	while (SDL_PollEvent(&e))
 	{
@@ -102,16 +101,10 @@ void Game::Update()
 			InputManager::Instance().ProcessEvent(e);
 	}
 
-	if (!(flags & SDL_WINDOW_INPUT_FOCUS))
-		return;
+	static Timer timer = Timer(0.125f);
 
-	static float timer = 0;
-	timer += Time::deltaTime;
-
-	if (timer >= 0.125f)
+	if (timer.Tick())
 	{
-		timer = Time::deltaTime;
-		
 		int w, h;
 		char str[64];
 		SDL_GetWindowSize(m_window, &w, &h);
