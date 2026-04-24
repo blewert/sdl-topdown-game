@@ -5,8 +5,6 @@
 int main(int argc, char** argv)
 {
 	Game game = Game(800, 600, false);
-	
-	bool running = false;
 
 	while (!game.NeedsExit())
 	{

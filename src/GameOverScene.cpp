@@ -38,7 +38,11 @@ void GameOverScene::Exit()
 void GameOverScene::OnStart()
 {
 	std::string str;
-	str = "You lasted " + std::to_string(Time::elapsedTime) + " seconds\n";
+
+	char floatStr[16];
+	SDL_snprintf(floatStr, 16, "%.1f", Time::elapsedTime);
+	 
+	str = "You lasted " + std::string(floatStr) + " seconds\n";
 	str += "You eliminated " + std::to_string(Game::GetEnemiesKilled()) + " enemies";
 
 	highScoreText->SetText(str);
