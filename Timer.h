@@ -5,7 +5,7 @@ struct Timer
 {
 public:
 	Timer() = default;
-	Timer(float timerTarget) : timerTarget(timerTarget) {};
+	Timer(float timerTarget) : timerTarget(timerTarget), timer(0) {};
 
 	bool Tick()
 	{

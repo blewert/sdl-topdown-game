@@ -20,6 +20,8 @@ PlayerObject::PlayerObject(Scene* parentScene)
 	this->SetPosition(Vector2(100, 100));
 
 	this->SetupRenderers();
+
+	gunTimer = Timer(0.1f);
 }
 
 PlayerObject::~PlayerObject()
@@ -96,33 +98,6 @@ void PlayerObject::FireBullet()
 	}
 }
 
-void PlayerObject::HandlePlayerFiring()
-{
-	if (inputManager.GetRightMouseDownThisFrame())
-		gunTimer = 0.0f;
-
-	if (inputManager.GetRightMouseDown())
-	{
-		gunTimer += Time::deltaTime;
-
-		if (gunTimer >= 0.1f)
-		{
-			gunTimer = Time::deltaTime;
-			//SDL_Log("Firing gun bullet");
-			FireBullet();
-		}
-	}
-
-	if (inputManager.GetLeftMouseDownThisFrame())
-	{
-		if (Time::elapsedTime - lastShellTime >= 2.0f)
-		{
-			//SDL_Log("Firing bullet");
-			lastShellTime = Time::elapsedTime;
-			FireShell();
-		}
-	}
-}
 
 void PlayerObject::Damage(float value)
 {
@@ -141,6 +116,7 @@ void PlayerObject::Damage(float value)
 void PlayerObject::OnPlayerDie()
 {
 	SDL_Log("You died");
+	SceneManager::Instance().LoadScene("gameOverScene");
 }
 
 void PlayerObject::OnStart()
@@ -148,50 +124,87 @@ void PlayerObject::OnStart()
 
 }
 
+
+
+
+void PlayerObject::HandlePlayerFiring()
+{
+	if (inputManager.GetRightMouseDown())
+	{
+		if (gunTimer.Tick())
+		{
+			FireBullet();
+		}
+	}
+
+	if (inputManager.GetLeftMouseDownThisFrame())
+	{
+		if (Time::elapsedTime - lastShellTime >= 2.0f)
+		{
+			//SDL_Log("Firing bullet");
+			lastShellTime = Time::elapsedTime;
+			FireShell();
+		}
+	}
+}
+
+
+void PlayerObject::HandlePlayerMovement()
+{
+	//Get input movement direction
+	Vector2 movementVec = inputManager.Find2DAxisByName("WASD")->value;
+
+	//No movement? We don't have to do anything
+	if (movementVec == Vector2::zero)
+		return;
+
+	//---------
+	//Some movement parameters
+	float tankRotationSpeed = 150;
+	float tankMoveSpeed = 50;
+
+	//Otherwise get target angle to move to
+	float targetAng = baseRenderer->GetAngle() + movementVec.x;
+
+	//And move towards this 
+	float lerpAngle = Math::MoveTowards(baseRenderer->GetAngle(), targetAng, tankRotationSpeed * Time::deltaTime);
+	baseRenderer->SetAngle(lerpAngle);
+
+	//Calculate forward & movement vector 
+	Vector2 tankFwdVec = Vector2::FromPolar(turretRenderer->GetAngle() + 90, 1.0f);
+	Vector2 tankMoveVec = Vector2::FromPolar(lerpAngle + 90, 1.0f);
+	Vector2 tankPos = GetPosition();
+
+	//And from this, figure out
+	Vector2 targetPos = tankPos + tankMoveVec * movementVec.y * Time::deltaTime * tankMoveSpeed;
+
+	//If this target position is going to collide -- then we shouldn't move! Return early
+	if (tilemap->CollidingWithPoint(targetPos))
+		return;
+
+	//Otherwise, set position to this new target
+	baseRenderer->DrawLine(tankPos, tankPos + tankMoveVec.Normalized() * 250, 0xff00ffff);
+	SetPosition(targetPos);
+}
+
+void PlayerObject::HandleTurretRotation()
+{
+	//Get positions of player & mouse
+	Vector2 mousePos = inputManager.GetMouseWorldPos(parentScene->GetCamera());
+	Vector2 playerPos = GetPosition();
+
+	//Find angle along this vector, set the turret to look along it
+	float angle = Math::AngleBetween(playerPos, mousePos) + 90;
+	turretRenderer->SetAngle(angle);
+}
+
 void PlayerObject::Update()
 {
 	components->Update();
 
-	Vector2 mousePos = inputManager.GetMouseWorldPos(parentScene->GetCamera());
-	Vector2 playerPos = GetPosition();
-	Vector2 diff = playerPos - mousePos;
-
-	float angle = atan2(diff.y, diff.x) * Math::radToDeg;
-	angle += 90;
-
-	turretRenderer->SetAngle(angle);
-
-	Vector2 movementVec = inputManager.Find2DAxisByName("WASD")->value;
-
 	HandlePlayerFiring();
-
-	//baseRenderer->DrawLine(GetPosition(), GetPosition() + Vector2::right * 100);
-
-	if (movementVec == Vector2::zero)
-		return;
-
-	float targetAng = baseRenderer->GetAngle() + movementVec.x;
-
-	float ang2 = Math::MoveTowards(baseRenderer->GetAngle(), targetAng, 155 * Time::deltaTime);
-	baseRenderer->SetAngle(ang2);
-
-	Vector2 tankFwdVec = Vector2::FromPolar(turretRenderer->GetAngle() + 90, 1.0f);
-	Vector2 tankMoveVec = Vector2::FromPolar(ang2 + 90, 1.0f);
-	Vector2 targetPos = GetPosition() + tankMoveVec * movementVec.y * Time::deltaTime * 50;
-
-	if (tilemap->CollidingWithPoint(targetPos))
-		return;
-
-
-	Vector2 pos = GetPosition();
-	baseRenderer->DrawLine(pos, pos + tankMoveVec.Normalized() * 250, 0xff00ffff);
-	SetPosition(targetPos);
-
-
-	//baseRenderer->DrawLine(pos, pos + tankFwdVec.Normalized() * 250, 0x00ff00ff);
-
-	//SDL_SetRenderDrawColor(parentScene->GetRenderer(), 255, 0, 0);
-	//SDL_RenderDrawLine(parentScene->GetRenderer(), pos.x, pos.y, pos.x + tankMoveVec.x, pos.y + tankMoveVec.y);
+	HandleTurretRotation();
+	HandlePlayerMovement();
 }
 
 void PlayerObject::SetupRenderers()

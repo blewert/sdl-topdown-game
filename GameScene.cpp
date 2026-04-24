@@ -74,12 +74,6 @@ void GameScene::Update()
 
 	spawner->Update();
 
-	if (player->GetHealth() <= 0)
-	{
-		SceneManager::Instance().LoadScene("gameOverScene");
-		return;
-	}
-
 	//camera->SetPosition(Vector2::MoveTowards(camPos, playerPos, 100 * Time::deltaTime));
 	//camera->SetPosition(Vector2(-20, -20));
 	//camera->SetPosition(Vector2::left * SDL_sinf(Time::elapsedTime) * 100);

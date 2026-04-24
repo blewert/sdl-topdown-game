@@ -36,6 +36,13 @@ namespace Math
 
 		return current + Sign(target - current) * maxDelta;
 	}
+
+	static float AngleBetween(const Vector2& from, const Vector2& to)
+	{
+		//For some reason this needs to be inverted
+		Vector2 diff = from - to;
+		return SDL_atan2f(diff.y, diff.x) * Math::radToDeg;
+	}
 }
 
 namespace Collision
