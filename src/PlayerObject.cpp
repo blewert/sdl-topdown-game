@@ -32,75 +32,26 @@ PlayerObject::~PlayerObject()
 
 void PlayerObject::FireShell()
 {
-	//Get positions for calculating explosion position
-	Vector2 playerPos = GetPosition();
-	Vector2 mousePosWorld = GetMousePosWorld();
-
-	//Find angle to mouse
-	float angle = Math::AngleBetween(mousePosWorld, playerPos) + 90;
-
-	//Spawn some explosions
-	Vector2 explosionPos = GetShellSpawnPos(3);
-	VFXManager::SpawnEffect(explosionPos, "muzzleFlashBig", 24, 1.0f, angle);
-	VFXManager::SpawnEffect(explosionPos, "explosion-1", 24, 1.0f, angle);
-
-	//Shake the camera
-	VFXManager::CameraShake(0.25f, 10);
-
-	//And add a shell at the mouse position
-	parentScene->AddObject(new ShellCollisionObject(inputManager.GetMousePos(), 30, parentScene));
+	//! Add code to fire a shell here.
 }
 
 
 void PlayerObject::FireBullet()
 {
-	//For calculating angles
-	Vector2 playerPos = GetPosition();
-	Vector2 mousePosWorld = GetMousePosWorld();
-
-	//Find angle from player -> mouse, add a random amount to introduce
-	//inaccuracies. Change -2.0 and 2.0 to higher values for higher 
-	//inaccuracy!
-	float origAngle = Math::AngleBetween(mousePosWorld, playerPos);
-	float angle = origAngle + Random::Range(-2.0f, 2.0f);
-
-	//Find the direction to fire in, as a vector
-	float bulletSpeed = 250.0f;
-	Vector2 fireDirection = Vector2::FromPolar(angle, 1.0f).Normalized() * bulletSpeed;
-	
-	//Fire the bullet
-	Vector2 spawnPos = GetBulletSpawnPos();
-	BulletManager::FireBullet(spawnPos, fireDirection);
-	
-	//----
-	//VFX
-
-	Vector2 direction = GetFireDirection() * 3;
-	DrawMuzzleFlash(spawnPos + direction, origAngle);
-
-	Vector2 fireDir = fireDirection.Normalized();
-	DrawTracerLines(spawnPos, fireDir);	
+	//! Add code to fire a bullet here.
 }
 
 
 void PlayerObject::Damage(float value)
 {
-	if (playerDead)
-		return;
-
-	this->health -= value;
-
-	if (this->health <= 0.0f)
-	{
-		playerDead = true;
-		OnPlayerDie();
-	}
+	//! Add code to damage player here.
 }
 
 void PlayerObject::OnPlayerDie()
 {
 	SDL_Log("You died");
-	SceneManager::Instance().LoadScene("gameOverScene");
+	
+	//! Add code to load game over screen here.
 }
 
 void PlayerObject::OnStart()
@@ -109,27 +60,10 @@ void PlayerObject::OnStart()
 }
 
 
-
-
 void PlayerObject::HandlePlayerFiring()
 {
-	if (inputManager.GetRightMouseDown())
-	{
-		if (gunTimer.Tick())
-		{
-			FireBullet();
-		}
-	}
-
-	if (inputManager.GetLeftMouseDownThisFrame())
-	{
-		if (Time::elapsedTime - lastShellTime >= 2.0f)
-		{
-			//SDL_Log("Firing bullet");
-			lastShellTime = Time::elapsedTime;
-			FireShell();
-		}
-	}
+	//Add code here to fire a bullet
+	//Add code here to fire a shell
 }
 
 
@@ -159,16 +93,8 @@ void PlayerObject::HandlePlayerMovement()
 	Vector2 tankMoveVec = Vector2::FromPolar(lerpAngle + 90, 1.0f);
 	Vector2 tankPos = GetPosition();
 
-	//And from this, figure out
-	Vector2 targetPos = tankPos + tankMoveVec * movementVec.y * Time::deltaTime * tankMoveSpeed;
+	//! Add code to calculate new player position, and move them, here.
 
-	//If this target position is going to collide -- then we shouldn't move! Return early
-	if (tilemap->CollidingWithPoint(targetPos))
-		return;
-
-	//Otherwise, set position to this new target
-	//baseRenderer->DrawLine(tankPos, tankPos + tankMoveVec.Normalized() * 250, 0xff00ffff);
-	SetPosition(targetPos);
 }
 
 void PlayerObject::HandleTurretRotation()
