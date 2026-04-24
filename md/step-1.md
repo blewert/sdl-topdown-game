@@ -108,6 +108,10 @@ The console window *(1 in above image)* is the debug console which we can use to
 ## Next up..
 In the next step, we will be making the tilemap load in correctly and adding some camera movement!
 
-<a href="../README.md" align="left">🡐 Previous step</a>
-<a href="./step-2.md" align="right">Next step  🡒</a>
+<p align="left" style="float: left;">
+    <a href="../README.md">🡐 Previous step</a>
+</p>
 
+<p align="right" style="float: right;">
+    <a href="./step-2.md">Next step  🡒</a>
+</p>
