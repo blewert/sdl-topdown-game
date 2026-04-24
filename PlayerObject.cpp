@@ -17,7 +17,7 @@ PlayerObject::PlayerObject(Scene* parentScene)
 	this->SetName("player");
 	this->SetTag("player");
 
-	this->SetPosition(Vector2(0, 0));
+	this->SetPosition(Vector2(100, 100));
 
 	this->SetupRenderers();
 }
@@ -165,7 +165,6 @@ void PlayerObject::Update()
 
 	HandlePlayerFiring();
 
-
 	//baseRenderer->DrawLine(GetPosition(), GetPosition() + Vector2::right * 100);
 
 	if (movementVec == Vector2::zero)
@@ -178,7 +177,12 @@ void PlayerObject::Update()
 
 	Vector2 tankFwdVec = Vector2::FromPolar(turretRenderer->GetAngle() + 90, 1.0f);
 	Vector2 tankMoveVec = Vector2::FromPolar(ang2 + 90, 1.0f);
-	SetPosition(GetPosition() + tankMoveVec * movementVec.y * Time::deltaTime * 50);
+	Vector2 targetPos = GetPosition() + tankMoveVec * movementVec.y * Time::deltaTime * 50;
+
+	if (tilemap->CollidingWithPoint(targetPos))
+		return;
+
+	SetPosition(targetPos);
 
 	Vector2 pos = GetPosition();
 

@@ -77,7 +77,7 @@ void Tilemap::LoadFromDisk(const std::string& path)
 	std::reverse(this->layers.begin(), this->layers.end());
 }
 
-void Tilemap::GetStreamingCoordsForObject(const SDL_Point& kernel, GameObject* obj, SDL_Point* start, SDL_Point* end)
+Vector2 Tilemap::WorldToGridPos(const Vector2& input)
 {
 	//Get camera properties for conversion to cam space
 	Camera* cam = parentScene->GetCamera();
@@ -86,12 +86,19 @@ void Tilemap::GetStreamingCoordsForObject(const SDL_Point& kernel, GameObject* o
 
 	//Find the object's position with respect to the grid of
 	//this tilemap
-	Vector2 objPos = obj->GetPosition();
+	Vector2 objPos = input;
 	objPos -= position;
 	objPos /= (tilePixelSize / pixelScale) * scale;
 
 	//Floor position to get true grid position
 	SDL_Point objGridPos{ floorf(objPos.x), floorf(objPos.y) };
+
+	return Vector2(objGridPos.x, objGridPos.y);
+}
+
+void Tilemap::GetStreamingCoordsForPoint(const SDL_Point& kernel, const Vector2& pos, SDL_Point* start, SDL_Point* end)
+{
+	Vector2 objGridPos = WorldToGridPos(pos);
 
 	//Find lower bound (clamp x & y to valid ranges)
 	start->x = SDL_clamp(objGridPos.x - kernel.x, 0, mapWidth - 1);
@@ -100,6 +107,41 @@ void Tilemap::GetStreamingCoordsForObject(const SDL_Point& kernel, GameObject* o
 	//Find upper bound (clamp x & y to valid ranges)
 	end->x = SDL_clamp(objGridPos.x + kernel.x, 0, mapWidth - 1);
 	end->y = SDL_clamp(objGridPos.y + kernel.y, 0, mapHeight - 1);
+}
+
+void Tilemap::GetStreamingCoordsForObject(const SDL_Point& kernel, GameObject* obj, SDL_Point* start, SDL_Point* end)
+{
+	return GetStreamingCoordsForPoint(kernel, obj->GetPosition(), start, end);
+}
+
+bool Tilemap::CollidingWithPoint(const Vector2& point)
+{
+	Vector2 pointInGridPos = WorldToGridPos(point);
+
+	//Outside tilemap? Collision: yes
+	if (pointInGridPos.x < 0 || pointInGridPos.y < 0)
+		return true;
+
+	//Outside tilemap? Collision: yes
+	if (pointInGridPos.x >= mapWidth || pointInGridPos.y >= mapHeight)
+		return true;
+
+
+	//Otherwise, find collision layer
+	for (TilemapLayer& layer : layers)
+	{
+		if (!layer.collision)
+			continue;
+
+		Tile t = layer.tileData[pointInGridPos.y][pointInGridPos.x];
+
+		//If there is a tile here, then we are colliding
+		if (t.id >= 0)
+			return true;
+	}
+
+	//Otherwise, we are not
+	return false;
 }
 
 SDL_Point Tilemap::Convert1DTo2DCoord(int id, int cols, int rows)

@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "SpriteRenderer.h"
 #include "MultipassRenderer.h"
+#include "Tilemap.h"
 
 class TextureManager;
 class InputManager;
@@ -24,11 +25,14 @@ public:
 	float GetHealth() { return health;  }
 	void OnPlayerDie();
 
+	void SetTilemap(Tilemap* tilemap) { this->tilemap = tilemap;  }
 
 protected:
 	TextureManager& texManager;
 	InputManager& inputManager;
 	Texture* playerTex;
+
+	Tilemap* tilemap;
 
 	SpriteRenderer* baseRenderer;
 	SpriteRenderer* turretRenderer;

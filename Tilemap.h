@@ -53,7 +53,11 @@ public:
 
 	void LoadFromDisk(const std::string& path);
 
+	Vector2 WorldToGridPos(const Vector2& input);
+	void GetStreamingCoordsForPoint(const SDL_Point& kernel, const Vector2& pos, SDL_Point* start, SDL_Point* end);
 	void GetStreamingCoordsForObject(const SDL_Point& kernel, GameObject* obj, SDL_Point* start, SDL_Point* end);
+
+	bool CollidingWithPoint(const Vector2& point);
 
 	static SDL_Point Convert1DTo2DCoord(int id, int cols, int rows);
 
