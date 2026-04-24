@@ -10,4 +10,6 @@ We hope you enjoy today's taster session, which should last 45 minutes. Click th
 
 -------------
 
-[`Get started 🡒`](./md/step-1.md)
+<p style="text-align: right;">
+    <a href="./md/step-1.md" ><code style="padding: 5px;">Get started 🡒</code></a>
+</p>
