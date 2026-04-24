@@ -59,9 +59,7 @@ void EnemyObject::Update()
 	if(health > 0)
 		components->Update();
 
-	//Move towards the player
-	Vector2 dirToPlayerNorm = GetDirectionToPlayer().Normalized();
-	components->rigidbody->SetVelocity(dirToPlayerNorm * speed);
+	//! Add enemy movement code here.
 	
 	//Apply hurt effect
 	HandleHurtTimerEffect();
@@ -81,29 +79,14 @@ void EnemyObject::HandleAttackPlayer()
 		return;
 
 	//-----
-	//Stop the enemy
-	components->rigidbody->SetVelocity(Vector2::zero);
-
-	if (damageTimer.Tick())
-	{
-		//Damage the player
-		playerObj->Damage(enemyDamageAmount);
-
-		//Find a random position around the player and spawn an effect
-		Vector2 vfxSpawnPos = GetPlayerPos();
-		vfxSpawnPos += Random::InUnitCircle() * 10;
-		VFXManager::SpawnEffect(vfxSpawnPos, "explosion-1", 12, 0.5f);
-	}
+	
+	//! Add enemy attack code here.
 }
 
 
 void EnemyObject::OnCollisionWithShell(Rigidbody& thisRb, Rigidbody& otherRb)
 {
-	//Spawn effects
-	VFXManager::SpawnEffect(GetPosition() + Vector2(4, 4), "explosion-1");
-
-	//Kill this enemy
-	OnEnemyDie();
+	//! Add code here to deal with shell collisions.
 }
 
 void EnemyObject::OnCollisionWithBullet(Rigidbody& thisRb, Bullet* bulletObj)
@@ -115,17 +98,7 @@ void EnemyObject::OnCollisionWithBullet(Rigidbody& thisRb, Bullet* bulletObj)
 	//Delete bullet: release back into pool
 	bulletObj->SetAlive(false);
 
-	//Damage the enemy
-	this->health -= 35.0f;
-
-	//Explosions and VFX
-	VFXManager::SpawnEffect(bulletPosition, "explosion-1", 12, 0.25f);
-	this->ApplyHurtEffect(0.1f, SDL_Color { 255, 0, 0, 255 });
-
-	if (this->health <= 0.0f)
-	{
-		OnEnemyDie();
-	}
+	//! Add code here to deal with bullet collisions.
 }
 
 
@@ -139,15 +112,7 @@ void EnemyObject::OnEnemyDie()
 
 	//-----
 	// 
-	//VFX: shake camera and add an explosion
-	VFXManager::SpawnEffect(GetPosition() + Vector2(4, 4), "explosion-1");
-	VFXManager::CameraShake(0.05f, 2);
-
-	//Add more explosions!
-	for (int i = 0; i < 5; i++)
-	{
-		Vector2 randomPos = GetPosition() + Random::InUnitCircle() * 10;
-		VFXManager::SpawnEffect(randomPos, "explosion-1", 16, Random::Range(0.25f, 0.5f));
-	}
+	
+	//! Add VFX here!
 }
 
