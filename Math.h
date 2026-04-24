@@ -3,6 +3,7 @@
 #include <time.h>
 #include <limits>
 #include "Vector2.h"
+#include <vector>
 
 namespace Math
 {
@@ -71,6 +72,13 @@ namespace Random
 	{
 		float val = Random::Value();
 		return a + val * (b - a);
+	}
+
+	template <typename T>
+	T& Select(std::vector<T>& collection) noexcept
+	{
+		SDL_assert(!collection.empty());
+		return collection[Range(0, collection.size())];
 	}
 
 	static Vector2 PositionInRect(int x, int y, int w, int h)

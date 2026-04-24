@@ -48,20 +48,10 @@ GameScene::GameScene(SDL_Renderer* renderer) : Scene(renderer), inputManager(Inp
 	camera = new Camera(this, 2.0f);
 	VFXManager::SetCamera(camera);
 
+	//Create enemy spawner
+	spawner = new EnemySpawner("spawnpoints.json", this);
+
 	Game::ResetEnemiesKilled();
-
-	for (int i = 0; i < 30; i++)
-	{
-		int x = i % 5;
-		int y = i / 5;
-
-		float xOff = x * 10;
-		float yOff = y * 10;
-
-		EnemyObject* testEnemy = new EnemyObject(this);
-		testEnemy->SetPosition(Vector2(50 + xOff, 50 + yOff));
-		objects->Add(testEnemy);
-	}
 }
 
 GameScene::~GameScene()
@@ -81,6 +71,8 @@ void GameScene::Update()
 	Vector2 playerPos = player->GetPosition();
 	Vector2 playerPosCam = camera->LookAtPos(playerPos);
 	float camMoveSpeed = 100;
+
+	spawner->Update();
 
 	if (player->GetHealth() <= 0)
 	{
@@ -143,6 +135,7 @@ void GameScene::Exit()
 	delete hpBar;
 	delete hpText;
 	delete tilemap;
+	delete spawner;
 
 	//BulletManager::Exit();
 }

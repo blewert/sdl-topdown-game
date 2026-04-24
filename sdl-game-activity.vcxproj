@@ -138,6 +138,7 @@
     <ClCompile Include="DebugRenderer.cpp" />
     <ClCompile Include="DebugScene.cpp" />
     <ClCompile Include="EnemyObject.cpp" />
+    <ClCompile Include="EnemySpawner.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectList.cpp" />
@@ -162,6 +163,7 @@
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Tilemap.cpp" />
     <ClCompile Include="Time.cpp" />
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="VFXManager.cpp" />
   </ItemGroup>
@@ -179,6 +181,7 @@
     <ClInclude Include="DebugRenderer.h" />
     <ClInclude Include="DebugScene.h" />
     <ClInclude Include="EnemyObject.h" />
+    <ClInclude Include="EnemySpawner.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectList.h" />
@@ -202,6 +205,7 @@
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Tilemap.h" />
     <ClInclude Include="Time.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="VFXManager.h" />
   </ItemGroup>

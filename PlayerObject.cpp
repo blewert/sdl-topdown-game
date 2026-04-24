@@ -48,7 +48,7 @@ void PlayerObject::FireShell()
 
 	VFXManager::CameraShake(0.25f, 10);
 
-	parentScene->AddObject(new ShellCollisionObject(inputManager.GetMousePos(), 15, parentScene));
+	parentScene->AddObject(new ShellCollisionObject(inputManager.GetMousePos(), 30, parentScene));
 }
 
 
@@ -182,11 +182,12 @@ void PlayerObject::Update()
 	if (tilemap->CollidingWithPoint(targetPos))
 		return;
 
-	SetPosition(targetPos);
 
 	Vector2 pos = GetPosition();
-
 	baseRenderer->DrawLine(pos, pos + tankMoveVec.Normalized() * 250, 0xff00ffff);
+	SetPosition(targetPos);
+
+
 	//baseRenderer->DrawLine(pos, pos + tankFwdVec.Normalized() * 250, 0x00ff00ff);
 
 	//SDL_SetRenderDrawColor(parentScene->GetRenderer(), 255, 0, 0);

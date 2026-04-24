@@ -4,6 +4,7 @@
 #include "HealthBar.h"
 #include "Text.h"
 #include "Tilemap.h"
+#include "EnemySpawner.h"
 
 class InputManager;
 class ReticleObject;
@@ -34,5 +35,6 @@ protected:
 	Text* hpText;
 
 	Tilemap* tilemap;
+	EnemySpawner* spawner;
 };
 
