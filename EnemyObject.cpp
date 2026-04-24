@@ -33,10 +33,10 @@ EnemyObject::EnemyObject(Scene* parentScene)
 	BoxCollider bc = BoxCollider(this, rct);
 	components->Pop();
 	Rigidbody* rb = new Rigidbody(this, bc);
-	//components->rigidbody = rb;
 
 	parentScene->GetObjects()->AddRigidbody(rb);
 
+	this->damageTimer = Timer(0.5f);
 	this->speed = Random::Range(10, 20);
 	this->renderer = sprRenderer;	
 }
@@ -50,86 +50,104 @@ EnemyObject::~EnemyObject()
 void EnemyObject::OnStart()
 {
 	this->playerObj = dynamic_cast<PlayerObject*>(parentScene->GetObjects()->FindFirstObjectByTag("player"));
-	
 	SDL_assert(this->playerObj != nullptr);
 }
 
 void EnemyObject::Update()
 {
-	SDL_Log("%d enemies", Game::GetEnemiesCurrentlySpawned());
-
+	//Not yet dead? Update all components
 	if(health > 0)
 		components->Update();
 
-	Vector2 dirToPlayer = this->playerObj->GetPosition() - GetPosition();
-	Vector2 dirToPlayerNorm = dirToPlayer.Normalized();
-
-
+	//Move towards the player
+	Vector2 dirToPlayerNorm = GetDirectionToPlayer().Normalized();
 	components->rigidbody->SetVelocity(dirToPlayerNorm * speed);
+	
+	//Apply hurt effect
+	HandleHurtTimerEffect();
+	HandleAttackPlayer();
+}
 
-	if (hurtTimer > 0)
+void EnemyObject::HandleAttackPlayer()
+{
+	//Attack parameters & dir to player
+	float enemyAttackRadius = 25.0f;
+	float enemyDamageAmount = Random::Range(1.0f, 1.5f);
+
+	Vector2 dirToPlayer = GetDirectionToPlayer();
+
+	//Not in range of player? Skip the rest of this function
+	if (dirToPlayer.Magnitude() > enemyAttackRadius)
+		return;
+
+	//-----
+	//Stop the enemy
+	components->rigidbody->SetVelocity(Vector2::zero);
+
+	if (damageTimer.Tick())
 	{
-		hurtTimer -= Time::deltaTime;
-		sprRenderer->SetRenderMod(RenderMod().WithActivated(true).WithColor(hurtColor));
+		//Damage the player
+		playerObj->Damage(enemyDamageAmount);
+
+		//Find a random position around the player and spawn an effect
+		Vector2 vfxSpawnPos = GetPlayerPos();
+		vfxSpawnPos += Random::InUnitCircle() * 10;
+		VFXManager::SpawnEffect(vfxSpawnPos, "explosion-1", 12, 0.5f);
 	}
-	else
-	{
-		sprRenderer->SetRenderMod(RenderMod().WithActivated(false));
-	}
+}
 
 
-	if (dirToPlayer.Magnitude() <= 25.0f)
-	{
-		damageTimer += Time::deltaTime;
-		components->rigidbody->SetVelocity(Vector2::zero);
+void EnemyObject::OnCollisionWithShell(Rigidbody& thisRb, Rigidbody& otherRb)
+{
+	//Spawn effects
+	VFXManager::SpawnEffect(GetPosition() + Vector2(4, 4), "explosion-1");
 
-		if (damageTimer >= 0.5f)
-		{
-			damageTimer = Time::deltaTime;
-			playerObj->Damage(1.5f);
-
-			Vector2 pos = playerObj->GetPosition();
-			pos += Random::InUnitCircle() * 10;
-
-			VFXManager::SpawnEffect(pos, "explosion-1", 12, 0.5f);
-		}
-	}
+	//Kill this enemy
+	OnEnemyDie();
 }
 
 void EnemyObject::OnCollisionWithBullet(Rigidbody& thisRb, Bullet* bulletObj)
 {
+	//Get positions
 	Vector2 thisPosition = GetPosition();
 	Vector2 bulletPosition = bulletObj->GetPosition();
 
-	VFXManager::SpawnEffect(bulletPosition, "explosion-1", 12, 0.25f);
+	//Delete bullet: release back into pool
 	bulletObj->SetAlive(false);
 
-	this->ApplyHurtEffect(0.1f, SDL_Color { 255, 0, 0, 255 });
-	//SDL_Log("Collision!");
-
+	//Damage the enemy
 	this->health -= 35.0f;
 
-	/*SDL_Log("%f", health);*/
+	//Explosions and VFX
+	VFXManager::SpawnEffect(bulletPosition, "explosion-1", 12, 0.25f);
+	this->ApplyHurtEffect(0.1f, SDL_Color { 255, 0, 0, 255 });
 
 	if (this->health <= 0.0f)
 	{
-		this->Destroy();
-		VFXManager::SpawnEffect(GetPosition()+Vector2(4, 4), "explosion-1");
-
-		Game::OnEnemyKilled();
-
-		VFXManager::CameraShake(0.05f, 2);
-
-		for (int i = 0; i < 5; i++)
-		{
-			Vector2 randomPos = GetPosition() + Random::InUnitCircle() * 10;
-			VFXManager::SpawnEffect(randomPos, "explosion-1", 16, Random::Range(0.25f, 0.5f));
-		}
+		OnEnemyDie();
 	}
 }
 
-void EnemyObject::ApplyHurtEffect(float timeSeconds, const SDL_Color& color)
+
+void EnemyObject::OnEnemyDie()
 {
-	hurtTimer = timeSeconds;
-	hurtColor = color;
+	//Delete this enemy
+	this->Destroy();
+
+	//Notify game that this enemy has died, for the kill count
+	Game::OnEnemyKilled();
+
+	//-----
+	// 
+	//VFX: shake camera and add an explosion
+	VFXManager::SpawnEffect(GetPosition() + Vector2(4, 4), "explosion-1");
+	VFXManager::CameraShake(0.05f, 2);
+
+	//Add more explosions!
+	for (int i = 0; i < 5; i++)
+	{
+		Vector2 randomPos = GetPosition() + Random::InUnitCircle() * 10;
+		VFXManager::SpawnEffect(randomPos, "explosion-1", 16, Random::Range(0.25f, 0.5f));
+	}
 }
+

@@ -24,10 +24,7 @@ public:
 	{
 		if (otherRb.parent->GetTag() == "shell")
 		{
-			SDL_Log("Collision with shell");
-			this->Destroy();
-			VFXManager::SpawnEffect(GetPosition() + Vector2(4, 4), "explosion-1");
-			Game::OnEnemyKilled();
+			OnCollisionWithShell(thisRb, otherRb);
 			return;
 		}
 
@@ -42,16 +39,30 @@ public:
 	void OnCollisionStay(Rigidbody& thisRb, Rigidbody& otherRb) override final
 	{
 		if (otherRb.parent->GetTag() == "shell")
-		{
-			SDL_Log("Collision with shell stay");
-			this->Destroy();
-			VFXManager::SpawnEffect(GetPosition() + Vector2(4, 4), "explosion-1");
-			Game::OnEnemyKilled();
-			return;
-		}
+			OnCollisionWithShell(thisRb, otherRb);
 	}
 
+	void OnEnemyDie();
+	void OnCollisionWithShell(Rigidbody& thisRb, Rigidbody& otherRb);
 	void OnCollisionWithBullet(Rigidbody& thisRb, Bullet* bulletObj);
+	
+	void HandleAttackPlayer();
+	Vector2 GetDirectionToPlayer() { return playerObj->GetPosition() - GetPosition(); }
+	Vector2 GetPlayerPos() { return playerObj->GetPosition(); }
+
+	void HandleHurtTimerEffect()
+	{
+		if (hurtTimer > 0)
+		{
+			hurtTimer -= Time::deltaTime;
+			sprRenderer->SetRenderMod(RenderMod().WithActivated(true).WithColor(hurtColor));
+		}
+		else
+		{
+			sprRenderer->SetRenderMod(RenderMod().WithActivated(false));
+		}
+
+	}
 	
 	void PostRender(SDL_Renderer* renderer) override final
 	{
@@ -59,7 +70,12 @@ public:
 		//rb->DebugRender(renderer);
 	}
 
-	void ApplyHurtEffect(float timeSeconds, const SDL_Color& color);
+	void ApplyHurtEffect(float timeSeconds, const SDL_Color& color)
+	{
+		hurtTimer = timeSeconds;
+		hurtColor = color;
+	}
+
 
 protected:
 	TextureManager& texManager;
@@ -69,13 +85,10 @@ protected:
 private:
 	float health = 100.0f;
 	float speed = 1.0f;
-	float gunTimer = 0;
-	float lastShellTime = 0;
 	float hurtTimer = 0;
-	float damageTimer;
+	Timer damageTimer;
 	SDL_Color hurtColor = { 255, 0, 0, 255 };
 	SpriteRenderer* sprRenderer;
-
 	PlayerObject* playerObj;
 };
 
