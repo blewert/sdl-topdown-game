@@ -11,7 +11,7 @@
 &nbsp;
 &nbsp;
 
-# Step 4
+# Step 3
 ## Moving the player
 We now have a background working, and a camera system which moves the camera relative to the player. However, the player currently can't really move. The turret moves correctly, and we can rotate the tank body with the `A` and `D` keys. But we can't really move the tank; this doesn't make for a great game experience.
 
